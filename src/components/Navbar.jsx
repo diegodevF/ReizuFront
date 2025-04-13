@@ -1,45 +1,81 @@
+import Logo from "../assets/logo.svg";
+import Perfil from "../assets/perro.jpeg"
+
 function Navbar() {
   return (
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Exclusivos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Generos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Publicar</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Mas
+    <nav className="navbar navbar-expand-lg bg-body-tertiary px-3">
+      <div className="container-fluid d-flex">
+        
+        {/* IZQUIERDA: Logo + Links */}
+        <div className="d-flex align-items-center">
+          <a className="navbar-brand fw-bold text-danger me-4" href="#">
+            <img src={Logo} alt="" width="200px" height="50px"/>
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr className="dropdown-divider"></hr></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <ul className="navbar-nav d-flex flex-row gap-">
+            <li className="nav-item">
+              <a className="nav-link" href="#">EXCLUSIVOS</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">GÉNEROS</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">PUBLICAR</a>
+            </li>
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                MÁS
+              </a>
+              <ul className="dropdown-menu">
+                <li><a className="dropdown-item" href="#">Opción 1</a></li>
+                <li><a className="dropdown-item" href="#">Opción 2</a></li>
+              </ul>
+            </li>
           </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
+        </div>
+
+        {/* DERECHA: Íconos + Buscador + Perfil (pegado a la derecha) */}
+        <div className="d-flex align-items-center gap-2 p-2">
+
+          {/* Buscador */}
+          <form className="d-flex" role="search">
+            <input
+              className="form-control"
+              type="search"
+              placeholder="Buscar..."
+              aria-label="Search"
+            />
+          </form>
+
+          {/* Mensaje */}
+          <button className="btn btn-link">
+            <i class="bi bi-envelope"></i>
+          </button>
+
+          {/* Notificaciones */}
+          <button className="btn btn-link">
+            <i class="bi bi-bell"></i>
+          </button>
+
+          {/* Monedas pendientes de agregar a futuro
+           
+          <div className="d-flex align-items-center">
+            <img src="/ruta/moneda.png" alt="Moneda" width="20" className="me-1" />
+            <span>34.k</span>
+          </div> */}
+
+          {/* Avatar */}
+          <img
+            src={Perfil}
+            alt="Avatar"
+            className="rounded-circle"
+            width="35"
+            height="35"
+          />
+        </div>
+
+      </div>
+    </nav>
   );
 }
 
-export default Navbar
+export default Navbar;
