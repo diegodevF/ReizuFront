@@ -4,6 +4,7 @@ import ListNovel from "./components/ListNovel"
 import Footer from "./components/Footer"
 import RecentCaps from "./components/RecentCaps"
 import RankingPopulares from "./components/RankingPopulares"
+import ComicShowcase from "./components/ComicShowcase"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
     {/* <Footer></Footer> */}
     {/* <RecentCaps></RecentCaps> */}
     {/* <RankingPopulares></RankingPopulares> */}
+    <ComicShowcase></ComicShowcase>
     </>
   )
 }
