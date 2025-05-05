@@ -1,22 +1,19 @@
-import Navbar from "./components/navbar"
-import BestArtist from "./components/BestArtist"
-import ListNovel from "./components/ListNovel"
-import Footer from "./components/Footer"
-import RecentCaps from "./components/RecentCaps"
-import RankingPopulares from "./components/RankingPopulares"
-import ComicShowcase from "./components/ComicShowcase"
+//Importamos dependencias
+import {Routes, Route} from "react-router-dom"
+
+//Importing Routes
+import Landing from "./routes/Landing"
+import Login from "./routes/Login"
 
 function App() {
 
   return (
     <>
-    {/* <Navbar></Navbar> */}
-    {/* <BestArtist></BestArtist> */}
-    {/* <ListNovel></ListNovel> */}
-    {/* <Footer></Footer> */}
-    {/* <RecentCaps></RecentCaps> */}
-    {/* <RankingPopulares></RankingPopulares> */}
-    <ComicShowcase></ComicShowcase>
+    <Routes>
+      <Route path="/" element={<Landing/>} />
+      <Route path="/Login" element={<Login/>}/>
+    </Routes>
+    
     </>
   )
 }

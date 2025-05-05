@@ -15,15 +15,15 @@ const destacados = [
   }
 ];
 
-function ArtistasDestacados() {
+function BestArtist() {
   return (
     <div className="container my-5 p-5">
       {/* Encabezado */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
         <h5 className="mb-0">
           Artistas destacados del mes <span className="text-danger">❯</span>
         </h5>
-        <select className="form-select w-auto">
+        <select className="form-select form-select-sm w-auto">
           <option>Diciembre</option>
           <option>Noviembre</option>
           <option>Octubre</option>
@@ -33,14 +33,12 @@ function ArtistasDestacados() {
       {/* Lista de artistas */}
       <div className="d-flex justify-content-center gap-5 flex-wrap">
         {destacados.map((artista, i) => (
-          <div key={i} className="text-center">
+          <div key={i} className="text-center mb-4">
             <img
               src={artista.imagen}
               alt={artista.nombre}
-              className="rounded-circle"
-              width="320"
-              height="320"
-              style={{ objectFit: "cover" }}
+              className="rounded-circle img-fluid"
+              style={{ maxWidth: "250px", height: "auto", objectFit: "cover" }}
             />
             <h6 className="mt-2 fw-bold">{artista.nombre}</h6>
           </div>
@@ -50,4 +48,4 @@ function ArtistasDestacados() {
   );
 }
 
-export default ArtistasDestacados;
+export default BestArtist;

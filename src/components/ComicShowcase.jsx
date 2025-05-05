@@ -57,20 +57,22 @@ const ComicShowcase = () => {
         <div className="col-lg-10">
           <div className="row g-0 shadow">
             {/* Panel izquierdo con título */}
-            <div className="col-md-4 bg-light py-4 px-3 p-2 align-middle">
-              <div className="text-center">
+            <div className="col-md-4 bg-light d-flex flex-column justify-content-between" style={{height: '500px'}}>
+              <div className="text-center p-4">
                 <h2 className="fw-bold">DISFRUTA DE NUESTRAS<br />OBRAS EXCLUSIVAS</h2>
-                <p className="mt-2 small">Encuéntralas únicamente en este lugar</p>
+                <p className="mt-2">Encuéntralas únicamente en este lugar</p>
               </div>
               
-              {/* Espacio vacío donde estaría la mascota */}
-              <div className="position-relative" style={{height: '150px'}}>
-                {/* Aquí iría la imagen de mascota de anime (eliminada) */}
+              {/* Cuadro gris para la imagen mascota */}
+              <div className="p-3 pb-4">
+                <div className="bg-secondary bg-opacity-25 mx-auto" style={{height: '200px', width: '200px', borderRadius: "100%" }}>
+                  <img src="../assets/perro.jpeg" alt=""width={"100%"}/>
+                </div>
               </div>
             </div>
             
             {/* Panel central (imagen del cómic) */}
-            <div className="col-md-4 position-relative bg-light p-2">
+            <div className="col-md-4 position-relative bg-light p-0">
               <div className={`${fadeClass}`} style={{transition: 'opacity 0.5s ease', height: '500px'}}>
                 <img 
                   src={comics[currentComicIndex].image}
@@ -82,15 +84,15 @@ const ComicShowcase = () => {
             </div>
             
             {/* Panel derecho con información del comic */}
-            <div className="col-md-4 bg-light py-3 px-3 text-center p-2">
-              <h6 className="mb-2 fw-bold">{comics[currentComicIndex].genre}</h6>
+            <div className="col-md-4 bg-light py-3 px-3 text-center" style={{height: '500px'}}>
+              <h6 className="mb-2 fw-bold pt-3">{comics[currentComicIndex].genre}</h6>
               
               <div className={`${fadeClass}`} style={{transition: 'opacity 0.5s ease'}}>
-                <p className="mb-3 px-2 " style={{fontSize: '1rem'}}>{comics[currentComicIndex].description}</p>
+                <p className="mb-3 px-2" style={{fontSize: '0.9rem'}}>{comics[currentComicIndex].description}</p>
               </div>
               
               {/* Imagen circular */}
-              <div className="d-flex justify-content-center my-3">
+              <div className="d-flex justify-content-center my-4">
                 <div className="rounded-circle bg-secondary" 
                      style={{width: '70px', height: '70px'}}></div>
               </div>
