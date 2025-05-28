@@ -51,30 +51,32 @@ const chapters = [
     number: 10,
     price: 1500,
     isLocked: true,
-    isAdult: true,
+    isAdult: false,
   },
   {
-    id: 5,
-    title: 'ZAMU',
+    id: 6,
+    title: 'OTRO CAPÍTULO',
     series: 'The outsider',
-    views: '10.567',
-    number: 10,
-    price: 1500,
-    isLocked: true,
+    views: '8.245',
+    number: 11,
+    price: 200,
+    isLocked: false,
     isAdult: false,
   },
 ];
 
 const ChapterCard = ({ chapter }) => (
-  <div className="card flex-shrink-0 border-0 shadow-sm me-3" style={{ width: '200px', minWidth: '200px' }}>
+  <div
+    className="card flex-shrink-0 border-0 shadow-sm me-3"
+    style={{ width: '200px', minWidth: '200px' }}
+  >
     <div className="card-body p-2">
       <div className="d-flex justify-content-between align-items-center mb-2">
         <small className="text-muted">
-          <i className="bi bi-eye me-1"></i>{chapter.views}
+          <i className="bi bi-eye me-1"></i>
+          {chapter.views}
         </small>
-        {chapter.isAdult && (
-          <span className="badge bg-danger">+18</span>
-        )}
+        {chapter.isAdult && <span className="badge bg-danger">+18</span>}
       </div>
 
       <div className="position-relative mb-2">
@@ -108,7 +110,7 @@ const ChapterCard = ({ chapter }) => (
         ) : null}
       </div>
 
-      <p className="mb-0 small text-muted text-truncate">{chapter.series}</p>
+      <p className="mb-0 small text-truncate">{chapter.series}</p>
       <h6 className="mb-0 text-truncate">{chapter.title}</h6>
     </div>
   </div>
@@ -116,16 +118,14 @@ const ChapterCard = ({ chapter }) => (
 
 const RecentCaps = () => {
   const scrollContainerRef = useRef(null);
-  const [showLeftButton, setShowLeftButton] = useState(false);
-  const [showRightButton, setShowRightButton] = useState(true);
+  const [showLeft, setShowLeft] = useState(false);
+  const [showRight, setShowRight] = useState(true);
 
   const handleScroll = () => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      setShowLeftButton(container.scrollLeft > 0);
-      setShowRightButton(
-        container.scrollLeft < container.scrollWidth - container.clientWidth - 10
-      );
+    const c = scrollContainerRef.current;
+    if (c) {
+      setShowLeft(c.scrollLeft > 0);
+      setShowRight(c.scrollLeft < c.scrollWidth - c.clientWidth - 10);
     }
   };
 
@@ -144,47 +144,63 @@ const RecentCaps = () => {
   };
 
   return (
-    <div className="container my-5 mx-auto " style={{ width: '1200px' }}>
+    <div className="container my-5" style={{ maxWidth: '1200px' }}>
       <h5 className="fw-bold mb-3">Capítulos recientes</h5>
 
-      {showLeftButton && (
-        <button
-          onClick={scrollLeft}
-          className="btn btn-light btn-sm rounded-circle shadow position-absolute"
-          style={{ left: '0.5rem', top: '50%', transform: 'translateY(-50%)', zIndex: 1 }}
-        >
-          <i className="bi bi-chevron-left"></i>
-        </button>
-      )}
+      <div className="position-relative">
+        {/* Botón izquierdo */}
+        {showLeft && (
+          <button
+            onClick={scrollLeft}
+            className="btn btn-light btn-sm rounded-circle shadow position-absolute"
+            style={{
+              left: '0',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 2,
+            }}
+          >
+            <i className="bi bi-chevron-left"></i>
+          </button>
+        )}
 
-      {showRightButton && (
-        <button
-          onClick={scrollRight}
-          className="btn btn-light btn-sm rounded-circle shadow position-absolute"
-          style={{ right: '0.5rem', top: '50%', transform: 'translateY(-50%)', zIndex: 1 }}
-        >
-          <i className="bi bi-chevron-right"></i>
-        </button>
-      )}
+        {/* Botón derecho */}
+        {showRight && (
+          <button
+            onClick={scrollRight}
+            className="btn btn-light btn-sm rounded-circle shadow position-absolute"
+            style={{
+              right: '0',
+              top: '50%',
+              transform: 'translate(50%, -50%)',
+              zIndex: 2,
+            }}
+          >
+            <i className="bi bi-chevron-right"></i>
+          </button>
+        )}
 
-      <div
-        ref={scrollContainerRef}
-        className="d-flex overflow-auto px-2 pb-3"
-        onScroll={handleScroll}
-        style={{ scrollBehavior: 'smooth' }}
-      >
-        {chapters.map((chapter) => (
-          <ChapterCard key={chapter.id} chapter={chapter} />
-        ))}
+        {/* Carrusel */}
+        <div
+          ref={scrollContainerRef}
+          className="d-flex overflow-auto px-2 pb-3"
+          onScroll={handleScroll}
+          style={{ scrollBehavior: 'smooth' }}
+        >
+          {chapters.map((chap, idx) => (
+            <ChapterCard key={`${chap.id}-${idx}`} chapter={chap} />
+          ))}
+        </div>
       </div>
 
+      {/* Indicadores */}
       <div className="d-flex justify-content-center mt-3 gap-2">
-        {Array.from({ length: Math.ceil(chapters.length / 3) }).map((_, index) => (
+        {Array.from({ length: Math.ceil(chapters.length / 3) }).map((_, i) => (
           <div
-            key={index}
-            className={`rounded-pill ${index === 0 ? 'bg-primary' : 'bg-secondary'}`}
+            key={i}
+            className={`rounded-pill ${i === 0 ? 'bg-primary' : 'bg-secondary'}`}
             style={{ height: '4px', width: '32px' }}
-          ></div>
+          />
         ))}
       </div>
     </div>

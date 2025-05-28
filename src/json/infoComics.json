@@ -1,0 +1,128 @@
+[
+    {
+        "id": 1,
+        "titulo": "AUREUS GRAPHERS",
+        "genero": "DRAMA • COMEDIA",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Suzaku", "Mamba", "DestroyerAss"]
+    },
+    {
+        "id": 2,
+        "titulo": "CIENCIA FICCIÓN",
+        "genero": "AVENTURA • FUTURISTA",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Autor 1", "Autor 2"]
+    },
+    {
+        "id": 3,
+        "titulo": "SOMBRA URBANA",
+        "genero": "SUSPENSO • ACCIÓN",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Lina Torres"]
+    },
+    {
+        "id": 4,
+        "titulo": "EL REINO PERDIDO",
+        "genero": "FANTASÍA • AVENTURA",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Carlos Méndez", "Ana Ruiz"]
+    },
+    {
+        "id": 5,
+        "titulo": "NOCHE ETERNA",
+        "genero": "TERROR • MISTERIO",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Valeria Soto"]
+    },
+    {
+        "id": 6,
+        "titulo": "CÓDIGO DEL HONOR",
+        "genero": "ACCIÓN • DRAMA",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Miguel Ángel", "Sergio Paz"]
+    },
+    {
+        "id": 7,
+        "titulo": "PLANETA AZUL",
+        "genero": "CIENCIA FICCIÓN • ECOLOGÍA",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Lucía Fernández"]
+    },
+    {
+        "id": 8,
+        "titulo": "HÉROES ANÓNIMOS",
+        "genero": "SUPERHÉROES • ACCIÓN",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["David Gómez", "Marina López"]
+    },
+    {
+        "id": 9,
+        "titulo": "EL ÚLTIMO VIAJE",
+        "genero": "AVENTURA • DRAMA",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Jorge Castillo"]
+    },
+    {
+        "id": 10,
+        "titulo": "MUNDO PARALELO",
+        "genero": "FANTASÍA • CIENCIA FICCIÓN",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Sara Núñez"]
+    },
+    {
+        "id": 11,
+        "titulo": "GUERREROS DEL TIEMPO",
+        "genero": "ACCIÓN • HISTÓRICO",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Pedro Ramos", "Elena Díaz"]
+    },
+    {
+        "id": 12,
+        "titulo": "EL BOSQUE ENCANTADO",
+        "genero": "FANTASÍA • INFANTIL",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Marta Paredes"]
+    },
+    {
+        "id": 13,
+        "titulo": "CIBERCIUDAD",
+        "genero": "CIENCIA FICCIÓN • ACCIÓN",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Iván Morales"]
+    },
+    {
+        "id": 14,
+        "titulo": "DESTINO DESCONOCIDO",
+        "genero": "AVENTURA • SUSPENSO",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Andrea Vega"]
+    },
+    {
+        "id": 15,
+        "titulo": "ALAS ROTAS",
+        "genero": "DRAMA • ROMANCE",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Sofía Herrera"]
+    },
+    {
+        "id": 16,
+        "titulo": "EL GUARDIÁN DEL FUEGO",
+        "genero": "FANTASÍA • ACCIÓN",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Tomás Gil", "Paula León"]
+    },
+    {
+        "id": 17,
+        "titulo": "SUEÑOS DIGITALES",
+        "genero": "CIENCIA FICCIÓN • TECNOLOGÍA",
+        "imagen": "/assets/Portadas/PERFIL-1.jpg",
+        "autores": ["Gabriel Ortega"]
+    },
+    {
+        "id": 18,
+        "titulo": "LA ISLA SECRETA",
+        "genero": "AVENTURA • MISTERIO",
+        "imagen": "/assets/Portadas/MD1 - dani kube (1).png",
+        "autores": ["Natalia Ríos"]
+    }
+]

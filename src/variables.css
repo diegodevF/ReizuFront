@@ -5,3 +5,21 @@
 [class *= 'Reizu']{
   color: rgb(216, 5, 5);
 }
+
+[class *= 'carousel-img-mask'] {
+  /* Degradado vertical: visible arriba, se desvanece abajo */
+ mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}

@@ -1,4 +1,4 @@
-import perfilFoto from "../assets/perro.jpeg";
+import perfilFoto from "../assets/authors/perro.jpeg";
 
 const destacados = [
   {

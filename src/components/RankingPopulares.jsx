@@ -62,7 +62,8 @@ const rankingItems = [
     tagColor: 'danger',
     specialTag: 'EX',
     score: '150'
-  }
+  },
+  
 ];
 
 const ComicsMasVisitados = () => {
@@ -103,7 +104,7 @@ const ComicsMasVisitados = () => {
   };
 
   return (
-    <div className="container my-4 position-relative p-5 mx-auto" style={{ maxWidth: '1200px' }}>
+    <div className="container my-4 position-relative p-5 mx-auto" style={{ maxWidth: '1300px' }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="fw-bold mb-0">Ranking: Más Populares</h5>
         <button className="btn btn-danger btn-sm rounded-pill">Ver completo</button>

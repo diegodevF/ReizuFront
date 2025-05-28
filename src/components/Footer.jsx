@@ -1,17 +1,34 @@
-import Logo from "../assets/logo.svg"
+import Logo from "../assets/Logos/Reizu Comics Logo Blanco.svg"
+import Pet from "../assets/pet.png";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function Footer() {
+
+  const petStyleImage ={
+    width: '100%',
+    maxWidth: 300,
+    padding: '0px',
+  }
+
+  const footerStyle = {
+    backgroundColor: 'rgba(79, 79, 79, 1)'
+  };
+
   return (
-    <footer className="bg-dark text-white pt-5 pb-3 mt-5">
+    <>
+    <div className="d-flex justify-content-center">
+      <img src={Pet} style={petStyleImage} alt="Mascota" />
+    </div>
+    <footer className="text-white pt-5 pb-3" style={footerStyle}>
       <div className="container text-center">
         {/* ICONOS */}
         <div className="mb-4 d-flex justify-content-center gap-4 fs-4">
-          <i className="fab fa-facebook-f"></i>
-          <i className="fab fa-x-twitter"></i>
-          <i className="fab fa-youtube"></i>
-          <i className="fab fa-instagram"></i>
-          <i className="fab fa-twitch"></i>
-          <i className="fas fa-gamepad"></i>
+          <i className="bi bi-facebook"></i>
+          <i className="bi bi-twitter-x"></i>
+          <i className="bi bi-youtube"></i>
+          <i className="bi bi-instagram"></i>
+          <i className="bi bi-twitch"></i>
+          <i className="bi bi-discord"></i>
         </div>
 
         {/* LINKS */}
@@ -28,7 +45,7 @@ function Footer() {
 
         {/* LOGO */}
         <div className="mb-3">
-          <img src={Logo} alt="REIZU Comics" height="40" />
+          <img src={Logo} alt="REIZU Comics" height="50" />
         </div>
 
         {/* COPYRIGHT */}
@@ -38,6 +55,7 @@ function Footer() {
         <p className="small">E-mail: soporte@reizucomics.com</p>
       </div>
     </footer>
+    </>
   );
 }
 

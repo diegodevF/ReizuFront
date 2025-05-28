@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "title": "EL DESTINO DE UNA ESTRELLA",
+    "author": "Suzaku",
+    "genres": ["accion", "comedia"],
+    "likes": 50,
+    "views": "7.19k",
+    "chapter": "20",
+    "badge": "Oneshot",
+    "badgeColor": "#28a745",
+    "image": ""
+  },
+  {
+    "id": 2,
+    "title": "AUREUS GRAPHERS",
+    "author": "Suzaku",
+    "genres": ["accion", "aventura"],
+    "likes": 50,
+    "views": "7.19k",
+    "chapter": "150",
+    "specialTag": "EX",
+    "badge": "Serie",
+    "badgeColor": "#dc3545",
+    "image": null
+  },
+  {
+    "id": 3,
+    "title": "MI COMPAÑERA DE OFICINA ES UNA OVEJA",
+    "author": "Suzaku",
+    "genres": ["comedia", "vida_cotidiana"],
+    "likes": 50,
+    "views": "7.19k",
+    "chapter": "03",
+    "badge": "Novela",
+    "badgeColor": "#007bff",
+    "image": null
+  },
+  {
+    "id": 4,
+    "title": "EL MUNDO DE LOS DRAGONES",
+    "author": "Suzaku",
+    "genres": ["fantasia", "aventura"],
+    "likes": 50,
+    "views": "7.19k",
+    "chapter": "10",
+    "badge": "Serie",
+    "badgeColor": "#ffc107",
+    "image": null
+  },
+  {
+    "id": 5,
+    "title": "LA LEYENDA DEL HÉROE",
+    "author": "Suzaku",
+    "genres": ["accion", "fantasia"],
+    "likes": 50,
+    "views": "7.19k",
+    "chapter": "05",
+    "badge": "Oneshot",
+    "badgeColor": "#28a745",
+    "image": null
+  },
+  {
+    "id": 6,
+    "title": "EL VIAJE DEL HÉROE",
+    "author": "Suzaku",
+    "genres": ["aventura", "fantasia"],
+    "likes": 50,
+    "views": "7.19k",
+    "chapter": "12",
+    "badge": "Serie",
+    "badgeColor": "#dc3545",
+    "image": null
+  }
+
+]
