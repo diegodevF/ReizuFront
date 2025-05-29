@@ -23,3 +23,22 @@
     transparent 100%
   );
 }
+
+.custom-gap-10 > * + * {
+  margin-left: 10%;
+}
+
+.custom-gap-10 > * + * {
+  margin-left: 10%;
+}
+
+@media (max-width: 991.98px) { /* Bootstrap lg breakpoint */
+  .custom-gap-10 {
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
+  .custom-gap-10 > * + * {
+    margin-left: 0 !important;
+    margin-top: 2rem !important;
+  }
+}

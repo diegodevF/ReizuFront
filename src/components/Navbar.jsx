@@ -27,7 +27,7 @@ function Navbar() {
   };
 
   // Simulación de login/logout (puedes conectar esto a tu sistema real)
-  const handleLogin = () => setIsLoggedIn(false);
+  // const handleLogin = () => setIsLoggedIn(false);
   const handleLogout = () => setIsLoggedIn(false);
 
   return (
