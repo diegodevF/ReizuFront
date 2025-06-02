@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Info from '../json/infoComics.json';
+import Img from '../assets/Portadas/MD1 - dani kube (1).png'
 
 // Datos de ejemplo (puedes cargarlos desde un archivo JSON externo)
 const obras = Info;
@@ -79,7 +80,7 @@ const ExclusiveWorks = () => {
         <div className="row gx-3 gy-3">
           {obrasPaginaActual.map((obra) => (
             <div key={obra.id} className="col-6 col-sm-4 d-flex flex-column align-items-center">
-              <img src={obra.imagen} alt={obra.titulo} style={imgStyleBig} />
+              <img src={Img} alt={obra.titulo} style={imgStyleBig} />
               <div style={genreStyle}>{obra.genero}</div>
               <div style={{ color: isDark ? '#ddd' : '#666', fontSize: '0.9rem' }}>{obra.titulo}</div>
             </div>

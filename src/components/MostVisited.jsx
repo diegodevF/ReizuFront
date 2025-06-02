@@ -22,7 +22,7 @@ const top10 = [
 
 const MostVisited = () => {
   return (
-    <div className="container my-4 p-3">
+    <div className="container my-4 p-3" style={{ maxWidth: '1235px' }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="fw-bold mb-0">#10 Más visitadas del mes</h5>
         <select className="form-select form-select-sm w-auto">

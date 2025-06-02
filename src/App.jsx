@@ -8,6 +8,7 @@ import ComicInfo from "./routes/ComicInfo"
 import Exclusives from "./routes/Exclusives"
 import Genres from "./routes/Genres"
 import Register from "./routes/Register"
+import Shop from "./routes/Shop"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/ComicInfo" element={<ComicInfo/>}/>
       <Route path="/Exclusives" element={<Exclusives/>}/>
       <Route path="/Genres" element={<Genres/>}/>
+      <Route path="/Shop" element={<Shop/>}/>
     </Routes>
     
     </>

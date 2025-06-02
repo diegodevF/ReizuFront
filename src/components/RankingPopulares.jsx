@@ -63,7 +63,18 @@ const rankingItems = [
     specialTag: 'EX',
     score: '150'
   },
-  
+  {
+    id: 6,
+    rank: '#06',
+    title: 'NUEVO COMIC',
+    author: 'Suzaku',
+    views: '7.19k',
+    likes: '50',
+    tag: 'Seri',
+    tagColor: 'danger',
+    specialTag: 'EX',
+    score: '150'
+  },
 ];
 
 const ComicsMasVisitados = () => {
@@ -92,14 +103,16 @@ const ComicsMasVisitados = () => {
   const scrollLeft = () => {
     const container = scrollContainerRef.current;
     if (container) {
-      container.scrollBy({ left: -300, behavior: 'smooth' });
+      // Scroll exactamente 4 cards (289px * 4 + gaps)
+      container.scrollBy({ left: -1200, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
     const container = scrollContainerRef.current;
     if (container) {
-      container.scrollBy({ left: 300, behavior: 'smooth' });
+      // Scroll exactamente 4 cards (289px * 4 + gaps)
+      container.scrollBy({ left: 1200, behavior: 'smooth' });
     }
   };
 
@@ -136,7 +149,7 @@ const ComicsMasVisitados = () => {
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {rankingItems.map((item) => (
-          <div key={item.id} className="flex-shrink-0" style={{ width: '220px', minWidth: '220px' }}>
+          <div key={item.id} className="flex-shrink-0" style={{ width: '289px', minWidth: '289px' }}>
             {/* Header de ranking con colores de podio */}
             <div
               className={`text-white text-center py-2 fw-bold rounded-top-3 ${

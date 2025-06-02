@@ -6,7 +6,7 @@ const Genres = () => {
     return(
         <>
         <Navbar></Navbar>
-        <GenresGrid></GenresGrid>
+        <GenresGrid ></GenresGrid>
         <Footer></Footer>
         </>
 )}

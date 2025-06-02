@@ -3,6 +3,8 @@ import cardsData from "../json/infoGenres.json";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import petNotFound from "../assets/petNotFound.png";
+import Img1 from "../assets/Portadas/PORTADA-HEART-CHAIN-REIZU-irving-valdes-1.jpg";
+import "../variables.css";
 
 const genres = [
   { key: "accion", label: "ACCION" },
@@ -60,7 +62,7 @@ const GenresGrid = () => {
           whiteSpace: "nowrap"
         }}
       >
-        <div className="d-flex gap-4 flex-wrap">
+        <div className="d-flex gap-4 flex-wrap justify-content-center">
           {genres.map(genre => (
             <button
               key={genre.key}
@@ -102,18 +104,40 @@ const GenresGrid = () => {
         {filteredCards.map(item => (
           <div key={item.id} className="col">
             <div
-              className="position-relative"
+              className="position-relative animation-card"
               style={{
                 borderRadius: "10px",
-                background: isDark ? "rgba(33,33,33,0.95)" : "rgba(157, 155, 155, 0.08)",
                 minHeight: "320px",
                 overflow: "hidden",
                 boxShadow: isDark
                   ? "0 2px 16px 0 rgba(0,0,0,0.5)"
                   : "0 2px 16px 0 rgba(25, 118, 210, 0.07)",
-                border: isDark ? "1.5px solid #444" : undefined
+                cursor: "pointer",
+                transition: "transform 0.3s ease"
               }}
+              onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
+              onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
             >
+              {/* Imagen que ocupa todo el card */}
+              <img
+                src={item.image || Img1}
+                alt={item.title}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  zIndex: 1,
+                  borderRadius: "10px"
+                }}
+                onError={e => { 
+                  e.target.onerror = null; 
+                  e.target.src = Img1;
+                }}
+              />
+
               {/* Badge superior derecha */}
               {item.badge && (
                 <span
@@ -123,40 +147,23 @@ const GenresGrid = () => {
                     color: "#fff",
                     fontSize: "0.95rem",
                     fontWeight: 500,
-                    zIndex: 2
+                    zIndex: 3
                   }}
                 >
                   {item.badge}
                 </span>
               )}
 
-              {/* Imagen opcional */}
-              {item.image && (
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  style={{
-                    width: "100%",
-                    height: "190px",
-                    objectFit: "cover",
-                    display: "block",
-                    background: isDark ? "#232323" : "#eee",
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                  }}
-                  onError={e => { e.target.onerror = null; e.target.src = petNotFound; }}
-                />
-              )}
-
-              {/* Contenido inferior */}
+              {/* Contenido inferior con fondo gris transparente más visible */}
               <div
-                className="position-absolute bottom-0 w-100 p-2"
+                className="position-absolute bottom-0 w-100 p-3 text-white"
                 style={{
-                  background: isDark
-                    ? "rgba(28,28,28, 0.95)"
-                    : "rgba(255, 255, 255, 0.95)",
-                  borderBottomLeftRadius: 8,
-                  borderBottomRightRadius: 8
+                  zIndex: 3,
+                  backgroundColor: 'rgba(64, 64, 64, 0.75)', // Gris más oscuro y más opaco
+                  backdropFilter: 'blur(0.5px)', // Efecto blur para mejor legibilidad
+                  borderBottomLeftRadius: '10px',
+                  borderBottomRightRadius: '10px',
+                  borderTop: '1px solid rgba(255,255,255,0.1)' // Sutil borde superior
                 }}
               >
                 <h6
@@ -164,35 +171,45 @@ const GenresGrid = () => {
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.15",
-                    color: isDark ? "#FFA726" : "#FF4E00"
+                    color: "#fff",
+                    textShadow: "0 1px 3px rgba(0,0,0,0.8)"
                   }}
                 >
                   {item.title}
                 </h6>
-                <div className={`small ${isDark ? "text-light" : "text-secondary"}`}>
+                <div 
+                  className="small mb-2" 
+                  style={{ 
+                    color: "rgba(255,255,255,0.9)",
+                    textShadow: "0 1px 2px rgba(0,0,0,0.8)"
+                  }}
+                >
                   {item.author}
                 </div>
-                <div className="d-flex justify-content-between align-items-center mt-1">
+                <div className="d-flex justify-content-between align-items-center">
                   <div
                     className="small d-flex align-items-center"
-                    style={{ color: isDark ? "#FFA726" : "#FF4E00" }}
+                    style={{ 
+                      color: "rgba(255,255,255,0.9)",
+                      textShadow: "0 1px 2px rgba(0,0,0,0.8)"
+                    }}
                   >
                     <i
                       className="bi bi-heart-fill me-1"
                       style={{
-                        color: "#e53935",
+                        color: "#ff4757",
                         fontSize: "1rem"
                       }}
                     ></i>
-                    <span className={`m-0 p-0 ${isDark ? "text-light" : "text-black"}`}>
+                    <span>
                       {item.likes} - {item.views} vistas
                     </span>
                   </div>
                   <div className="d-flex align-items-center">
                     {item.specialTag && (
                       <span
-                        className="badge bg-danger me-1"
-                        style={{ fontSize: "1rem" }}
+                        className="badge bg-danger me-2"
+                        style={{ fontSize: "0.8rem" }}
                       >
                         {item.specialTag}
                       </span>
@@ -200,8 +217,9 @@ const GenresGrid = () => {
                     <span
                       className="fw-bold"
                       style={{
-                        fontSize: '1.35rem',
-                        color: isDark ? "#FFA726" : "#FF4E00"
+                        fontSize: '1.5rem',
+                        color: "#fff",
+                        textShadow: "0 2px 4px rgba(0,0,0,0.8)"
                       }}
                     >
                       {item.chapter}

@@ -136,7 +136,7 @@ function Navbar() {
               <Link className="nav-link text-center text-lg-start py-2" to={"/Genres"} >Generos</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-center text-lg-start py-2" >Tienda</Link>
+              <Link className="nav-link text-center text-lg-start py-2" to={"/Shop"} >Tienda</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link text-center text-lg-start py-2 enable disabled" >Convocatoria</Link>

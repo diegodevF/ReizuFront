@@ -3,6 +3,9 @@ import Navbar from "../components/Navbar";
 import SerieCard from "../components/SerieCard";
 import EpisodeList from "../components/EpisodeList";
 import SpecialCaps from "../components/SpecialCaps";
+import UserReviews from "../components/UserReviews";
+import RecommendedWorks from "../components/RecommendedWorks";
+import Footer from "../components/Footer";
 
 //importamos estilos globales
 import "../variables.css"
@@ -90,16 +93,26 @@ const episodes = [
         <Navbar></Navbar>
         <FeaturedComic></FeaturedComic>
         <div className="d-flex justify-content-center align-items-start flex-row custom-gap-10 py-4">
-            <div style={{ flex: 1, maxWidth: 700 }}>
+            <div style={{ flex: 1, maxWidth: 600 }}>
                 <SerieCard gallery={galleryImgs} />
             </div>
-            <div style={{ flex: 1, maxWidth: 700 }}>
+            <div style={{ flex: 1, maxWidth: 600 }}>
                 <EpisodeList episodes={episodes} />
             </div>
         </div>
         <SpecialCaps></SpecialCaps>
+        <div className="container py-4">
+        <div className="row g-5">
+            <div className="col-lg-7">
+            <UserReviews />
+            </div>
+            <div className="col-lg-5">
+            <RecommendedWorks />
+            </div>
+        </div>
+        </div>
 
-
+        <Footer></Footer>
         </>
     );
 }

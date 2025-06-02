@@ -25,12 +25,10 @@
 }
 
 .custom-gap-10 > * + * {
-  margin-left: 10%;
+  margin-left: 5%;
 }
 
-.custom-gap-10 > * + * {
-  margin-left: 10%;
-}
+
 
 @media (max-width: 991.98px) { /* Bootstrap lg breakpoint */
   .custom-gap-10 {
@@ -41,4 +39,19 @@
     margin-left: 0 !important;
     margin-top: 2rem !important;
   }
+}
+
+Link{
+  color: inherit;
+  text-decoration: none;
+}
+
+.animation-card{
+  transition: 0.5s;
+}
+
+.animation-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }

@@ -1,157 +1,128 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
-// Simula imágenes de portada (puedes reemplazar por tus rutas reales)
-const images = [
-  "https://i.imgur.com/8Km9tLL.jpg",
-  "https://i.imgur.com/0y0y0y0.png",
-  "https://i.imgur.com/2nCt3Sbl.jpg",
-  "https://i.imgur.com/0y0y0y0.png",
-  "https://i.imgur.com/2nCt3Sbl.jpg",
-  "https://i.imgur.com/8Km9tLL.jpg"
-];
+import '../variables.css'; // Assuming you have a CSS file for variables
 
 const chapters = [
   {
     id: 1,
-    title: 'The outsider',
+    title: 'AUREUS GRAPHERS',
     series: 'The outsider',
-    views: 450,
+    views: '10.567',
     number: 10,
     price: null,
     isLocked: false,
     isAdult: false,
-    image: images[0],
   },
   {
     id: 2,
-    title: 'The outsider',
+    title: 'MI COMPAÑERA DE OFICINA ES UNA OVEJA',
     series: 'The outsider',
-    views: 1562,
+    views: '10.567',
     number: 10,
     price: 150,
     isLocked: true,
     isAdult: false,
-    image: images[1],
   },
   {
     id: 3,
-    title: 'The outsider',
+    title: 'ZAMU',
     series: 'The outsider',
-    views: 600,
+    views: '10.567',
     number: 10,
     price: 1500,
     isLocked: true,
     isAdult: true,
-    image: images[2],
   },
   {
     id: 4,
-    title: 'The outsider',
+    title: 'HEART CHAIN',
     series: 'The outsider',
-    views: 2500,
+    views: '10.567',
     number: 10,
     price: null,
     isLocked: false,
     isAdult: false,
-    image: images[3],
+  },
+  {
+    id: 5,
+    title: 'ZAMU',
+    series: 'The outsider',
+    views: '10.567',
+    number: 10,
+    price: 1500,
+    isLocked: true,
+    isAdult: false,
+  },
+  {
+    id: 6,
+    title: 'OTRO CAPÍTULO',
+    series: 'The outsider',
+    views: '8.245',
+    number: 11,
+    price: 200,
+    isLocked: false,
+    isAdult: false,
   },
 ];
 
 const ChapterCard = ({ chapter }) => (
-  <div
-    className="card border-0 shadow-sm flex-shrink-0 mx-2"
-    style={{
-      width: 200,
-      minWidth: 200,
-      background: "var(--bs-card-bg)",
-      color: "var(--bs-body-color)",
-      borderRadius: "0.9rem",
-      overflow: "hidden",
-      position: "relative"
-    }}
+  <>
+  <Link to={"/ComicInfo"}>
+    <div
+    className="card flex-shrink-0 border-0 shadow-sm me-3"
+    style={{ width: '200px', minWidth: '200px' }}
   >
-    {/* Imagen de portada */}
-    <div className="position-relative" style={{ width: "100%", height: 120 }}>
-      <img
-        src={chapter.image}
-        alt={chapter.title}
-        className="w-100 h-100"
-        style={{ objectFit: "cover", borderRadius: "0.9rem 0.9rem 0 0" }}
-      />
-      {/* Badge de precio */}
-      {chapter.price && (
-        <span
-          className="position-absolute top-0 start-0 badge bg-danger d-flex align-items-center px-2 py-1"
-          style={{
-            fontSize: "0.95rem",
-            borderTopLeftRadius: "0.7rem",
-            borderBottomRightRadius: "0.7rem",
-            left: 0,
-            top: 0,
-            zIndex: 2
-          }}
-        >
-          <i className="bi bi-coin text-warning me-1"></i>
-          {chapter.price >= 1000
-            ? `${(chapter.price / 1000).toFixed(1)}K`
-            : chapter.price}
-        </span>
-      )}
-      {/* Badge +18 */}
-      {chapter.isAdult && (
-        <span
-          className="position-absolute top-0 end-0 badge bg-danger px-2 py-1"
-          style={{
-            fontSize: "0.85rem",
-            right: 0,
-            top: 0,
-            borderTopRightRadius: "0.7rem",
-            borderBottomLeftRadius: "0.7rem",
-            zIndex: 2
-          }}
-        >
-          +18
-        </span>
-      )}
-      {/* Overlay de candado */}
-      {chapter.isLocked && (
-        <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
-          style={{ zIndex: 2 }}>
-          <i className="bi bi-lock-fill text-danger fs-2"></i>
-        </div>
-      )}
-      {/* Fondo degradado negro abajo */}
-      <div className="position-absolute bottom-0 start-0 w-100 px-2 py-2"
-        style={{
-          background: "linear-gradient(0deg, rgba(0,0,0,0.92) 70%, rgba(0,0,0,0.01) 100%)",
-          borderBottomLeftRadius: "0.9rem",
-          borderBottomRightRadius: "0.9rem",
-          zIndex: 1
-        }}
-      >
-        <div className="d-flex justify-content-between align-items-center text-white mb-1" style={{ fontSize: "1.05rem" }}>
-          <span>
-            <b>#{chapter.number}</b>
-            {chapter.isLocked && <i className="bi bi-lock-fill text-danger ms-1"></i>}
-          </span>
-          <span>
-            <i className="bi bi-eye me-1"></i>
-            {chapter.views}
-          </span>
-        </div>
+    <div className="card-body p-2 justify-content-start">
+      <div className="d-flex justify-content-between align-items-center mb-2">
+        <small className="text-muted">
+          <i className="bi bi-eye me-1"></i>
+          {chapter.views}
+        </small>
+        {chapter.isAdult && <span className="badge bg-danger">+18</span>}
       </div>
-    </div>
-    {/* Info inferior */}
-    <div className="px-2 pt-2 pb-1 bg-transparent">
-      <div className="small text-truncate">{chapter.series}</div>
-      <div className="fw-bold text-truncate" style={{ fontSize: "1.08rem" }}>{chapter.title}</div>
+
+      <div className="position-relative mb-2">
+        <div className="bg-light rounded" style={{ height: '100px' }}></div>
+        {chapter.isLocked && (
+          <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50 rounded">
+            <i className="bi bi-lock-fill text-white fs-3"></i>
+          </div>
+        )}
+      </div>
+
+      <div className="d-flex justify-content-between align-items-center small text-muted mb-1">
+        <span># {chapter.number}</span>
+        {chapter.isLocked ? (
+          <span>
+            <i className="bi bi-lock-fill text-danger me-1"></i>
+            {chapter.price && (
+              <>
+                <i className="bi bi-coin text-warning me-1"></i>
+                {chapter.price >= 1000
+                  ? `${(chapter.price / 1000).toFixed(1)}K`
+                  : chapter.price}
+              </>
+            )}
+          </span>
+        ) : chapter.price ? (
+          <span>
+            <i className="bi bi-coin text-warning me-1"></i>
+            {chapter.price}
+          </span>
+        ) : null}
+      </div>
+
+      <p className="mb-0 small text-truncate">{chapter.series}</p>
+      <h6 className="mb-0 text-truncate">{chapter.title}</h6>
     </div>
   </div>
+  </Link>
+  </>
 );
 
-const SpecialCaps = () => {
+const RecentCaps = () => {
   const scrollContainerRef = useRef(null);
   const [showLeft, setShowLeft] = useState(false);
   const [showRight, setShowRight] = useState(true);
@@ -171,16 +142,16 @@ const SpecialCaps = () => {
   }, []);
 
   const scrollLeft = () => {
-    scrollContainerRef.current?.scrollBy({ left: -220, behavior: 'smooth' });
+    scrollContainerRef.current?.scrollBy({ left: -200, behavior: 'smooth' });
   };
 
   const scrollRight = () => {
-    scrollContainerRef.current?.scrollBy({ left: 220, behavior: 'smooth' });
+    scrollContainerRef.current?.scrollBy({ left: 200, behavior: 'smooth' });
   };
 
   return (
-    <div className="container my-5" style={{ maxWidth: '1200px' }}>
-      <h5 className="fw-bold mb-3 text-center">Capítulos especiales</h5>
+    <div className="container my-5" style={{ maxWidth: '1235px' }}>
+      <h5 className="fw-bold mb-3">Capítulos recientes</h5>
 
       <div className="position-relative">
         {/* Botón izquierdo */}
@@ -189,13 +160,13 @@ const SpecialCaps = () => {
             onClick={scrollLeft}
             className="btn btn-light btn-sm rounded-circle shadow position-absolute"
             style={{
-              left: '-28px',
+              left: '0',
               top: '50%',
-              transform: 'translateY(-50%)',
+              transform: 'translate(-50%, -50%)',
               zIndex: 2,
             }}
           >
-            <i className="bi bi-chevron-left text-danger fs-3"></i>
+            <i className="bi bi-chevron-left"></i>
           </button>
         )}
 
@@ -205,20 +176,20 @@ const SpecialCaps = () => {
             onClick={scrollRight}
             className="btn btn-light btn-sm rounded-circle shadow position-absolute"
             style={{
-              right: '-28px',
+              right: '0',
               top: '50%',
-              transform: 'translateY(-50%)',
+              transform: 'translate(50%, -50%)',
               zIndex: 2,
             }}
           >
-            <i className="bi bi-chevron-right text-danger fs-3"></i>
+            <i className="bi bi-chevron-right"></i>
           </button>
         )}
 
         {/* Carrusel */}
         <div
           ref={scrollContainerRef}
-          className="d-flex flex-row flex-nowrap overflow-auto px-2 pb-3"
+          className="d-flex overflow-auto pb-3"
           onScroll={handleScroll}
           style={{ scrollBehavior: 'smooth' }}
         >
@@ -227,8 +198,19 @@ const SpecialCaps = () => {
           ))}
         </div>
       </div>
+
+      {/* Indicadores */}
+      <div className="d-flex justify-content-center mt-3 gap-2">
+        {Array.from({ length: Math.ceil(chapters.length / 3) }).map((_, i) => (
+          <div
+            key={i}
+            className={`rounded-pill ${i === 0 ? 'bg-primary' : 'bg-secondary'}`}
+            style={{ height: '4px', width: '32px' }}
+          />
+        ))}
+      </div>
     </div>
   );
 };
 
-export default SpecialCaps;
+export default RecentCaps;
