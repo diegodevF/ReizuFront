@@ -7,7 +7,7 @@ import Img2 from '../assets/Banner/2.png';
 import Img3 from '../assets/Banner/13.png';
 
 const Carousel = () => (
-  <div id="carouselExampleAutoplaying" className="carousel slide carousel-fade bg-dark-subtle p-4 bg-light"
+  <div id="carouselExampleAutoplaying" className="carousel slide carousel-fade bg-dark-subtle p-4 bg-light wallpaper"
     data-bs-ride="carousel"
     style={{ boxShadow: "inset 0 10px 10px -10px rgba(0, 0, 0, 0.2), inset 0 -10px 10px -10px rgba(0, 0, 0, 0.2)" }}>
     <div className="carousel-inner">

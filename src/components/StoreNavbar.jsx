@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const StoreNavbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const location = useLocation();
+
+  // Define tus rutas aquí para que sea fácil de mantener
+  const navItems = [
+    { path: '/Shop', label: 'Inicio' },
+    { path: '/Shop/PersonalizeSection', label: 'Artículos Personalizados' },
+    { path: '/Shop/CommissionPage', label: 'Comisiones' },
+    { path: '/Shop/ExchangePage', label: 'Servicios' },
+    { path: '/Shop/SpecialChaptersPage', label: 'Capítulos especiales' },
+  ];
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -11,7 +21,7 @@ const StoreNavbar = () => {
 
   return (
     <nav 
-      className="navbar navbar-expand-lg py-3"
+      className="navbar navbar-expand-lg py-3 sticky-top"
       style={{ 
         backgroundColor: 'var(--bs-gray-800)',
         borderBottom: '1px solid var(--bs-border-color-translucent)'
@@ -32,123 +42,39 @@ const StoreNavbar = () => {
         {/* Menú colapsable */}
         <div className={`navbar-collapse ${isCollapsed ? 'collapse' : 'show'}`}>
           <div className="navbar-nav mx-auto d-flex flex-column flex-lg-row gap-2 gap-lg-4 mt-3 mt-lg-0">
-            
-            {/* Inicio */}
-            <Link 
-              to="/" 
-              className="nav-link fw-medium px-3 py-2 rounded position-relative text-center"
-              style={{ 
-                fontSize: '1.1rem',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                borderBottom: '2px solid #dc3545',
-                color: 'var(--bs-light)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'rgba(220,53,69,0.1)';
-                e.target.style.color = '#dc3545';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = 'var(--bs-light)';
-              }}
-              onClick={() => setIsCollapsed(true)}
-            >
-              Inicio
-            </Link>
-
-            {/* Artículos Personalizados */}
-            <Link 
-              to="/articulos-personalizados" 
-              className="nav-link fw-medium px-3 py-2 rounded text-center"
-              style={{ 
-                fontSize: '1.1rem',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                color: 'var(--bs-light)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'rgba(220,53,69,0.1)';
-                e.target.style.color = '#dc3545';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = 'var(--bs-light)';
-              }}
-              onClick={() => setIsCollapsed(true)}
-            >
-              Artículos Personalizados
-            </Link>
-
-            {/* Comisiones */}
-            <Link 
-              to="/comisiones" 
-              className="nav-link fw-medium px-3 py-2 rounded text-center"
-              style={{ 
-                fontSize: '1.1rem',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                color: 'var(--bs-light)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'rgba(220,53,69,0.1)';
-                e.target.style.color = '#dc3545';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = 'var(--bs-light)';
-              }}
-              onClick={() => setIsCollapsed(true)}
-            >
-              Comisiones
-            </Link>
-
-            {/* Servicios */}
-            <Link 
-              to="/servicios" 
-              className="nav-link fw-medium px-3 py-2 rounded text-center"
-              style={{ 
-                fontSize: '1.1rem',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                color: 'var(--bs-light)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'rgba(220,53,69,0.1)';
-                e.target.style.color = '#dc3545';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = 'var(--bs-light)';
-              }}
-              onClick={() => setIsCollapsed(true)}
-            >
-              Servicios
-            </Link>
-
-            {/* Capítulos especiales */}
-            <Link 
-              to="/capitulos-especiales" 
-              className="nav-link fw-medium px-3 py-2 rounded text-center"
-              style={{ 
-                fontSize: '1.1rem',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                color: 'var(--bs-light)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = 'rgba(220,53,69,0.1)';
-                e.target.style.color = '#dc3545';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = 'var(--bs-light)';
-              }}
-              onClick={() => setIsCollapsed(true)}
-            >
-              Capítulos especiales
-            </Link>
-
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className="nav-link fw-medium px-3 py-2 rounded text-center position-relative"
+                  style={{
+                    fontSize: '1.1rem',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease',
+                    color: isActive ? 'var(--bs-danger)' : 'var(--bs-light)',
+                    borderBottom: isActive ? '2px solid var(--bs-danger)' : 'none',
+                    backgroundColor: isActive ? 'rgba(220,53,69,0.08)' : 'transparent'
+                  }}
+                  onMouseEnter={e => {
+                    if (!isActive) {
+                      e.target.style.backgroundColor = 'rgba(220,53,69,0.1)';
+                      e.target.style.color = '#dc3545';
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (!isActive) {
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.color = 'var(--bs-light)';
+                    }
+                  }}
+                  onClick={() => setIsCollapsed(true)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
