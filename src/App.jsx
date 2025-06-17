@@ -23,6 +23,9 @@ import AddWork from "./admin/AddWork"
 import Caps from "./admin/Caps"
 import AddCap from "./admin/AddCap"
 import AddCapConfig from "./admin/AddCapConfig"
+import Banners from "./admin/Banners"
+import AddBanner from "./admin/AddBanner"
+import Comments from "./admin/Comments"
 
 
 function App() {
@@ -50,6 +53,9 @@ function App() {
       <Route path="/Admin/Caps" element={<Caps />} />
       <Route path="/Admin/AddCap" element={<AddCap />} />
       <Route path="/Admin/AddCapConfig" element={<AddCapConfig />} />
+      <Route path="/Admin/Banners" element={<Banners />} />
+      <Route path="/Admin/AddBanner" element={<AddBanner />} />
+      <Route path="/Admin/Comments" element={<Comments />} />
 
     </Routes>
 

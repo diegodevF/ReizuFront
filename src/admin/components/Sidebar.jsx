@@ -15,9 +15,9 @@ const sidebarItems = [
     title: "Estadísticas",
     icon: "bi-bar-chart",
     subpages: [
-      { title: "Banners", href: "#", isSubsection: true },
-      { title: "Todos los banners", href: "/admin/estadisticas/todos-los-banners", isSubitem: true },
-      { title: "Nuevo banner", href: "/admin/estadisticas/nuevo-banner", isSubitem: true },
+      { title: "Banners", href: "", isSubsection: true },
+      { title: "Todos los banners", href: "/Admin/Banners", isSubitem: true },
+      { title: "Nuevo banner", href: "/Admin/AddBanner", isSubitem: true },
       { title: "Popups", href: "#", isSubsection: true },
       { title: "Todos los popups", href: "/admin/estadisticas/todos-los-popups", isSubitem: true },
       { title: "Nuevo popup", href: "/admin/estadisticas/nuevo-popup", isSubitem: true }
@@ -27,7 +27,7 @@ const sidebarItems = [
     id: 2,
     title: "Comentarios",
     icon: "bi-chat-dots",
-    href: "/admin/comentarios",
+    href: "/Admin/Comments",
     subpages: []
   },
   {
