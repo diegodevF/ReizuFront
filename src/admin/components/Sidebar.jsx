@@ -8,7 +8,7 @@ const sidebarItems = [
     id: 0,
     title: "Panel de Control",
     icon: "bi-house",
-    href: "/admin/Dashboard",
+    href: "/Admin",
   },
   {
     id: 1,
@@ -19,8 +19,8 @@ const sidebarItems = [
       { title: "Todos los banners", href: "/Admin/Banners", isSubitem: true },
       { title: "Nuevo banner", href: "/Admin/AddBanner", isSubitem: true },
       { title: "Popups", href: "#", isSubsection: true },
-      { title: "Todos los popups", href: "/admin/estadisticas/todos-los-popups", isSubitem: true },
-      { title: "Nuevo popup", href: "/admin/estadisticas/nuevo-popup", isSubitem: true }
+      { title: "Todos los popups", href: "/Admin/Popups", isSubitem: true },
+      { title: "Nuevo popup", href: "/Admin/AddPopup", isSubitem: true }
     ]
   },
   {
@@ -45,8 +45,8 @@ const sidebarItems = [
     title: "Tienda",
     icon: "bi-shop",
     subpages: [
-      { title: "Todos los productos", href: "/admin/tienda/todos-los-productos" },
-      { title: "Nuevo producto", href: "/admin/tienda/nuevo-producto" }
+      { title: "Todos los productos", href: "/Admin/ProductsShop" },
+      { title: "Nuevo producto", href: "/Admin/AddProduct" }
     ]
   },
   {
@@ -111,8 +111,8 @@ const sidebarItems = [
     title: "Artbooks",
     icon: "bi-journal-album",
     subpages: [
-      { title: "Todos los artbooks", href: "/admin/artbooks/todos-los-artbooks" },
-      { title: "Nuevo artbook", href: "/admin/artbooks/nuevo-artbook" }
+      { title: "Todos los artbooks", href: "/Admin/ArtBooks" },
+      { title: "Nuevo artbook", href: "/Admin/AddArtBook" }
     ]
   },
   {
@@ -129,8 +129,8 @@ const sidebarItems = [
     title: "Comisiones",
     icon: "bi-palette",
     subpages: [
-      { title: "Todas las comisiones", href: "/admin/comisiones/todas-las-comisiones" },
-      { title: "Nueva comisión", href: "/admin/comisiones/nueva-comision" }
+      { title: "Todas las comisiones", href: "/Admin/Commissions" },
+      { title: "Nueva comisión", href: "/Admin/AddCommission" }
     ]
   }
 ];

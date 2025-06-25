@@ -26,6 +26,15 @@ import AddCapConfig from "./admin/AddCapConfig"
 import Banners from "./admin/Banners"
 import AddBanner from "./admin/AddBanner"
 import Comments from "./admin/Comments"
+import ProductsShop from "./admin/ProductsShop"
+import AddProduct from "./admin/AddProduct"
+import ArtBooks from "./admin/ArtBooks"
+import AddArtBook from "./admin/AddArtBook"
+import Commissions from "./admin/Commissions"
+import AddCommission from "./admin/AddCommission"
+import Popups from "./admin/Popups"
+import AddPopup from "./admin/AddPopup"
+
 
 
 function App() {
@@ -47,7 +56,7 @@ function App() {
           <Route path="/Shop/SpecialChaptersPage" element={<SpecialChaptersPage />} />
 
       {/* Admin Panels */}
-      <Route path="/Admin/Dashboard" element={<Dashboard />} />
+      <Route path="/Admin" element={<Dashboard />} />
       <Route path="/Admin/Works" element={<Works />} />
       <Route path="/Admin/AddWork" element={<AddWork />} />
       <Route path="/Admin/Caps" element={<Caps />} />
@@ -56,7 +65,15 @@ function App() {
       <Route path="/Admin/Banners" element={<Banners />} />
       <Route path="/Admin/AddBanner" element={<AddBanner />} />
       <Route path="/Admin/Comments" element={<Comments />} />
-
+      <Route path="/Admin/ProductsShop" element={<ProductsShop/>}/>
+      <Route path="/Admin/AddProduct" element={<AddProduct/>}/>
+      <Route path="/Admin/ArtBooks" element={<ArtBooks/>}/>
+      <Route path="/Admin/AddArtBook" element={<AddArtBook/>}/>
+      <Route path="/Admin/Commissions" element={<Commissions/>}/>
+      <Route path="/Admin/AddCommission" element={<AddCommission/>}/>
+      <Route path="/Admin/Popups" element={<Popups/>}/>
+      <Route path="/Admin/AddPopup" element={<AddPopup/>}/>
+      
     </Routes>
 
     </>
