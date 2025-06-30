@@ -1,6 +1,7 @@
 import Logo from "../assets/Logos/Reizu Comics Logo Blanco.svg"
 import Pet from "../assets/pet.png";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Kofi from "../assets/Logos/kofi.svg";
 
 function Footer() {
 
@@ -29,6 +30,7 @@ function Footer() {
           <i className="bi bi-instagram"></i>
           <i className="bi bi-twitch"></i>
           <i className="bi bi-discord"></i>
+          <img src={Kofi} alt="Kofi" width={24} height={36}/>
         </div>
 
         {/* LINKS */}

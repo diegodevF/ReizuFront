@@ -8,6 +8,7 @@ import RankingPopulares from "../components/RankingPopulares"
 import ComicShowcase from "../components/ComicShowcase"
 import MostVisited from "../components/MostVisited"
 import Carousel from "../components/Carousel"
+import Partners from "../components/Partners"
 
 const Landing = () => {
     return (
@@ -20,6 +21,7 @@ const Landing = () => {
             <MostVisited></MostVisited>
             <ListNovel></ListNovel>
             <BestArtist></BestArtist>
+            <Partners></Partners>
             <Footer></Footer>
         </>
 )}

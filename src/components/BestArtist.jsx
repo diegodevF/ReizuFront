@@ -12,6 +12,10 @@ const destacados = [
   {
     nombre: "User3",
     imagen: perfilFoto
+  },
+  {
+    nombre: "User4",
+    imagen: perfilFoto
   }
 ];
 
