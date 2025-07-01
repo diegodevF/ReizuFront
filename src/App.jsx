@@ -39,7 +39,8 @@ import Participants from "./admin/Participants"
 import AddParticipant from "./admin/AddParticipant"
 import ConvocatoriaInfo from "./admin/ConvocatoriaInfo"
 import ConvocatoriaRules from "./admin/ConvocatoriaRules"
-
+import Achievements from "./admin/Achivements"
+import AddAchievement from "./admin/AddAchivement"
 
 
 function App() {
@@ -84,6 +85,8 @@ function App() {
       <Route path="/Admin/AddParticipant" element={<AddParticipant/>}></Route>
       <Route path="/Admin/ConvocatoriaInfo" element={<ConvocatoriaInfo/>}></Route>
       <Route path="/Admin/ConvocatoriaRules" element={<ConvocatoriaRules/>}></Route>
+      <Route path="/Admin/Achivements" element={<Achievements/>}></Route>
+      <Route path="/Admin/AddAchivement" element={<AddAchievement/>}></Route>
       
     </Routes>
 

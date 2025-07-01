@@ -32,11 +32,11 @@ const sidebarItems = [
   },
   {
     id: 3,
-    title: "Reizu Coins",
+    title: "Logros",
     icon: "bi-coin",
     subpages: [
-      { title: "Misiones", href: "/admin/reizu-coins/misiones" },
-      { title: "Logros", href: "/admin/reizu-coins/logros" },
+      { title: "Logros", href: "/Admin/Achivements" },
+      { title: "Añadir Logro", href: "/Admin/AddAchivement" },
       { title: "Configurar", href: "/admin/reizu-coins/configurar" }
     ]
   },
