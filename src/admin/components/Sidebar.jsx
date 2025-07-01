@@ -81,10 +81,10 @@ const sidebarItems = [
     title: "Convocatoria",
     icon: "bi-megaphone",
     subpages: [
-      { title: "Todos los participantes", href: "/admin/convocatoria/todos-los-participantes" },
-      { title: "Nuevo participante", href: "/admin/convocatoria/nuevo-participante" },
-      { title: "Información", href: "/admin/convocatoria/informacion" },
-      { title: "Reglas", href: "/admin/convocatoria/reglas" },
+      { title: "Todos los participantes", href: "/Admin/Participants" },
+      { title: "Nuevo participante", href: "/Admin/AddParticipant" },
+      { title: "Información", href: "/Admin/ConvocatoriaInfo" },
+      { title: "Reglas", href: "/Admin/ConvocatoriaRules" },
       { title: "Formulario", href: "/admin/convocatoria/formulario" }
     ]
   },

@@ -34,7 +34,10 @@ import Commissions from "./admin/Commissions"
 import AddCommission from "./admin/AddCommission"
 import Popups from "./admin/Popups"
 import AddPopup from "./admin/AddPopup"
-
+import Participants from "./admin/Participants"
+import AddParticipant from "./admin/AddParticipant"
+import ConvocatoriaInfo from "./admin/ConvocatoriaInfo"
+import ConvocatoriaRules from "./admin/ConvocatoriaRules"
 
 
 function App() {
@@ -48,7 +51,7 @@ function App() {
       <Route path="/ComicInfo" element={<ComicInfo/>}/>
       <Route path="/Exclusives" element={<Exclusives/>}/>
       <Route path="/Genres" element={<Genres/>}/>
-      <Route path="/Shop" element={<Shop/>}/>
+      <Route path="/Shop" element={<Shop/>}/>2509
           {/* SubRutas de la shop */}
           <Route path="/Shop/PersonalizeSection" element={<PersonalizePage />} />
           <Route path="/Shop/CommissionPage" element={<CommissionPage />} />
@@ -73,6 +76,10 @@ function App() {
       <Route path="/Admin/AddCommission" element={<AddCommission/>}/>
       <Route path="/Admin/Popups" element={<Popups/>}/>
       <Route path="/Admin/AddPopup" element={<AddPopup/>}/>
+      <Route path="/Admin/Participants" element={<Participants/>}></Route>
+      <Route path="/Admin/AddParticipant" element={<AddParticipant/>}></Route>
+      <Route path="/Admin/ConvocatoriaInfo" element={<ConvocatoriaInfo/>}></Route>
+      <Route path="/Admin/ConvocatoriaRules" element={<ConvocatoriaRules/>}></Route>
       
     </Routes>
 
