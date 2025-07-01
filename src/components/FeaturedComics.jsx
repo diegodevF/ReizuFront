@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 // import BgImg from '../assets/pixel-bg.jpg'; // Usa aquí tu fondo pixel art
 import CoverImg from '../assets/dragon.png'; // Portada de la obra
+import { Link } from 'react-router-dom';
 
 const FeaturedComics = () => (
   <div
@@ -66,9 +67,9 @@ const FeaturedComics = () => (
           <button className="btn btn-outline-light btn-sm d-flex align-items-center px-3">
             <i className="bi bi-heart me-1"></i> Me gusta
           </button>
-          <button className="btn btn-danger btn-sm fw-bold px-3">
+          <Link to="/ViewComic" className="btn btn-danger btn-sm fw-bold px-3">
             Ver primer episodio
-          </button>
+          </Link>
         </div>
       </div>
       <style>

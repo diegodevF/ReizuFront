@@ -78,7 +78,7 @@ const Participants = () => {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent"
                 }}>
-                  PARTICIPANTS
+                  Participantes
                 </h2>
                 <div className="input-group" style={{ width: 280 }}>
                   <span className="input-group-text bg-light border-0">

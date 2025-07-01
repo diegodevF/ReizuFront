@@ -8,9 +8,10 @@ import ComicInfo from "./routes/ComicInfo"
 import Exclusives from "./routes/Exclusives"
 import Genres from "./routes/Genres"
 import Register from "./routes/Register"
-import Shop from "./routes/Shop"
+import ViewComic from "./routes/ViewComic"
 
 //Subrutas de la Shop
+import Shop from "./routes/Shop"
 import PersonalizePage from "./subRoutes/PersonalizePage"
 import CommissionPage from "./subRoutes/CommissionPage"
 import ExchangePage from "./subRoutes/ExchangePage"
@@ -40,6 +41,7 @@ import ConvocatoriaInfo from "./admin/ConvocatoriaInfo"
 import ConvocatoriaRules from "./admin/ConvocatoriaRules"
 
 
+
 function App() {
 
   return (
@@ -51,7 +53,9 @@ function App() {
       <Route path="/ComicInfo" element={<ComicInfo/>}/>
       <Route path="/Exclusives" element={<Exclusives/>}/>
       <Route path="/Genres" element={<Genres/>}/>
-      <Route path="/Shop" element={<Shop/>}/>2509
+      <Route path="/ViewComic" element={<ViewComic/>}/>
+
+      <Route path="/Shop" element={<Shop/>}/>
           {/* SubRutas de la shop */}
           <Route path="/Shop/PersonalizeSection" element={<PersonalizePage />} />
           <Route path="/Shop/CommissionPage" element={<CommissionPage />} />
