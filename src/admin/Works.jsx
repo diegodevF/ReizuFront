@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar.jsx';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link } from 'react-router-dom';
@@ -35,6 +35,7 @@ const obrasData = [
 
 const Works = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [theme, setTheme] = useState('light');
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,6 +49,32 @@ const Works = () => {
   const [filtroFormatos, setFiltroFormatos] = useState("Todos los formatos");
   const [filtroPeriodicidad, setFiltroPeriodicidad] = useState("Todas las Periodicidad");
   const [filtroGeneros, setFiltroGeneros] = useState("Todos los géneros");
+
+  // Función para obtener el tema actual
+  const getTheme = () => {
+    if (typeof document !== "undefined") {
+      return document.documentElement.getAttribute("data-bs-theme") || "light";
+    }
+    return "light";
+  };
+
+  // Observer para detectar cambios de tema
+  useEffect(() => {
+    setTheme(getTheme());
+    
+    const observer = new MutationObserver(() => {
+      setTheme(getTheme());
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-bs-theme']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
+  const isDark = theme === 'dark';
 
   const itemsPerPage = 12;
   const totalPages = Math.ceil(obrasData.length / itemsPerPage);
@@ -69,6 +96,33 @@ const Works = () => {
     } else {
       setSelectedItems([...selectedItems, id]);
     }
+  };
+
+  // Estilos adaptativos
+  const selectStyles = {
+    backgroundColor: isDark ? '#3a3a3a' : '#ffffff',
+    borderColor: isDark ? '#555555' : '#ced4da',
+    color: isDark ? '#ffffff' : '#000000'
+  };
+
+  const buttonOutlineStyles = {
+    borderColor: isDark ? '#555555' : '#6c757d',
+    color: isDark ? '#ffffff' : '#6c757d',
+    backgroundColor: 'transparent'
+  };
+
+  const tableStyles = {
+    backgroundColor: isDark ? '#2a2a2a' : '#ffffff',
+    color: isDark ? '#ffffff' : '#000000'
+  };
+
+  const theadStyles = {
+    backgroundColor: isDark ? '#3a3a3a' : '#f8f9fa',
+    color: isDark ? '#ffffff' : '#000000'
+  };
+
+  const linkStyles = {
+    color: isDark ? '#4da6ff' : '#0d6efd'
   };
 
   return (
@@ -126,25 +180,69 @@ const Works = () => {
           marginLeft: sidebarOpen ? "280px" : "0",
           transition: "margin-left 0.3s",
           minHeight: "100vh",
+          backgroundColor: isDark ? '#1a1a1a' : '#f8f9fa'
         }}
       >
         <div className="container-fluid p-4">
           {/* Header */}
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2 className="fw-bold mb-0">Gestionar Obras</h2>
-            <Link to="/admin/AddWork" className="btn btn-outline-secondary">
+            <h2 
+              className="fw-bold mb-0"
+              style={{ color: isDark ? '#ffffff' : '#212529' }}
+            >
+              Gestionar Obras
+            </h2>
+            <Link 
+              to="/admin/AddWork" 
+              className="btn btn-outline-secondary"
+              style={buttonOutlineStyles}
+            >
               Nueva obra
             </Link>
           </div>
 
           {/* Filtros de estado con contadores */}
           <div className="d-flex flex-wrap gap-3 mb-3">
-            <span className="fw-medium">Todo (105)</span>
-            <span className="text-primary" style={{ cursor: 'pointer' }}>Publicados (90)</span>
-            <span className="text-muted" style={{ cursor: 'pointer' }}>Privadas (15)</span>
-            <span className="text-warning" style={{ cursor: 'pointer' }}>Pendientes (5)</span>
-            <span className="text-info" style={{ cursor: 'pointer' }}>Archivadas (10)</span>
-            <span className="text-danger" style={{ cursor: 'pointer' }}>Papelera (19)</span>
+            <span 
+              className="fw-medium"
+              style={{ color: isDark ? '#ffffff' : '#212529' }}
+            >
+              Todo (105)
+            </span>
+            <span 
+              style={{ 
+                cursor: 'pointer', 
+                color: linkStyles.color 
+              }}
+            >
+              Publicados (90)
+            </span>
+            <span 
+              style={{ 
+                cursor: 'pointer', 
+                color: isDark ? '#8a8a8a' : '#6c757d' 
+              }}
+            >
+              Privadas (15)
+            </span>
+            <span 
+              className="text-warning" 
+              style={{ cursor: 'pointer' }}
+            >
+              Pendientes (5)
+            </span>
+            <span 
+              className="text-info" 
+              style={{ cursor: 'pointer' }}
+            >
+              Archivadas (10)
+            </span>
+            <span 
+              className="text-danger" 
+              style={{ cursor: 'pointer' }}
+            >
+              Papelera (19)
+            </span>
           </div>
 
           {/* Acciones por lote */}
@@ -152,7 +250,7 @@ const Works = () => {
             <div className="d-flex align-items-center gap-2">
               <select 
                 className="form-select form-select-sm" 
-                style={{ width: 'auto' }}
+                style={{ ...selectStyles, width: 'auto' }}
                 value={accionesPorLote}
                 onChange={(e) => setAccionesPorLote(e.target.value)}
               >
@@ -161,39 +259,74 @@ const Works = () => {
                 <option value="archivar">Archivar</option>
                 <option value="publicar">Publicar</option>
               </select>
-              <button className="btn btn-outline-secondary btn-sm">Aplicar</button>
+              <button 
+                className="btn btn-outline-secondary btn-sm"
+                style={buttonOutlineStyles}
+              >
+                Aplicar
+              </button>
             </div>
           </div>
 
           {/* Filtros adicionales */}
           <div className="row g-2 mb-3">
             <div className="col-md-2">
-              <select className="form-select form-select-sm" value={filtroFecha} onChange={(e) => setFiltroFecha(e.target.value)}>
+              <select 
+                className="form-select form-select-sm" 
+                value={filtroFecha} 
+                onChange={(e) => setFiltroFecha(e.target.value)}
+                style={selectStyles}
+              >
                 <option>Todas las fechas</option>
               </select>
             </div>
             <div className="col-md-2">
-              <select className="form-select form-select-sm" value={filtroEstado} onChange={(e) => setFiltroEstado(e.target.value)}>
+              <select 
+                className="form-select form-select-sm" 
+                value={filtroEstado} 
+                onChange={(e) => setFiltroEstado(e.target.value)}
+                style={selectStyles}
+              >
                 <option>Todos los estados</option>
               </select>
             </div>
             <div className="col-md-2">
-              <select className="form-select form-select-sm" value={filtroCondiciones} onChange={(e) => setFiltroCondiciones(e.target.value)}>
+              <select 
+                className="form-select form-select-sm" 
+                value={filtroCondiciones} 
+                onChange={(e) => setFiltroCondiciones(e.target.value)}
+                style={selectStyles}
+              >
                 <option>Todas las condiciones</option>
               </select>
             </div>
             <div className="col-md-2">
-              <select className="form-select form-select-sm" value={filtroOrientaciones} onChange={(e) => setFiltroOrientaciones(e.target.value)}>
+              <select 
+                className="form-select form-select-sm" 
+                value={filtroOrientaciones} 
+                onChange={(e) => setFiltroOrientaciones(e.target.value)}
+                style={selectStyles}
+              >
                 <option>Todas las Orientaciones</option>
               </select>
             </div>
             <div className="col-md-2">
-              <select className="form-select form-select-sm" value={filtroFormatos} onChange={(e) => setFiltroFormatos(e.target.value)}>
+              <select 
+                className="form-select form-select-sm" 
+                value={filtroFormatos} 
+                onChange={(e) => setFiltroFormatos(e.target.value)}
+                style={selectStyles}
+              >
                 <option>Todos los formatos</option>
               </select>
             </div>
             <div className="col-md-2">
-              <select className="form-select form-select-sm" value={filtroPeriodicidad} onChange={(e) => setFiltroPeriodicidad(e.target.value)}>
+              <select 
+                className="form-select form-select-sm" 
+                value={filtroPeriodicidad} 
+                onChange={(e) => setFiltroPeriodicidad(e.target.value)}
+                style={selectStyles}
+              >
                 <option>Todas las Periodicidad</option>
               </select>
             </div>
@@ -201,23 +334,50 @@ const Works = () => {
 
           <div className="row g-2 mb-4">
             <div className="col-md-2">
-              <select className="form-select form-select-sm" value={filtroGeneros} onChange={(e) => setFiltroGeneros(e.target.value)}>
+              <select 
+                className="form-select form-select-sm" 
+                value={filtroGeneros} 
+                onChange={(e) => setFiltroGeneros(e.target.value)}
+                style={selectStyles}
+              >
                 <option>Todos los géneros</option>
               </select>
             </div>
             <div className="col-md-8"></div>
             <div className="col-md-2 d-flex gap-2">
-              <button className="btn btn-primary btn-sm">Filtrar</button>
-              <button className="btn btn-outline-secondary btn-sm">Buscar</button>
+              <button 
+                className="btn btn-primary btn-sm"
+                style={{
+                  background: 'linear-gradient(45deg, #0d6efd, #0b5ed7)',
+                  border: 'none'
+                }}
+              >
+                Filtrar
+              </button>
+              <button 
+                className="btn btn-outline-secondary btn-sm"
+                style={buttonOutlineStyles}
+              >
+                Buscar
+              </button>
             </div>
           </div>
 
           {/* Tabla */}
-          <div className="table-responsive">
-            <table className="table table-striped table-hover">
-              <thead className="table-light">
+          <div 
+            className="table-responsive rounded"
+            style={{
+              backgroundColor: isDark ? '#2a2a2a' : '#ffffff',
+              border: `1px solid ${isDark ? '#444444' : '#dee2e6'}`
+            }}
+          >
+            <table 
+              className="table table-hover mb-0"
+              style={tableStyles}
+            >
+              <thead style={theadStyles}>
                 <tr>
-                  <th style={{ width: '40px' }}>
+                  <th style={{ width: '40px', borderColor: isDark ? '#555555' : '#dee2e6' }}>
                     <input 
                       type="checkbox" 
                       className="form-check-input"
@@ -225,22 +385,46 @@ const Works = () => {
                       onChange={handleSelectAll}
                     />
                   </th>
-                  <th>Título <i className="bi bi-arrow-up-down small text-muted"></i></th>
-                  <th>Artista(s)</th>
-                  <th>Tipo</th>
-                  <th>Periodicidad</th>
-                  <th>Géneros</th>
-                  <th>Fecha <i className="bi bi-arrow-up-down small text-muted"></i></th>
-                  <th>Visitas <i className="bi bi-arrow-up-down small text-muted"></i></th>
-                  <th>Me gustas <i className="bi bi-arrow-up-down small text-muted"></i></th>
-                  <th>Favoritos <i className="bi bi-arrow-up-down small text-muted"></i></th>
-                  <th>Comentarios <i className="bi bi-arrow-up-down small text-muted"></i></th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>
+                    Título <i className="bi bi-arrow-up-down small text-muted"></i>
+                  </th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>Artista(s)</th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>Tipo</th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>Periodicidad</th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>Géneros</th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>
+                    Fecha <i className="bi bi-arrow-up-down small text-muted"></i>
+                  </th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>
+                    Visitas <i className="bi bi-arrow-up-down small text-muted"></i>
+                  </th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>
+                    Me gustas <i className="bi bi-arrow-up-down small text-muted"></i>
+                  </th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>
+                    Favoritos <i className="bi bi-arrow-up-down small text-muted"></i>
+                  </th>
+                  <th style={{ borderColor: isDark ? '#555555' : '#dee2e6' }}>
+                    Comentarios <i className="bi bi-arrow-up-down small text-muted"></i>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {currentItems.map((obra) => (
-                  <tr key={obra.id}>
-                    <td>
+                  <tr 
+                    key={obra.id}
+                    style={{
+                      backgroundColor: isDark ? '#2a2a2a' : '#ffffff',
+                      borderColor: isDark ? '#444444' : '#dee2e6'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = isDark ? '#3a3a3a' : '#f5f5f5';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = isDark ? '#2a2a2a' : '#ffffff';
+                    }}
+                  >
+                    <td style={{ borderColor: isDark ? '#444444' : '#dee2e6' }}>
                       <input 
                         type="checkbox" 
                         className="form-check-input"
@@ -248,30 +432,70 @@ const Works = () => {
                         onChange={() => handleSelectItem(obra.id)}
                       />
                     </td>
-                    <td>
+                    <td style={{ borderColor: isDark ? '#444444' : '#dee2e6' }}>
                       <div>
-                        <strong>{obra.titulo}</strong>
+                        <strong style={{ color: isDark ? '#ffffff' : '#212529' }}>
+                          {obra.titulo}
+                        </strong>
                         <br />
-                        <small className="text-muted">
-                          <span className="text-primary" style={{ cursor: 'pointer' }}>Editar</span>
-                          {' | '}
-                          <span className="text-primary" style={{ cursor: 'pointer' }}>Ver</span>
-                          {' | '}
-                          <span className="text-danger" style={{ cursor: 'pointer' }}>Papelera</span>
+                        <small>
+                          <span 
+                            style={{ 
+                              cursor: 'pointer',
+                              color: linkStyles.color 
+                            }}
+                          >
+                            Editar
+                          </span>
+                          <span style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}> | </span>
+                          <Link
+                            to={`/admin/ViewWork`}
+                            style={{ 
+                              cursor: 'pointer',
+                              color: linkStyles.color 
+                            }}
+                          >
+                            Ver
+                          </Link>
+                          <span style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}> | </span>
+                          <span 
+                            className="text-danger" 
+                            style={{ cursor: 'pointer' }}
+                          >
+                            Papelera
+                          </span>
                         </small>
                       </div>
                     </td>
-                    <td>{obra.artista}</td>
-                    <td>{obra.tipo}</td>
-                    <td>{obra.periodicidad}</td>
-                    <td>{obra.generos}</td>
-                    <td>
-                      <small>{obra.fecha}</small>
+                    <td style={{ color: isDark ? '#ffffff' : '#212529', borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      {obra.artista}
                     </td>
-                    <td>{obra.visitas}</td>
-                    <td>{obra.megustas}</td>
-                    <td>{obra.favoritos}</td>
-                    <td>{obra.comentarios}</td>
+                    <td style={{ color: isDark ? '#ffffff' : '#212529', borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      {obra.tipo}
+                    </td>
+                    <td style={{ color: isDark ? '#ffffff' : '#212529', borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      {obra.periodicidad}
+                    </td>
+                    <td style={{ color: isDark ? '#ffffff' : '#212529', borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      {obra.generos}
+                    </td>
+                    <td style={{ borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      <small style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}>
+                        {obra.fecha}
+                      </small>
+                    </td>
+                    <td style={{ color: isDark ? '#ffffff' : '#212529', borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      {obra.visitas}
+                    </td>
+                    <td style={{ color: isDark ? '#ffffff' : '#212529', borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      {obra.megustas}
+                    </td>
+                    <td style={{ color: isDark ? '#ffffff' : '#212529', borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      {obra.favoritos}
+                    </td>
+                    <td style={{ color: isDark ? '#ffffff' : '#212529', borderColor: isDark ? '#444444' : '#dee2e6' }}>
+                      {obra.comentarios}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -280,7 +504,9 @@ const Works = () => {
 
           {/* Paginación */}
           <div className="d-flex justify-content-between align-items-center mt-4">
-            <span className="text-muted">200 elementos</span>
+            <span style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}>
+              200 elementos
+            </span>
             <nav>
               <ul className="pagination pagination-sm mb-0">
                 <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
@@ -288,6 +514,11 @@ const Works = () => {
                     className="page-link" 
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
+                    style={{
+                      backgroundColor: isDark ? '#3a3a3a' : '#ffffff',
+                      borderColor: isDark ? '#555555' : '#dee2e6',
+                      color: isDark ? '#ffffff' : '#212529'
+                    }}
                   >
                     «
                   </button>
@@ -297,21 +528,47 @@ const Works = () => {
                     className="page-link" 
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
+                    style={{
+                      backgroundColor: isDark ? '#3a3a3a' : '#ffffff',
+                      borderColor: isDark ? '#555555' : '#dee2e6',
+                      color: isDark ? '#ffffff' : '#212529'
+                    }}
                   >
                     ‹
                   </button>
                 </li>
                 <li className="page-item active">
-                  <span className="page-link">1</span>
+                  <span 
+                    className="page-link"
+                    style={{
+                      backgroundColor: '#0d6efd',
+                      borderColor: '#0d6efd',
+                      color: '#ffffff'
+                    }}
+                  >
+                    1
+                  </span>
                 </li>
                 <li className="page-item">
-                  <span className="text-muted">de {totalPages}</span>
+                  <span 
+                    style={{ 
+                      color: isDark ? '#8a8a8a' : '#6c757d',
+                      padding: '0.375rem 0.75rem'
+                    }}
+                  >
+                    de {totalPages}
+                  </span>
                 </li>
                 <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
                   <button 
                     className="page-link" 
                     onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                     disabled={currentPage === totalPages}
+                    style={{
+                      backgroundColor: isDark ? '#3a3a3a' : '#ffffff',
+                      borderColor: isDark ? '#555555' : '#dee2e6',
+                      color: isDark ? '#ffffff' : '#212529'
+                    }}
                   >
                     ›
                   </button>

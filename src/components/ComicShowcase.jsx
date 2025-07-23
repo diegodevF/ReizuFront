@@ -56,26 +56,31 @@ const ComicShowcase = () => {
   return (
     <div className="d-flex justify-content-center my-3 px-2">
       <div 
-        className="row g-0 shadow mx-auto"
+        className="d-flex mx-auto"
         style={{ 
-          borderRadius: '8px', 
-          overflow: 'hidden',
-          width: '900px',
-          height: '400px',
-          maxWidth: '100%'
+          width: '960px', // ✅ Aumentado de 900px a 960px
+          height: '420px', // ✅ Aumentado de 400px a 420px
+          maxWidth: '100%',
+          gap: '12px' // ✅ Separación entre secciones
         }}
       >
-        {/* Panel izquierdo - Simplificado */}
+        {/* Panel izquierdo - Separado */}
         <div 
-          className="col-4 d-flex flex-column justify-content-center text-white position-relative"
-          style={{ background: '#333', height: '400px' }}
+          className="d-flex flex-column justify-content-center text-white position-relative"
+          style={{ 
+            background: '#333', 
+            height: '420px', // ✅ Aumentado
+            width: '33.33%', // ✅ Ancho proporcional
+            borderRadius: '8px', // ✅ Bordes redondeados individuales
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)' // ✅ Sombra individual
+          }}
         >
           <div className="text-center p-3">
-            <h4 className="fw-bold mb-2" style={{ fontSize: '1.1rem', lineHeight: '1.2' }}>
+            <h4 className="fw-bold mb-2" style={{ fontSize: '1.15rem', lineHeight: '1.2' }}> {/* ✅ Texto ligeramente más grande */}
               DISFRUTA DE NUESTRAS<br />
               <span style={{ color: '#e74c3c' }}>OBRAS EXCLUSIVAS</span>
             </h4>
-            <p className="mb-0" style={{ fontSize: '0.85rem', opacity: 0.8 }}>
+            <p className="mb-0" style={{ fontSize: '0.9rem', opacity: 0.8 }}> {/* ✅ Texto ligeramente más grande */}
               Únicamente aquí
             </p>
           </div>
@@ -86,19 +91,27 @@ const ComicShowcase = () => {
               src={MascotaDecorativa || MascotaImg} 
               alt="Mascota" 
               style={{
-                width: '70px',
-                height: '100px',
+                width: '75px', // ✅ Ligeramente más grande
+                height: '105px', // ✅ Ligeramente más grande
                 objectFit: 'contain'
               }}
             />
           </div>
         </div>
         
-        {/* Panel central - Imagen */}
-        <div className="col-4 position-relative p-0">
+        {/* Panel central - Imagen separada */}
+        <div 
+          className="position-relative p-0"
+          style={{ 
+            width: '33.33%', // ✅ Ancho proporcional
+            borderRadius: '8px', // ✅ Bordes redondeados individuales
+            overflow: 'hidden', // ✅ Para que la imagen respete el border radius
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)' // ✅ Sombra individual
+          }}
+        >
           <div 
             className={`${fadeClass} w-100 h-100`} 
-            style={{ transition: 'opacity 0.3s ease', height: '400px' }}
+            style={{ transition: 'opacity 0.3s ease', height: '420px' }} // ✅ Aumentado
           >
             <img 
               src={comics[currentComicIndex].image}
@@ -109,13 +122,19 @@ const ComicShowcase = () => {
           </div>
         </div>
         
-        {/* Panel derecho - Simplificado */}
+        {/* Panel derecho - Separado */}
         <div 
-          className="col-4 d-flex flex-column justify-content-between text-white"
-          style={{ background: '#e74c3c', height: '400px' }}
+          className="d-flex flex-column justify-content-between text-white"
+          style={{ 
+            background: '#e74c3c', 
+            height: '420px', // ✅ Aumentado
+            width: '33.33%', // ✅ Ancho proporcional
+            borderRadius: '8px', // ✅ Bordes redondeados individuales
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)' // ✅ Sombra individual
+          }}
         >
           <div className="p-3 text-center flex-grow-1 d-flex flex-column justify-content-center">
-            <h5 className="fw-bold mb-3" style={{ fontSize: '1rem', letterSpacing: '0.5px' }}>
+            <h5 className="fw-bold mb-3" style={{ fontSize: '1.05rem', letterSpacing: '0.5px' }}> {/* ✅ Ligeramente más grande */}
               {comics[currentComicIndex].genre}
             </h5>
             
@@ -123,7 +142,7 @@ const ComicShowcase = () => {
               <p 
                 className="mb-0" 
                 style={{ 
-                  fontSize: '0.8rem',
+                  fontSize: '0.85rem', // ✅ Ligeramente más grande
                   lineHeight: '1.3',
                   opacity: 0.9
                 }}
@@ -141,13 +160,13 @@ const ComicShowcase = () => {
                 alt={comics[currentComicIndex].author}
                 className="rounded-circle border border-2 border-white"
                 style={{ 
-                  width: '60px', 
-                  height: '60px', 
+                  width: '65px', // ✅ Ligeramente más grande
+                  height: '65px', // ✅ Ligeramente más grande
                   objectFit: 'cover'
                 }}
               />
             </div>
-            <p className="fw-bold mb-0" style={{ fontSize: '0.9rem' }}>
+            <p className="fw-bold mb-0" style={{ fontSize: '0.95rem' }}> {/* ✅ Ligeramente más grande */}
               {comics[currentComicIndex].author}
             </p>
           </div>

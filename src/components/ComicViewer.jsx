@@ -17,7 +17,7 @@ const getTheme = () => {
   return "light";
 };
 
-const ComicViewer = ({ title = "Mi Comic" }) => {
+const ComicViewer = ({ title = "RPGS' TALES", Ep = "EP 22" }) => {
   // Array de páginas del comic
   const comicPages = [
     { src: page1, alt: "Página 1" },
@@ -27,11 +27,12 @@ const ComicViewer = ({ title = "Mi Comic" }) => {
     { src: page5, alt: "Página 5" }
   ];
 
-  const [viewMode, setViewMode] = useState('cascade');
+  const [viewMode, setViewMode] = useState('paginated');
   const [currentPage, setCurrentPage] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [theme, setTheme] = useState(getTheme()); // Estado del tema interno
+  const [theme, setTheme] = useState(getTheme());
+  const [isLiked, setIsLiked] = useState(false);
 
   const cascadeRef = useRef(null);
 
@@ -47,7 +48,6 @@ const ComicViewer = ({ title = "Mi Comic" }) => {
     return () => observer.disconnect();
   }, []);
 
-  // Variable para determinar si está en modo oscuro
   const isDarkMode = theme === "dark";
 
   // Calcular progreso
@@ -110,139 +110,247 @@ const ComicViewer = ({ title = "Mi Comic" }) => {
   return (
     <div className={`comic-viewer ${isFullscreen ? 'fullscreen' : ''} ${isDarkMode ? 'dark-theme' : 'light-theme'}`} 
          style={{
-           background: isDarkMode ? '' : '#ffffff',
-           color: isDarkMode ? '#ffffff' : '#000000',
+           background: isDarkMode ? '#1a1a1a' : '#000000',
+           color: isDarkMode ? '#ffffff' : '#ffffff',
            minHeight: '100vh',
+           marginBottom: '60px', // ✅ Espaciado agregado aquí
            transition: 'background-color 0.3s ease, color 0.3s ease'
          }}>
       
-      {/* Controles del Visualizador */}
-      <div className="viewer-controls" style={{
-        background: isDarkMode ? 'rgba(43,48,53)' : '#f8f9fa',
-        padding: '1rem',
-        borderBottom: `1px solid ${isDarkMode ? '#404040' : '#dee2e6'}`,
-        transition: 'background-color 0.3s ease, border-color 0.3s ease'
+      {/* Header superior unificado para ambas vistas */}
+      <div style={{
+        background: isDarkMode ? 'rgba(43,48,53,0.9)' : 'rgba(0,0,0,0.8)',
+        padding: '12px 24px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
       }}>
-        <div className="container-fluid">
-          <div className="row align-items-center">
-            <div className="col-md-3">
-              <h3 className="comic-title" style={{
-                color: isDarkMode ? '#ffffff' : '#333333',
-                margin: 0,
-                fontSize: '1.5rem',
-                fontWeight: '600'
-              }}>
-                {title}
-              </h3>
-            </div>
-            
-            <div className="col-md-4 text-center">
-              <div className="progress-info">
-                <small className="progress-text d-block mb-2" style={{
-                  color: isDarkMode ? '#cccccc' : '#666666'
-                }}>
-                  {viewMode === 'paginated' 
-                    ? `Página ${currentPage + 1} de ${comicPages.length}` 
-                    : 'Progreso de lectura'
-                  }
-                </small>
-                <div className="progress" style={{ 
-                  height: '8px',
-                  background: isDarkMode ? '#404040' : '#e9ecef',
-                  borderRadius: '4px'
-                }}>
-                  <div 
-                    className="progress-bar" 
-                    role="progressbar" 
-                    style={{ 
-                      width: `${progress}%`,
-                      background: 'linear-gradient(90deg, #d32f2f, #e53935)',
-                      borderRadius: '4px',
-                      transition: 'width 0.3s ease'
-                    }}
-                    aria-valuenow={progress} 
-                    aria-valuemin="0" 
-                    aria-valuemax="100"
-                  >
-                  </div>
-                </div>
-                <small style={{ color: isDarkMode ? '#cccccc' : '#666666' }}>
-                  {Math.round(progress)}%
-                </small>
+        {/* Título a la izquierda */}
+        <h3 style={{
+          color: '#ffffff',
+          margin: 0,
+          fontSize: '1.2rem',
+          fontWeight: '700'
+        }}>
+          {title} - {Ep}
+        </h3>
+
+        {/* Controles de navegación en el centro - Solo para vista paginada */}
+        {viewMode === 'paginated' && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px'
+          }}>
+            <button 
+              type="button"
+              onClick={prevPage}
+              disabled={currentPage === 0}
+              style={{
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.3)',
+                color: '#ffffff',
+                borderRadius: '4px',
+                padding: '8px 12px',
+                cursor: currentPage === 0 ? 'not-allowed' : 'pointer',
+                opacity: currentPage === 0 ? 0.5 : 1
+              }}
+            >
+              <i className="bi bi-chevron-left" style={{ fontSize: '1.2rem' }}></i>
+            </button>
+
+            <div style={{
+              color: '#ffffff',
+              fontSize: '0.9rem',
+              fontWeight: '500',
+              textAlign: 'center'
+            }}>
+              <div>Página {currentPage + 1} de {comicPages.length}</div>
+              <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>
+                {Math.round(progress)}%
               </div>
             </div>
-            
-            <div className="col-md-5 text-end">
-              <div className="btn-group me-3" role="group">
-                <button 
-                  type="button"
-                  className={`btn btn-sm ${viewMode === 'cascade' ? 'btn-primary' : 'btn-outline-primary'}`}
-                  onClick={() => setViewMode('cascade')}
-                  style={{
-                    background: viewMode === 'cascade' ? '#d32f2f' : 'transparent',
-                    borderColor: '#d32f2f',
-                    color: viewMode === 'cascade' ? '#fff' : (isDarkMode ? '#d32f2f' : '#d32f2f')
-                  }}
-                >
-                  <i className="bi bi-file-text me-1"></i>
-                  Cascada
-                </button>
-                <button 
-                  type="button"
-                  className={`btn btn-sm ${viewMode === 'paginated' ? 'btn-primary' : 'btn-outline-primary'}`}
-                  onClick={() => setViewMode('paginated')}
-                  style={{
-                    background: viewMode === 'paginated' ? '#d32f2f' : 'transparent',
-                    borderColor: '#d32f2f',
-                    color: viewMode === 'paginated' ? '#fff' : (isDarkMode ? '#d32f2f' : '#d32f2f')
-                  }}
-                >
-                  <i className="bi bi-book me-1"></i>
-                  Páginas
-                </button>
-              </div>
-              
-              <div className="btn-group" role="group">
-                <button 
-                  type="button"
-                  className="btn btn-outline-secondary btn-sm"
-                  onClick={() => setIsFullscreen(!isFullscreen)}
-                  title={isFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa'}
-                  style={{
-                    borderColor: isDarkMode ? '#666666' : '#6c757d',
-                    color: isDarkMode ? '#ffffff' : '#6c757d',
-                    background: 'transparent'
-                  }}
-                >
-                  <i className={`bi ${isFullscreen ? 'bi-fullscreen-exit' : 'bi-arrows-fullscreen'}`}></i>
-                </button>
-              </div>
+
+            <button 
+              type="button"
+              onClick={nextPage}
+              disabled={currentPage === comicPages.length - 1}
+              style={{
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.3)',
+                color: '#ffffff',
+                borderRadius: '4px',
+                padding: '8px 12px',
+                cursor: currentPage === comicPages.length - 1 ? 'not-allowed' : 'pointer',
+                opacity: currentPage === comicPages.length - 1 ? 0.5 : 1
+              }}
+            >
+              <i className="bi bi-chevron-right" style={{ fontSize: '1.2rem' }}></i>
+            </button>
+          </div>
+        )}
+
+        {/* Info de progreso para vista cascada - centrado */}
+        {viewMode === 'cascade' && (
+          <div style={{
+            color: '#ffffff',
+            fontSize: '0.9rem',
+            fontWeight: '500',
+            textAlign: 'center'
+          }}>
+            <div>Lectura en cascada</div>
+            <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>
+              {Math.round(progress)}% completado
             </div>
           </div>
+        )}
+
+        {/* Botones de control a la derecha */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* Botón de corazón separado */}
+          <button 
+            onClick={() => setIsLiked(!isLiked)}
+            style={{
+              background: isLiked ? '#d32f2f' : 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              color: '#ffffff',
+              borderRadius: '4px',
+              padding: '6px 8px',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+          >
+            <i className={`bi ${isLiked ? 'bi-heart-fill' : 'bi-heart'}`} style={{ fontSize: '1rem' }}></i>
+          </button>
+
+          {/* Botón de Apoyar separado */}
+          <button style={{
+            background: '#d32f2f',
+            color: '#ffffff',
+            border: 'none',
+            borderRadius: '4px',
+            padding: '6px 12px',
+            fontSize: '0.8rem',
+            fontWeight: '600',
+            cursor: 'pointer'
+          }}>
+            Apoyar
+          </button>
+
+          <div className="btn-group" role="group">
+            <button 
+              type="button"
+              onClick={() => setViewMode('cascade')}
+              style={{
+                background: viewMode === 'cascade' ? '#d32f2f' : 'rgba(255,255,255,0.1)',
+                borderColor: viewMode === 'cascade' ? '#d32f2f' : 'rgba(255,255,255,0.3)',
+                color: '#ffffff',
+                fontSize: '0.8rem',
+                padding: '6px 10px'
+              }}
+            >
+              Cascada
+            </button>
+            <button 
+              type="button"
+              onClick={() => setViewMode('paginated')}
+              style={{
+                background: viewMode === 'paginated' ? '#d32f2f' : 'rgba(255,255,255,0.1)',
+                borderColor: viewMode === 'paginated' ? '#d32f2f' : 'rgba(255,255,255,0.3)',
+                color: '#ffffff',
+                fontSize: '0.8rem',
+                padding: '6px 10px'
+              }}
+            >
+              Páginas
+            </button>
+          </div>
+
+          <button 
+            type="button"
+            onClick={() => setIsFullscreen(!isFullscreen)}
+            style={{
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              color: '#ffffff',
+              borderRadius: '4px',
+              padding: '6px 8px',
+              cursor: 'pointer'
+            }}
+          >
+            <i className={`bi ${isFullscreen ? 'bi-fullscreen-exit' : 'bi-arrows-fullscreen'}`}></i>
+          </button>
         </div>
       </div>
 
-      {/* Contenedor del Comic */}
-      <div className={`comic-container ${viewMode}`} style={{
-        background: isDarkMode ? '' : '#ffffff',
-        minHeight: 'calc(100vh - 120px)',
-        padding: '1rem'
+      {/* Barra de progreso de ancho completo para ambas vistas */}
+      <div style={{
+        width: '100%',
+        height: '3px',
+        background: 'rgba(255,255,255,0.2)'
       }}>
-        {viewMode === 'cascade' ? (
-          // Vista en Cascada
+        <div style={{
+          width: `${progress}%`,
+          height: '100%',
+          background: 'linear-gradient(90deg, #d32f2f, #e53935)',
+          transition: 'width 0.3s ease'
+        }}></div>
+      </div>
+
+      {viewMode === 'paginated' ? (
+        // Vista Paginada
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 'calc(100vh - 60px)',
+          padding: '20px',
+          position: 'relative'
+        }}>
+          <img 
+            src={comicPages[currentPage]?.src} 
+            alt={comicPages[currentPage]?.alt}
+            style={{
+              maxHeight: '100%',
+              maxWidth: '100%',
+              objectFit: 'contain',
+              borderRadius: '8px',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.6)'
+            }}
+          />
+
+          {/* Contador flotante en la esquina */}
+          <div style={{
+            position: 'absolute',
+            top: '20px',
+            right: '20px',
+            background: 'rgba(0,0,0,0.7)',
+            color: '#ffffff',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            fontSize: '0.8rem',
+            fontWeight: '600'
+          }}>
+            {currentPage + 1} / {comicPages.length}
+          </div>
+        </div>
+      ) : (
+        // Vista Cascada con el mismo diseño de header
+        <div style={{
+          height: 'calc(100vh - 60px)',
+          padding: '0'
+        }}>
           <div 
             ref={cascadeRef}
-            className="cascade-view"
             style={{
-              maxHeight: 'calc(100vh - 200px)',
+              height: '100%',
               overflowY: 'auto',
-              padding: '1rem',
-              background: isDarkMode ? '#222222' : '#f8f9fa',
-              borderRadius: '8px'
+              padding: '20px',
+              background: '#000000'
             }}
           >
             {comicPages.map((page, index) => (
-              <div key={index} className="comic-page cascade-page" style={{
+              <div key={index} style={{
                 marginBottom: '2rem',
                 textAlign: 'center',
                 position: 'relative'
@@ -250,23 +358,20 @@ const ComicViewer = ({ title = "Mi Comic" }) => {
                 <img 
                   src={page.src} 
                   alt={page.alt}
-                  className="img-fluid page-image"
                   loading="lazy"
                   style={{
                     maxWidth: '100%',
                     height: 'auto',
                     borderRadius: '8px',
-                    boxShadow: isDarkMode 
-                      ? '0 4px 20px rgba(0,0,0,0.5)' 
-                      : '0 4px 20px rgba(0,0,0,0.1)'
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
                   }}
                 />
-                <div className="page-number" style={{
+                <div style={{
                   position: 'absolute',
                   top: '10px',
                   right: '10px',
-                  background: isDarkMode ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.9)',
-                  color: isDarkMode ? '#ffffff' : '#333333',
+                  background: 'rgba(0,0,0,0.8)',
+                  color: '#ffffff',
                   padding: '4px 8px',
                   borderRadius: '4px',
                   fontSize: '0.8rem',
@@ -276,121 +381,6 @@ const ComicViewer = ({ title = "Mi Comic" }) => {
                 </div>
               </div>
             ))}
-          </div>
-        ) : (
-          // Vista Paginada
-          <div className="paginated-view" style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%'
-          }}>
-            <div className="row align-items-center w-100" style={{ height: 'calc(100vh - 250px)' }}>
-              <div className="col-1 text-center">
-                <button 
-                  type="button"
-                  className="btn btn-outline-secondary nav-button"
-                  onClick={prevPage}
-                  disabled={currentPage === 0}
-                  style={{
-                    borderColor: isDarkMode ? '#666666' : '#6c757d',
-                    color: isDarkMode ? '#ffffff' : '#6c757d',
-                    background: 'transparent',
-                    fontSize: '1.5rem',
-                    padding: '0.5rem 0.75rem'
-                  }}
-                >
-                  ‹
-                </button>
-              </div>
-              
-              <div className="col-10 text-center">
-                <div className="page-container">
-                  <img 
-                    src={comicPages[currentPage]?.src} 
-                    alt={comicPages[currentPage]?.alt}
-                    className="current-page img-fluid"
-                    style={{
-                      maxHeight: 'calc(100vh - 300px)',
-                      maxWidth: '100%',
-                      borderRadius: '8px',
-                      boxShadow: isDarkMode 
-                        ? '0 8px 32px rgba(0,0,0,0.6)' 
-                        : '0 8px 32px rgba(0,0,0,0.15)'
-                    }}
-                  />
-                </div>
-              </div>
-              
-              <div className="col-1 text-center">
-                <button 
-                  type="button"
-                  className="btn btn-outline-secondary nav-button"
-                  onClick={nextPage}
-                  disabled={currentPage === comicPages.length - 1}
-                  style={{
-                    borderColor: isDarkMode ? '#666666' : '#6c757d',
-                    color: isDarkMode ? '#ffffff' : '#6c757d',
-                    background: 'transparent',
-                    fontSize: '1.5rem',
-                    padding: '0.5rem 0.75rem'
-                  }}
-                >
-                  ›
-                </button>
-              </div>
-            </div>
-            
-            {/* Navegación por puntos */}
-            <div className="page-navigation mt-3">
-              <div className="page-dots d-flex justify-content-center">
-                {comicPages.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    className={`page-dot ${index === currentPage ? 'active' : ''}`}
-                    onClick={() => setCurrentPage(index)}
-                    title={`Ir a página ${index + 1}`}
-                    style={{
-                      width: '12px',
-                      height: '12px',
-                      borderRadius: '50%',
-                      border: 'none',
-                      margin: '0 4px',
-                      background: index === currentPage 
-                        ? '#d32f2f' 
-                        : (isDarkMode ? '#666666' : '#cccccc'),
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease'
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Contador flotante */}
-      {viewMode === 'paginated' && (
-        <div className="floating-controls" style={{
-          position: '',
-          bottom: '20px',
-          right: '20px',
-          background: isDarkMode ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.9)',
-          color: isDarkMode ? '#ffffff' : '#333333',
-          padding: '8px 16px',
-          borderRadius: '20px',
-          fontSize: '0.9rem',
-          fontWeight: '600',
-          boxShadow: isDarkMode 
-            ? '0 4px 20px rgba(0,0,0,0.6)' 
-            : '0 4px 20px rgba(0,0,0,0.15)',
-          backdropFilter: 'blur(10px)'
-        }}>
-          <div className="page-counter">
-            {currentPage + 1} / {comicPages.length}
           </div>
         </div>
       )}

@@ -6,6 +6,8 @@
   color: rgb(216, 5, 5);
 }
 
+
+
 [class *= 'carousel-img-mask'] {
   /* Degradado vertical: visible arriba, se desvanece abajo */
  mask-image: linear-gradient(

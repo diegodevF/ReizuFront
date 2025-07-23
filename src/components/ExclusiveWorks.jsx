@@ -1,225 +1,185 @@
-import React, { useState, useEffect } from 'react';
-import Info from '../json/infoComics.json';
-import Img from '../assets/Portadas/MD1 - dani kube (1).png';
-import BannerImg from '../assets/Portadas/1000105792.png';
+import React, { useState, useEffect } from "react";
+import Info from "../json/infoComics.json";
+import Img from "../assets/Portadas/MD1 - dani kube (1).png";
+import BannerImg from "../assets/Portadas/1000105792.png";
 
-// Datos de ejemplo (conservando el tamaño original)
-const obras = Info;
+const obras         = Info;
+const ITEMS_POR_PAGINA = 6;               // 6 capítulos por página
 
-const ITEMS_POR_PAGINA = 6; // ✅ Vuelve al tamaño original
+/* ---------- helpers ---------- */
+const getTheme = () =>
+  typeof document !== "undefined"
+    ? document.documentElement.getAttribute("data-bs-theme") || "light"
+    : "light";
 
-const getTheme = () => {
-  if (typeof document !== "undefined") {
-    return document.documentElement.getAttribute("data-bs-theme") || "light";
-  }
-  return "light";
-};
-
+/* ---------- componente ---------- */
 const ExclusiveWorks = () => {
   const [paginaActual, setPaginaActual] = useState(1);
-  const [theme, setTheme] = useState(getTheme());
+  const [theme, setTheme]               = useState(getTheme());
+  const isDark                          = theme === "dark";
 
-  const totalPaginas = Math.ceil(obras.length / ITEMS_POR_PAGINA);
-
-  // Detectar cambios en el tema de Bootstrap
+  /* detectar cambio de tema */
   useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setTheme(getTheme());
+    const mo = new MutationObserver(() => setTheme(getTheme()));
+    mo.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-bs-theme"],
     });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] });
-    return () => observer.disconnect();
+    return () => mo.disconnect();
   }, []);
 
-  // Obtener obras para la página actual - pero solo mostrar 4 (2 los ocupa el banner)
-  const indiceInicial = (paginaActual - 1) * ITEMS_POR_PAGINA;
-  const obrasPaginaActual = obras.slice(indiceInicial, indiceInicial + 4); // Solo 4 comics visibles
+  /* paginación */
+  const totalPaginas     = Math.ceil(obras.length / ITEMS_POR_PAGINA);
+  const indiceInicial    = (paginaActual - 1) * ITEMS_POR_PAGINA;
+  const obrasPagina      = obras.slice(indiceInicial, indiceInicial + ITEMS_POR_PAGINA);
 
-  // Estilos adaptativos según el tema
-  const isDark = theme === "dark";
+  /* estilos reutilizables */
+  const cardClasses   = `${isDark ? "bg-dark border-secondary" : "bg-white border-light shadow"}`;
+  const borderColor   = isDark ? "#333" : "#eee";
+  const txtMuted      = isDark ? "#fff" : "#6c757d";
 
-  const imgStyleBig = {
-    width: '100%',
-    maxWidth: 240,
-    aspectRatio: '3/4',
-    borderRadius: 10,
-    objectFit: 'cover',
-    boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.4)' : '0 2px 8px rgba(0,0,0,0.15)',
-    border: isDark ? '2px solid #222' : '2px solid #fff',
-    background: isDark ? '#232323' : '#eee',
+  const imgStyleSmall = {
+    width: "100%",
+    maxWidth: 150,
+    aspectRatio: "3/4",
+    borderRadius: 8,
+    objectFit: "cover",
+    boxShadow: isDark
+      ? "0 2px 8px rgba(0,0,0,0.4)"
+      : "0 2px 8px rgba(0,0,0,0.15)",
+    border: isDark ? "2px solid #222" : "2px solid #fff",
+    background: isDark ? "#232323" : "#eee",
+    cursor: "pointer",
+    transition: "transform .3s ease",
   };
 
-  // ✅ Banner que ocupa exactamente el espacio de 2 comics
   const bannerStyle = {
-    width: '100%',
-    height: '100%',
-    borderRadius: 10,
-    objectFit: 'cover',
-    objectPosition: 'center',
-    boxShadow: isDark ? '0 4px 12px rgba(0,0,0,0.4)' : '0 4px 12px rgba(0,0,0,0.15)',
-    border: isDark ? '2px solid #222' : '2px solid #fff',
-    background: isDark ? '#232323' : '#eee',
-    cursor: 'pointer',
-    transition: 'transform 0.3s ease',
-    display: 'block',
+    width: "100%",
+    maxWidth: 370,
+    borderRadius: 12,
+    objectFit: "cover",
+    objectPosition: "center",
+    boxShadow: isDark
+      ? "0 4px 12px rgba(0,0,0,0.4)"
+      : "0 4px 12px rgba(0,0,0,0.15)",
+    border: isDark ? "2px solid #222" : "2px solid #fff",
+    background: isDark ? "#232323" : "#eee",
+    minHeight: 400,
+    cursor: "pointer",
+    transition: "transform .3s ease",
   };
-
-  // ✅ CSS Grid para layout perfecto
-  const gridContainerStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)', // 3 columnas iguales
-    gridTemplateRows: 'repeat(2, 1fr)',    // 2 filas iguales
-    gap: '12px',
-    width: '100%',
-    minHeight: '500px',
-  };
-
-  // ✅ Banner ocupa 2 filas (span 2)
-  const bannerContainerStyle = {
-    gridColumn: '1',      // Primera columna
-    gridRow: '1 / 3',     // Desde fila 1 hasta fila 3 (ocupa 2 filas)
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
-
-  const genreStyle = {
-    color: isDark ? '#f8d7da' : '#333',
-    fontWeight: 600,
-    fontSize: '1rem',
-    letterSpacing: 0.5,
-    marginTop: 8,
-  };
-
-  const cardBg = isDark ? "bg-dark" : "bg-white";
-  const cardBorder = isDark ? "border-secondary" : "border-light";
-  const cardShadow = isDark ? "" : "shadow";
 
   return (
     <>
-      <h1 className={`fw-bold text-danger d-flex justify-content-center pt-5 fs-1`}>
-        Disfruta de las obras exclusivas!
+      {/* titulares */}
+      <h1 className="fw-bold text-danger text-center pt-5 fs-1">
+        ¡Disfruta de las obras exclusivas!
       </h1>
-      <h3 className={`fw-bold d-flex justify-content-center ${isDark ? "text-light" : ""}`}>
-        Que solo lo puedes encontrar en la plataforma
+      <h3 className={`fw-bold text-center ${isDark ? "text-light" : ""}`}>
+        Que solo puedes encontrar en la plataforma
       </h3>
+
+      {/* --------- layout principal --------- */}
       <div
-        className={`py-4 px-3 ${cardBg} ${cardBorder} ${cardShadow}`}
-        style={{
-          borderRadius: 16,
-          maxWidth: 1050,
-          margin: '40px auto',
-          border: isDark ? '1.5px solid #333' : '1.5px solid #eee',
-        }}
+        className="d-flex flex-wrap gap-4 justify-content-center py-4 px-3"
+        style={{ maxWidth: 1250, margin: "40px auto" }}
       >
-        {/* ✅ CSS Grid Layout - Banner + 4 Comics */}
-        <div style={gridContainerStyle}>
-          {/* Banner - Ocupa exactamente 2 filas */}
-          <div style={bannerContainerStyle}>
-            <img 
-              src={BannerImg} 
-              alt="Banner Exclusivo" 
-              style={bannerStyle}
-              onMouseOver={(e) => e.target.style.transform = 'scale(1.02)'}
-              onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
-            />
+        {/* banner a la izquierda (fuera del card) */}
+        <img
+          src={BannerImg}
+          alt="Banner exclusivo"
+          style={bannerStyle}
+          onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.02)")}
+          onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+        />
+
+        {/* cuadro con grid de 6 capítulos a la derecha */}
+        <div
+          className={`${cardClasses} p-4`}
+          style={{
+            borderRadius: 16,
+            border: `1.5px solid ${borderColor}`,
+            width: "100%",
+            maxWidth: 760,
+          }}
+        >
+          {/* grid de 6 */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateRows: "repeat(2, 1fr)",
+              gap: 12,
+            }}
+          >
+            {obrasPagina.map((obra, i) => (
+              <div
+                key={i}
+                className="d-flex flex-column align-items-center"
+              >
+                <img
+                  src={Img}
+                  alt={obra.titulo}
+                  style={imgStyleSmall}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.transform = "scale(1.05)")
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.transform = "scale(1)")
+                  }
+                />
+                <span
+                  className="fw-semibold mt-2"
+                  style={{ fontSize: ".85rem", color: txtMuted }}
+                >
+                  {obra.genero}
+                </span>
+                <span
+                  style={{ fontSize: ".8rem", color: txtMuted, textAlign: "center" }}
+                >
+                  {obra.titulo}
+                </span>
+              </div>
+            ))}
+
+            {/* relleno para mantener 6 celdas */}
+            {Array.from({ length: 6 - obrasPagina.length }).map((_, i) => (
+              <div key={`empty-${i}`} />
+            ))}
           </div>
 
-          {/* Comic 1 - Columna 2, Fila 1 */}
-          {obrasPaginaActual[0] && (
-            <div style={{ 
-              gridColumn: '2', 
-              gridRow: '1',
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center' 
-            }}>
-              <img src={Img} alt={obrasPaginaActual[0].titulo} style={imgStyleBig} />
-              <div style={genreStyle}>{obrasPaginaActual[0].genero}</div>
-              <div style={{ color: isDark ? '#ddd' : '#666', fontSize: '0.9rem' }}>
-                {obrasPaginaActual[0].titulo}
-              </div>
-            </div>
-          )}
-
-          {/* Comic 2 - Columna 3, Fila 1 */}
-          {obrasPaginaActual[1] && (
-            <div style={{ 
-              gridColumn: '3', 
-              gridRow: '1',
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center' 
-            }}>
-              <img src={Img} alt={obrasPaginaActual[1].titulo} style={imgStyleBig} />
-              <div style={genreStyle}>{obrasPaginaActual[1].genero}</div>
-              <div style={{ color: isDark ? '#ddd' : '#666', fontSize: '0.9rem' }}>
-                {obrasPaginaActual[1].titulo}
-              </div>
-            </div>
-          )}
-
-          {/* Comic 3 - Columna 2, Fila 2 */}
-          {obrasPaginaActual[2] && (
-            <div style={{ 
-              gridColumn: '2', 
-              gridRow: '2',
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center' 
-            }}>
-              <img src={Img} alt={obrasPaginaActual[2].titulo} style={imgStyleBig} />
-              <div style={genreStyle}>{obrasPaginaActual[2].genero}</div>
-              <div style={{ color: isDark ? '#ddd' : '#666', fontSize: '0.9rem' }}>
-                {obrasPaginaActual[2].titulo}
-              </div>
-            </div>
-          )}
-
-          {/* Comic 4 - Columna 3, Fila 2 */}
-          {obrasPaginaActual[3] && (
-            <div style={{ 
-              gridColumn: '3', 
-              gridRow: '2',
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center' 
-            }}>
-              <img src={Img} alt={obrasPaginaActual[3].titulo} style={imgStyleBig} />
-              <div style={genreStyle}>{obrasPaginaActual[3].genero}</div>
-              <div style={{ color: isDark ? '#ddd' : '#666', fontSize: '0.9rem' }}>
-                {obrasPaginaActual[3].titulo}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Paginación */}
-        <div className="d-flex justify-content-center align-items-center mt-4 gap-2">
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => setPaginaActual(prev => Math.max(prev - 1, 1))}
-            disabled={paginaActual === 1}
-          >
-            ANT
-          </button>
-
-          {[...Array(totalPaginas)].map((_, index) => (
+          {/* paginación */}
+          <div className="d-flex justify-content-center align-items-center mt-4 gap-2">
             <button
-              key={index + 1}
-              className={`btn ${paginaActual === index + 1 ? 'btn-danger' : 'btn-outline-secondary'}`}
-              onClick={() => setPaginaActual(index + 1)}
+              className="btn btn-outline-secondary"
+              onClick={() => setPaginaActual((p) => Math.max(p - 1, 1))}
+              disabled={paginaActual === 1}
             >
-              {index + 1}
+              ANT
             </button>
-          ))}
 
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => setPaginaActual(prev => Math.min(prev + 1, totalPaginas))}
-            disabled={paginaActual === totalPaginas}
-          >
-            SIG
-          </button>
+            {Array.from({ length: totalPaginas }).map((_, idx) => (
+              <button
+                key={idx + 1}
+                className={`btn ${
+                  paginaActual === idx + 1 ? "btn-danger" : "btn-outline-secondary"
+                }`}
+                onClick={() => setPaginaActual(idx + 1)}
+              >
+                {idx + 1}
+              </button>
+            ))}
+
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() =>
+                setPaginaActual((p) => Math.min(p + 1, totalPaginas))
+              }
+              disabled={paginaActual === totalPaginas}
+            >
+              SIG
+            </button>
+          </div>
         </div>
       </div>
     </>

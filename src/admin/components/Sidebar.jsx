@@ -3,24 +3,63 @@ import { Link } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Perro from "../../assets/authors/perro.jpeg";
 
+// Definición de roles actualizada
+const USER_ROLES = {
+  ADMIN: 'admin',
+  AUTHOR: 'author',
+  ASSISTANT: 'assistant' // Nuevo rol
+};
+
 const sidebarItems = [
   {
     id: 0,
     title: "Panel de Control",
     icon: "bi-house",
     href: "/Admin",
+    allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT] // Todos
   },
   {
     id: 1,
-    title: "Estadísticas",
+    title: "Visuales",
     icon: "bi-bar-chart",
+    allowedRoles: [USER_ROLES.ADMIN], // Solo admin
     subpages: [
-      { title: "Banners", href: "", isSubsection: true },
-      { title: "Todos los banners", href: "/Admin/Banners", isSubitem: true },
-      { title: "Nuevo banner", href: "/Admin/AddBanner", isSubitem: true },
-      { title: "Popups", href: "#", isSubsection: true },
-      { title: "Todos los popups", href: "/Admin/Popups", isSubitem: true },
-      { title: "Nuevo popup", href: "/Admin/AddPopup", isSubitem: true }
+      { 
+        title: "Banners", 
+        href: "", 
+        isSubsection: true,
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Todos los banners", 
+        href: "/Admin/Banners", 
+        isSubitem: true,
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Nuevo banner", 
+        href: "/Admin/AddBanner", 
+        isSubitem: true,
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Popups", 
+        href: "#", 
+        isSubsection: true,
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Todos los popups", 
+        href: "/Admin/Popups", 
+        isSubitem: true,
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Nuevo popup", 
+        href: "/Admin/AddPopup", 
+        isSubitem: true,
+        allowedRoles: [USER_ROLES.ADMIN]
+      }
     ]
   },
   {
@@ -28,116 +67,274 @@ const sidebarItems = [
     title: "Comentarios",
     icon: "bi-chat-dots",
     href: "/Admin/Comments",
-    subpages: []
+    subpages: [],
+    allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT] // Todos
   },
   {
     id: 3,
-    title: "Logros",
+    title: "Reizu Coins",
     icon: "bi-coin",
+    allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT], // Todos
     subpages: [
-      { title: "Logros", href: "/Admin/Achivements" },
-      { title: "Añadir Logro", href: "/Admin/AddAchivement" },
-      { title: "Configurar", href: "/admin/reizu-coins/configurar" }
+      { 
+        title: "Logros", 
+        href: "/Admin/Achivements",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT] // Todos ven
+      },
+      { 
+        title: "Añadir Logro", 
+        href: "/Admin/AddAchivement",
+        allowedRoles: [USER_ROLES.ADMIN] // Solo admin puede crear
+      },
+      { 
+        title: "Configurar", 
+        href: "/admin/reizu-coins/configurar",
+        allowedRoles: [USER_ROLES.ADMIN] // Solo admin puede configurar
+      }
     ]
   },
   {
     id: 4,
-    title: "Tienda",
-    icon: "bi-shop",
+    title: "Suscripciones", // Nueva sección
+    icon: "bi-credit-card",
+    allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT], // Todos
     subpages: [
-      { title: "Todos los productos", href: "/Admin/ProductsShop" },
-      { title: "Nuevo producto", href: "/Admin/AddProduct" }
+      { 
+        title: "Todas las suscripciones", 
+        href: "/Admin/Subscriptions",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT]
+      },
+      { 
+        title: "Nueva suscripción", 
+        href: "/Admin/AddSubscription",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR] // Asistente no puede crear
+      },
+      { 
+        title: "Configurar planes", 
+        href: "/Admin/SubscriptionPlans",
+        allowedRoles: [USER_ROLES.ADMIN] // Solo admin configura
+      }
     ]
   },
   {
     id: 5,
-    title: "Usuarios",
-    icon: "bi-people",
+    title: "Tienda",
+    icon: "bi-shop",
+    allowedRoles: [USER_ROLES.ADMIN], // Solo admin
     subpages: [
-      { title: "Todos los usuarios", href: "/admin/usuarios/todos-los-usuarios" },
-      { title: "Nuevo usuario", href: "/admin/usuarios/nuevo-usuario" }
+      { 
+        title: "Todos los productos", 
+        href: "/Admin/ProductsShop",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Nuevo producto", 
+        href: "/Admin/AddProduct",
+        allowedRoles: [USER_ROLES.ADMIN]
+      }
     ]
   },
   {
     id: 6,
-    title: "Notificaciones",
-    icon: "bi-bell",
+    title: "Usuarios",
+    icon: "bi-people",
+    allowedRoles: [USER_ROLES.ADMIN], // Solo admin
     subpages: [
-      { title: "Todas las notificaciones", href: "/admin/notificaciones/todas-las-notificaciones" },
-      { title: "Nueva notificación", href: "/admin/notificaciones/nueva-notificacion" }
+      { 
+        title: "Todos los usuarios", 
+        href: "/admin/usuarios/todos-los-usuarios",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Nuevo usuario", 
+        href: "/admin/usuarios/nuevo-usuario",
+        allowedRoles: [USER_ROLES.ADMIN]
+      }
     ]
   },
   {
     id: 7,
-    title: "Guía de usuario",
-    icon: "bi-book-half",
+    title: "Notificaciones",
+    icon: "bi-bell",
+    allowedRoles: [USER_ROLES.ADMIN], // Solo admin
     subpages: [
-      { title: "Todas las guías", href: "/admin/guia-de-usuario/todas-las-guias" },
-      { title: "Nueva guía", href: "/admin/guia-de-usuario/nueva-guia" }
+      { 
+        title: "Todas las notificaciones", 
+        href: "/admin/notificaciones/todas-las-notificaciones",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Nueva notificación", 
+        href: "/admin/notificaciones/nueva-notificacion",
+        allowedRoles: [USER_ROLES.ADMIN]
+      }
     ]
   },
   {
     id: 8,
-    title: "Convocatoria",
-    icon: "bi-megaphone",
+    title: "Guía de usuario",
+    icon: "bi-book-half",
+    allowedRoles: [USER_ROLES.ADMIN], // Solo admin
     subpages: [
-      { title: "Todos los participantes", href: "/Admin/Participants" },
-      { title: "Nuevo participante", href: "/Admin/AddParticipant" },
-      { title: "Información", href: "/Admin/ConvocatoriaInfo" },
-      { title: "Reglas", href: "/Admin/ConvocatoriaRules" },
-      { title: "Formulario", href: "/admin/convocatoria/formulario" }
+      { 
+        title: "Todas las guías", 
+        href: "/admin/guia-de-usuario/todas-las-guias",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Nueva guía", 
+        href: "/admin/guia-de-usuario/nueva-guia",
+        allowedRoles: [USER_ROLES.ADMIN]
+      }
     ]
   },
   {
     id: 9,
-    title: "Obras",
-    icon: "bi-journal-text",
+    title: "Convocatoria",
+    icon: "bi-megaphone",
+    allowedRoles: [USER_ROLES.ADMIN], // Solo admin
     subpages: [
-      { title: "Todas las obras", href: "/admin/Works" },
-      { title: "Nueva obra", href: "/admin/AddWork" }
+      { 
+        title: "Todos los participantes", 
+        href: "/Admin/Participants",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Nuevo participante", 
+        href: "/Admin/AddParticipant",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Información", 
+        href: "/Admin/ConvocatoriaInfo",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Reglas", 
+        href: "/Admin/ConvocatoriaRules",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Formulario", 
+        href: "/admin/convocatoria/formulario",
+        allowedRoles: [USER_ROLES.ADMIN]
+      }
     ]
   },
   {
     id: 10,
-    title: "Capítulos",
-    icon: "bi-book",
+    title: "Obras",
+    icon: "bi-journal-text",
+    allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR], // Admin y Author
     subpages: [
-      { title: "Todos los capítulos", href: "/admin/Caps" },
-      { title: "Nuevo capítulo", href: "/admin/AddCap" }
+      { 
+        title: "Todas las obras", 
+        href: "/admin/Works",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR]
+      },
+      { 
+        title: "Nueva obra", 
+        href: "/admin/AddWork",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR]
+      }
     ]
   },
   {
     id: 11,
-    title: "Artbooks",
-    icon: "bi-journal-album",
+    title: "Capítulos",
+    icon: "bi-book",
+    allowedRoles: [USER_ROLES.ADMIN], // Solo admin
     subpages: [
-      { title: "Todos los artbooks", href: "/Admin/ArtBooks" },
-      { title: "Nuevo artbook", href: "/Admin/AddArtBook" }
+      { 
+        title: "Todos los capítulos", 
+        href: "/admin/Caps",
+        allowedRoles: [USER_ROLES.ADMIN]
+      },
+      { 
+        title: "Nuevo capítulo", 
+        href: "/admin/AddCap",
+        allowedRoles: [USER_ROLES.ADMIN]
+      }
     ]
   },
   {
     id: 12,
-    title: "Revistas",
-    icon: "bi-journals",
+    title: "Artbooks",
+    icon: "bi-journal-album",
+    allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR], // Admin y Author
     subpages: [
-      { title: "Todas las revistas", href: "/admin/revistas/todas-las-revistas" },
-      { title: "Nueva revista", href: "/admin/revistas/nueva-revista" }
+      { 
+        title: "Todos los artbooks", 
+        href: "/Admin/ArtBooks",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR]
+      },
+      { 
+        title: "Nuevo artbook", 
+        href: "/Admin/AddArtBook",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR]
+      }
     ]
   },
   {
     id: 13,
     title: "Comisiones",
     icon: "bi-palette",
+    allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT], // Todos
     subpages: [
-      { title: "Todas las comisiones", href: "/Admin/Commissions" },
-      { title: "Nueva comisión", href: "/Admin/AddCommission" }
+      { 
+        title: "Todas las comisiones", 
+        href: "/Admin/Commissions",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT] // Todos ven
+      },
+      { 
+        title: "Nueva comisión", 
+        href: "/Admin/AddCommission",
+        allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR] // Asistente no puede crear
+      }
     ]
   }
 ];
 
-const Sidebar = ({ isOpen = true, onToggle }) => {
+const Sidebar = ({ 
+  isOpen = true, 
+  onToggle, 
+  currentUser = null // Nueva prop para el usuario actual
+}) => {
   const [activeSection, setActiveSection] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  // Usuario por defecto si no se proporciona (para testing)
+  const user = currentUser || {
+    id: 1,
+    name: "Reizu",
+    role: USER_ROLES.ADMIN, // Cambiar aquí para probar diferentes roles ADMIN/AUTHOR/ASSISTANT
+    avatar: Perro
+  };
+
+  // Función para verificar si el usuario tiene acceso a un item
+  const hasAccess = (allowedRoles) => {
+    if (!user || !user.role) return false;
+    return allowedRoles.includes(user.role);
+  };
+
+  // Función para filtrar items basado en el rol del usuario
+  const filterItemsByRole = (items) => {
+    return items.filter(item => {
+      if (hasAccess(item.allowedRoles)) {
+        if (item.subpages && item.subpages.length > 0) {
+          // Filtrar subpages también
+          item.subpages = item.subpages.filter(subpage => 
+            hasAccess(subpage.allowedRoles)
+          );
+        }
+        return true;
+      }
+      return false;
+    });
+  };
+
+  // Filtrar items del sidebar basado en el rol del usuario
+  const filteredSidebarItems = filterItemsByRole([...sidebarItems]);
 
   // Resetear isCollapsed cuando la sidebar se abre
   useEffect(() => {
@@ -155,12 +352,32 @@ const Sidebar = ({ isOpen = true, onToggle }) => {
     setIsCollapsed(!isCollapsed);
   };
 
-  // ✅ CERRAR COMPLETAMENTE la sidebar
+  // CERRAR COMPLETAMENTE la sidebar
   const closeSidebar = () => {
     if (onToggle) onToggle();
   };
 
   const shouldShowCollapsed = isOpen && isCollapsed;
+
+  // Función para obtener el nombre del rol de forma legible
+  const getRoleName = (role) => {
+    const roleNames = {
+      [USER_ROLES.ADMIN]: 'Administrador',
+      [USER_ROLES.AUTHOR]: 'Autor',
+      [USER_ROLES.ASSISTANT]: 'Asistente' // Nuevo rol
+    };
+    return roleNames[role] || 'Usuario';
+  };
+
+  // Función para obtener el color del rol
+  const getRoleColor = (role) => {
+    const roleColors = {
+      [USER_ROLES.ADMIN]: '#28a745',    // Verde
+      [USER_ROLES.AUTHOR]: '#ffc107',   // Amarillo
+      [USER_ROLES.ASSISTANT]: '#007bff' // Azul
+    };
+    return roleColors[role] || '#6c757d';
+  };
 
   return (
     <>
@@ -186,7 +403,7 @@ const Sidebar = ({ isOpen = true, onToggle }) => {
             {!shouldShowCollapsed && (
               <div className="d-flex align-items-center">
                 <img
-                  src={Perro}
+                  src={user.avatar || Perro}
                   alt="Perfil Admin"
                   className="rounded-circle me-2"
                   style={{
@@ -198,8 +415,16 @@ const Sidebar = ({ isOpen = true, onToggle }) => {
                 />
                 <div>
                   <h6 className="text-white mb-0 fw-bold">
-                    Hola Reizu
+                    Hola {user.name}
                   </h6>
+                  <small 
+                    className="d-block"
+                    style={{ 
+                      color: getRoleColor(user.role)
+                    }}
+                  >
+                    {getRoleName(user.role)}
+                  </small>
                   <small className="text-muted">
                     <Link to="/" className="text-decoration-none text-white">
                       <i className="bi bi-arrow-left me-1 text-white"></i>
@@ -212,7 +437,7 @@ const Sidebar = ({ isOpen = true, onToggle }) => {
             {shouldShowCollapsed && (
               <div className="d-flex justify-content-center w-100">
                 <img
-                  src={Perro}
+                  src={user.avatar || Perro}
                   alt="Perfil Admin"
                   className="rounded-circle"
                   style={{
@@ -221,11 +446,12 @@ const Sidebar = ({ isOpen = true, onToggle }) => {
                     objectFit: 'cover',
                     border: '2px solid #dc3545'
                   }}
+                  title={`${user.name} - ${getRoleName(user.role)}`}
                 />
               </div>
             )}
             
-            {/* ✅ BOTONES: Colapsar y Cerrar */}
+            {/* BOTONES: Cerrar */}
             <div className="d-flex gap-1">
               <button 
                 className="btn btn-outline-danger btn-sm"
@@ -241,7 +467,7 @@ const Sidebar = ({ isOpen = true, onToggle }) => {
         {/* Menu Items */}
         <div className="sidebar-menu p-0">
           <ul className="list-unstyled mb-0">
-            {sidebarItems.map((item) => (
+            {filteredSidebarItems.map((item) => (
               <li key={item.id} className="sidebar-item">
                 <div>
                   {item.href ? (
@@ -335,6 +561,20 @@ const Sidebar = ({ isOpen = true, onToggle }) => {
             ))}
           </ul>
         </div>
+
+        {/* Footer con información del rol */}
+        {!shouldShowCollapsed && (
+          <div className="border-top border-secondary p-2 mt-auto">
+            <small 
+              className="d-block text-center"
+              style={{ 
+                color: getRoleColor(user.role)
+              }}
+            >
+              Acceso: {getRoleName(user.role)}
+            </small>
+          </div>
+        )}
       </nav>
     </>
   );

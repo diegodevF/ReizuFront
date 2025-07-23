@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import ImageIllus from "../assets/Portadas/MD1 - dani kube (1).png"
 
 const CommissionOptions = () => {
   const commissions = [
@@ -10,7 +11,7 @@ const CommissionOptions = () => {
       description: "¿Te gusta mi forma de dibujar y pintar? ¡POR QUE NO INTENTAR HACER ALGO TUYO! Descripción: - Fondo simple, máximo 3 objetos o decoraciones para este. - Solo 1 personaje de cuerpo completo. - Cualquier otra duda por mensaje privado.",
       delivery: "3 días",
       price: 3500,
-      image: null
+      image: ImageIllus
     },
     {
       id: 2,
@@ -19,7 +20,7 @@ const CommissionOptions = () => {
       description: "¿Recuerdas esos cuadernos para colorear de niño? ¿Te imaginas tener algo parecido pero de tus dibujos? Detalles: - Escala de grises y en blanco y negro. (nada de color) - Solo un personaje cuerpo completo (cuerpo medio o cabeza máximo 2)... Leer más.",
       delivery: "15 días",
       price: 3500,
-      image: null
+      image: ImageIllus
     },
     {
       id: 3,
@@ -28,7 +29,7 @@ const CommissionOptions = () => {
       description: "¿Te gusta mi forma de dibujar y pintar? ¡POR QUE NO INTENTAR HACER ALGO TUYO! Descripción: - Fondo simple, máximo 3 objetos o decoraciones para este. - Solo 1 personaje de cuerpo completo. - Cualquier otra duda por mensaje privado.",
       delivery: "3 días",
       price: 3500,
-      image: null
+      image: ImageIllus
     },
     {
       id: 4,
@@ -37,7 +38,7 @@ const CommissionOptions = () => {
       description: "¿Te gusta mi forma de dibujar y pintar? ¡POR QUE NO INTENTAR HACER ALGO TUYO! Descripción: - Fondo simple, máximo 3 objetos o decoraciones para este. - Solo 1 personaje de cuerpo completo. - Cualquier otra duda por mensaje privado.",
       delivery: "3 días",
       price: 3500,
-      image: null
+      image: ImageIllus
     },
     {
       id: 5,
@@ -46,7 +47,7 @@ const CommissionOptions = () => {
       description: "¿Recuerdas esos cuadernos para colorear de niño? ¿Te imaginas tener algo parecido pero de tus dibujos? Detalles: - Escala de grises y en blanco y negro. (nada de color) - Solo un personaje cuerpo completo (cuerpo medio o cabeza máximo 2)... Leer más.",
       delivery: "15 días",
       price: 3500,
-      image: null
+      image: ImageIllus
     },
     {
       id: 6,
@@ -55,7 +56,7 @@ const CommissionOptions = () => {
       description: "¿Te gusta mi forma de dibujar y pintar? ¡POR QUE NO INTENTAR HACER ALGO TUYO! Descripción: - Fondo simple, máximo 3 objetos o decoraciones para este. - Solo 1 personaje de cuerpo completo. - Cualquier otra duda por mensaje privado.",
       delivery: "3 días",
       price: 3500,
-      image: null
+      image: ImageIllus
     }
   ];
 
@@ -81,7 +82,7 @@ const CommissionOptions = () => {
               <div 
                 className="h-100 p-3 rounded-3 border"
                 style={{ 
-                  backgroundColor: 'var(--bs-body-bg)',
+                  backgroundColor: 'rgb(26,26,26)',
                   borderColor: 'var(--bs-border-color)',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease'

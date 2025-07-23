@@ -9,7 +9,7 @@ const ViewComic = () => {
   return (
     <>
         <Navbar></Navbar>
-        <ComicViewer title="Reizu Comic"></ComicViewer>
+        <ComicViewer title="Hola Reizu"></ComicViewer>
         <ComicRating></ComicRating>
         <div className="container py-4">
         <div className="row g-5">

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   // Estado de sesión (falso por defecto, cámbialo según tu lógica)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // Detecta el tema actual al cargar
   const getInitialTheme = () => {
@@ -31,7 +31,7 @@ function Navbar() {
   const handleLogout = () => setIsLoggedIn(false);
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary px-2 px-lg-3 py-2 sticky-top shadow-sm">
+    <nav className="z-3 navbar navbar-expand-lg bg-body-tertiary px-2 px-lg-3 py-2  shadow-sm">
       <div className="container-fluid">
         {/* Logo - siempre visible */}
         <Link to={"/"} className="navbar-brand fw-bold text-danger me-0 me-lg-4" href="#">
@@ -85,7 +85,7 @@ function Navbar() {
               />
               <ul className="dropdown-menu dropdown-menu-end">
                 <li>
-                  <Link className="dropdown-item" to="/profile">Mi perfil</Link>
+                  <Link className="dropdown-item" to="/Profile">Mi perfil</Link>
                 </li>
                 <li>
                   <button className="dropdown-item text-danger" onClick={handleLogout}>

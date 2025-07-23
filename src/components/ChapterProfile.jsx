@@ -61,7 +61,7 @@ const chaptersData = [
     isLocked: true,
     isAdult: false
   },
-{  
+  {  
     id: 6,
     image: "https://picsum.photos/250/200?random=6",
     number: 10,
@@ -93,7 +93,7 @@ const chaptersData = [
   }
 ];
 
-const ChapterCard = ({ chapter }) => {
+const ChapterCard = ({ chapter, isDark }) => {
   const formatPrice = (price) =>
     price >= 1000 ? `${(price / 1000).toFixed(1)}K` : price;
 
@@ -102,8 +102,15 @@ const ChapterCard = ({ chapter }) => {
       className="flex-shrink-0 me-4"
       style={{ width: '280px', minWidth: '280px' }}
     >
-      <div className="position-relative" style={{ borderRadius: '12px', overflow: 'hidden' }}>
-        {/* ✅ Imagen de portada con Link */}
+      <div 
+        className="position-relative" 
+        style={{ 
+          borderRadius: '12px', 
+          overflow: 'hidden',
+          boxShadow: isDark ? '0 4px 12px rgba(0,0,0,0.4)' : '0 4px 12px rgba(0,0,0,0.15)'
+        }}
+      >
+        {/* Imagen de portada con Link */}
         <Link 
           to="/ComicInfo" 
           className="d-block"
@@ -116,7 +123,7 @@ const ChapterCard = ({ chapter }) => {
             style={{ 
               height: '220px', 
               objectFit: 'cover',
-              transition: 'transform 0.3s ease', // ✅ Efecto hover
+              transition: 'transform 0.3s ease',
               cursor: 'pointer'
             }}
             onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
@@ -132,7 +139,7 @@ const ChapterCard = ({ chapter }) => {
               fontSize: '0.9rem',
               borderTopLeftRadius: '12px',
               borderBottomRightRadius: '12px',
-              zIndex: 1 // ✅ Por encima del link
+              zIndex: 1
             }}
           >
             <i className="bi bi-coin me-1"></i>
@@ -148,7 +155,7 @@ const ChapterCard = ({ chapter }) => {
               fontSize: '0.8rem',
               borderTopRightRadius: '12px',
               borderBottomLeftRadius: '12px',
-              zIndex: 1 // ✅ Por encima del link
+              zIndex: 1
             }}
           >
             +18
@@ -158,8 +165,11 @@ const ChapterCard = ({ chapter }) => {
         {/* Overlay de candado si está bloqueado */}
         {chapter.isLocked && (
           <div 
-            className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50"
-            style={{ zIndex: 1 }} // ✅ Por encima del link
+            className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+            style={{ 
+              zIndex: 1,
+              backgroundColor: isDark ? 'rgba(0,0,0,0.7)' : 'rgba(0,0,0,0.5)'
+            }}
           >
             <i className="bi bi-lock-fill text-white" style={{ fontSize: '3rem' }}></i>
           </div>
@@ -168,7 +178,7 @@ const ChapterCard = ({ chapter }) => {
         {/* Información en la parte inferior */}
         <div 
           className="position-absolute bottom-0 start-0 w-100 d-flex justify-content-between align-items-end p-3"
-          style={{ zIndex: 1 }} // ✅ Por encima del link
+          style={{ zIndex: 1 }}
         >
           {/* Número de capítulo */}
           <span className="text-white fw-bold" style={{ 
@@ -189,7 +199,7 @@ const ChapterCard = ({ chapter }) => {
         </div>
       </div>
       
-      {/* ✅ Título debajo de la imagen con Link */}
+      {/* Título debajo de la imagen con Link */}
       <div className="mt-3">
         <Link 
           to="/ComicInfo"
@@ -199,12 +209,12 @@ const ChapterCard = ({ chapter }) => {
             className="mb-0 fw-bold text-truncate" 
             style={{ 
               fontSize: '1rem',
-              color: 'inherit',
+              color: isDark ? '#ffffff' : '#212529',
               transition: 'color 0.3s ease',
               cursor: 'pointer'
             }}
             onMouseOver={(e) => e.target.style.color = '#d32f2f'}
-            onMouseOut={(e) => e.target.style.color = 'inherit'}
+            onMouseOut={(e) => e.target.style.color = isDark ? '#ffffff' : '#212529'}
           >
             {chapter.title}
           </p>
@@ -214,10 +224,37 @@ const ChapterCard = ({ chapter }) => {
   );
 };
 
-const RecentCaps = () => {
+const ChapterProfile = () => {
+  const [theme, setTheme] = useState('light');
   const scrollContainerRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+
+  // Función para obtener el tema actual
+  const getTheme = () => {
+    if (typeof document !== "undefined") {
+      return document.documentElement.getAttribute("data-bs-theme") || "light";
+    }
+    return "light";
+  };
+
+  // Observer para detectar cambios de tema
+  useEffect(() => {
+    setTheme(getTheme());
+    
+    const observer = new MutationObserver(() => {
+      setTheme(getTheme());
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-bs-theme']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
+  const isDark = theme === 'dark';
 
   const checkArrowsVisibility = () => {
     const container = scrollContainerRef.current;
@@ -244,9 +281,26 @@ const RecentCaps = () => {
   };
 
   return (
-    <div className="container my-5">
-      {/* Título centrado */}
-      <h2 className="text-center fw-bold mb-4">Capítulos Recientes</h2>
+    <div 
+      className="rounded p-4 mt-3"
+      style={{
+        backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
+        borderColor: isDark ? '#333333' : '#dee2e6',
+        boxShadow: isDark ? '0 2px 10px rgba(0,0,0,0.3)' : '0 2px 10px rgba(0,0,0,0.1)',
+        border: `1px solid ${isDark ? '#333333' : '#dee2e6'}`,
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+      }}
+    >
+      {/* Título */}
+      <h5 
+        className="fw-bold mb-4"
+        style={{ color: isDark ? '#ffffff' : '#212529' }}
+      >
+        <i className="bi bi-journal-text me-2"></i>
+        Capítulos Recientes
+      </h5>
       
       <div className="position-relative">
         {/* Flecha izquierda */}
@@ -260,7 +314,8 @@ const RecentCaps = () => {
               zIndex: 2,
               left: '-22px',
               border: 'none',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+              boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.4)' : '0 2px 8px rgba(0,0,0,0.2)',
+              background: 'linear-gradient(45deg, #d32f2f, #e53935)'
             }}
           >
             <i className="bi bi-chevron-left text-white fw-bold"></i>
@@ -278,14 +333,15 @@ const RecentCaps = () => {
               zIndex: 2,
               right: '-22px',
               border: 'none',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+              boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.4)' : '0 2px 8px rgba(0,0,0,0.2)',
+              background: 'linear-gradient(45deg, #d32f2f, #e53935)'
             }}
           >
             <i className="bi bi-chevron-right text-white fw-bold"></i>
           </button>
         )}
         
-        {/* Carrusel de capítulos centrado */}
+        {/* Carrusel de capítulos */}
         <div
           ref={scrollContainerRef}
           className="d-flex overflow-auto pb-3"
@@ -298,21 +354,24 @@ const RecentCaps = () => {
             padding: '0 20px'
           }}
         >
-          {/* Mostrar TODOS los capítulos */}
+          {/* Mostrar TODOS los capítulos con scroll */}
           {chaptersData.map((chapter) => (
-            <ChapterCard key={chapter.id} chapter={chapter} />
+            <ChapterCard key={chapter.id} chapter={chapter} isDark={isDark} />
           ))}
         </div>
       </div>
 
-      {/* Indicador de navegación opcional */}
+      {/* Indicador de navegación actualizado */}
       <div className="text-center mt-3">
-        <small className="text-muted">
-          Desliza para ver más capítulos →
+        <small 
+          style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}
+        >
+          <i className="bi bi-arrow-left-right me-1"></i>
+          Desliza para ver más capítulos ({chaptersData.length} total)
         </small>
       </div>
     </div>
   );
 };
 
-export default RecentCaps;
+export default ChapterProfile;
