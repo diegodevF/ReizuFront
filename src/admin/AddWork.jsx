@@ -7,18 +7,16 @@ import { Link, useNavigate } from 'react-router-dom';
 const AddWork = () => {
   const navigate = useNavigate();
 
-  const handlePublish = () => {
-    // Mostrar toast
-    toast.success('Obra publicada correctamente!');
-
-    // Esperar un poco antes de redirigir
-    setTimeout(() => {
-      navigate('/Admin/Works'); // o la ruta que necesites
-    }, 2000); // 2 segundos de delay
-  };
-
+  // Estados existentes
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [theme, setTheme] = useState('light');
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  
+  // Nuevo estado para programación
+  const [showScheduleForm, setShowScheduleForm] = useState(false);
+  const [scheduledDate, setScheduledDate] = useState('');
+  const [scheduledTime, setScheduledTime] = useState('');
+
   const [formData, setFormData] = useState({
     titulo: '',
     sinopsis: '',
@@ -34,7 +32,68 @@ const AddWork = () => {
     contenidoAdulto: false
   });
 
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  // Función para obtener fecha mínima (hoy)
+  const getMinDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
+  // Función para obtener hora actual
+  const getCurrentTime = () => {
+    const now = new Date();
+    return now.toTimeString().slice(0, 5);
+  };
+
+  const handlePublish = () => {
+    toast.success('Obra publicada correctamente!');
+    setTimeout(() => {
+      navigate('/Admin/Works');
+    }, 2000);
+  };
+
+  const handleSchedule = () => {
+    setShowScheduleForm(true);
+    // Pre-llenar con fecha y hora actuales
+    if (!scheduledDate) setScheduledDate(getMinDate());
+    if (!scheduledTime) setScheduledTime(getCurrentTime());
+  };
+
+  const handleConfirmSchedule = () => {
+    if (!scheduledDate || !scheduledTime) {
+      toast.error('Por favor, selecciona fecha y hora de publicación');
+      return;
+    }
+
+    const scheduleDateTime = new Date(`${scheduledDate}T${scheduledTime}`);
+    const now = new Date();
+
+    if (scheduleDateTime <= now) {
+      toast.error('La fecha de publicación debe ser en el futuro');
+      return;
+    }
+
+    // Formatear fecha para mostrar
+    const formatDate = scheduleDateTime.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    toast.success(`Obra programada para: ${formatDate}`);
+    
+    setTimeout(() => {
+      navigate('/Admin/Works');
+    }, 3000);
+  };
+
+  const handleCancelSchedule = () => {
+    setShowScheduleForm(false);
+    setScheduledDate('');
+    setScheduledTime('');
+  };
 
   // Función para obtener el tema actual
   const getTheme = () => {
@@ -93,6 +152,12 @@ const AddWork = () => {
   const cardStyles = {
     backgroundColor: isDark ? '#2a2a2a' : '#ffffff',
     borderColor: isDark ? '#444444' : '#dee2e6',
+    color: isDark ? '#ffffff' : '#000000'
+  };
+
+  const scheduleCardStyles = {
+    backgroundColor: isDark ? '#3a3a3a' : '#f8f9fa',
+    borderColor: isDark ? '#555555' : '#dee2e6',
     color: isDark ? '#ffffff' : '#000000'
   };
 
@@ -588,10 +653,12 @@ const AddWork = () => {
                       borderColor: isDark ? '#212529' : '#343a40',
                       color: '#ffffff'
                     }}
+                    onClick={handleSchedule}
                   >
+                    <i className="bi bi-calendar-event me-1"></i>
                     Programar
                   </button>
-                  <Link
+                  <button
                     className="btn btn-danger flex-fill"
                     style={{
                       background: 'linear-gradient(45deg, #dc3545, #c82333)',
@@ -599,10 +666,96 @@ const AddWork = () => {
                     }}
                     onClick={handlePublish}
                   >
+                    <i className="bi bi-upload me-1"></i>
                     Publicar
-                  </Link>
-                  <Toaster />
+                  </button>
                 </div>
+
+                {/* Formulario de programación */}
+                {showScheduleForm && (
+                  <div 
+                    className="p-3 rounded mb-4"
+                    style={{
+                      ...scheduleCardStyles,
+                      border: `2px solid ${isDark ? '#ffc107' : '#fd7e14'}`,
+                      animation: 'fadeIn 0.3s ease-in-out'
+                    }}
+                  >
+                    <h6 
+                      className="fw-bold mb-3 text-center"
+                      style={{ color: isDark ? '#ffc107' : '#fd7e14' }}
+                    >
+                      <i className="bi bi-clock me-2"></i>
+                      Programar Publicación
+                    </h6>
+                    
+                    <div className="row g-2 mb-3">
+                      <div className="col-6">
+                        <label 
+                          className="form-label small mb-1"
+                          style={{ color: isDark ? '#ffffff' : '#212529' }}
+                        >
+                          Fecha:
+                        </label>
+                        <input
+                          type="date"
+                          className="form-control form-control-sm"
+                          value={scheduledDate}
+                          min={getMinDate()}
+                          onChange={(e) => setScheduledDate(e.target.value)}
+                          style={inputStyles}
+                        />
+                      </div>
+                      <div className="col-6">
+                        <label 
+                          className="form-label small mb-1"
+                          style={{ color: isDark ? '#ffffff' : '#212529' }}
+                        >
+                          Hora:
+                        </label>
+                        <input
+                          type="time"
+                          className="form-control form-control-sm"
+                          value={scheduledTime}
+                          onChange={(e) => setScheduledTime(e.target.value)}
+                          style={inputStyles}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="d-flex gap-2">
+                      <button
+                        className="btn btn-success btn-sm flex-fill"
+                        onClick={handleConfirmSchedule}
+                        style={{
+                          fontSize: '0.8rem',
+                          fontWeight: '600'
+                        }}
+                      >
+                        <i className="bi bi-check-circle me-1"></i>
+                        Confirmar
+                      </button>
+                      <button
+                        className="btn btn-secondary btn-sm flex-fill"
+                        onClick={handleCancelSchedule}
+                        style={{
+                          fontSize: '0.8rem',
+                          fontWeight: '600'
+                        }}
+                      >
+                        <i className="bi bi-x-circle me-1"></i>
+                        Cancelar
+                      </button>
+                    </div>
+
+                    <small 
+                      className="d-block text-center mt-2"
+                      style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}
+                    >
+                      La obra se publicará automáticamente
+                    </small>
+                  </div>
+                )}
 
                 {/* Géneros */}
                 <div>
@@ -648,6 +801,31 @@ const AddWork = () => {
           </div>
         </div>
       </div>
+
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: isDark ? '#333' : '#fff',
+            color: isDark ? '#fff' : '#333',
+          },
+        }}
+      />
+
+      {/* CSS para animación */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };
