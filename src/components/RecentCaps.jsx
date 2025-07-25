@@ -100,7 +100,7 @@ const ChapterCard = ({ chapter }) => {
   return (
     <div
       className="flex-shrink-0 me-4"
-      style={{ width: '280px', minWidth: '280px' }}
+      style={{ flex: 1, minWidth: '280px' }}
     >
       <div className="position-relative" style={{ borderRadius: '12px', overflow: 'hidden' }}>
         {/* ✅ Imagen de portada con Link */}
@@ -244,7 +244,7 @@ const RecentCaps = () => {
   };
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 px-5">
       {/* Título centrado */}
       <h2 className="text-center fw-bold mb-4">Capítulos Recientes</h2>
       
@@ -253,12 +253,12 @@ const RecentCaps = () => {
         {showLeftArrow && (
           <button
             onClick={scrollLeft}
-            className="position-absolute start-0 top-50 translate-middle-y btn btn-danger rounded-circle d-flex align-items-center justify-content-center"
+            className="position-absolute  top-50 translate-middle-y btn btn-danger rounded-circle d-flex align-items-center justify-content-center"
             style={{
+              left: '-48px',
               width: '45px',
               height: '45px',
               zIndex: 2,
-              left: '-22px',
               border: 'none',
               boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
             }}
@@ -271,12 +271,12 @@ const RecentCaps = () => {
         {showRightArrow && (
           <button
             onClick={scrollRight}
-            className="position-absolute end-0 top-50 translate-middle-y btn btn-danger rounded-circle d-flex align-items-center justify-content-center"
+            className="position-absolute top-50 translate-middle-y btn btn-danger rounded-circle d-flex align-items-center justify-content-center"
             style={{
+              right: '-48px',
               width: '45px',
               height: '45px',
               zIndex: 2,
-              right: '-22px',
               border: 'none',
               boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
             }}
@@ -295,7 +295,6 @@ const RecentCaps = () => {
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
             justifyContent: 'flex-start',
-            padding: '0 20px'
           }}
         >
           {/* Mostrar TODOS los capítulos */}

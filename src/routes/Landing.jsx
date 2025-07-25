@@ -15,11 +15,13 @@ const Landing = () => {
         <>
             <Navbar></Navbar>
             <Carousel></Carousel>
+            <div style={{maxWidth:'1300px', margin:'0 auto'}}>
             <RankingPopulares></RankingPopulares>
             <RecentCaps></RecentCaps>
             <ComicShowcase></ComicShowcase> {/**/}
             <MostVisited></MostVisited>
             <ListNovel></ListNovel>
+            </div>
             <BestArtist></BestArtist>
             <Partners></Partners>
             <Footer></Footer>
