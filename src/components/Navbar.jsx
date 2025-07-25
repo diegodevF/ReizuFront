@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import IconBell from '../assets/icons/notificacion.svg';
 import IconEnvelope from '../assets/icons/mensaje.svg';
 import ruizCoins from '../assets/icons/ReizuCoins.svg';
+import './Navbar.css';
+
 function Navbar() {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -164,22 +166,28 @@ function Navbar() {
 
   return (
     <nav className="z-3 navbar navbar-expand-lg bg-body-tertiary px-2 px-lg-3 py-2 shadow-sm">
-      <div className="container-fluid">
+      <div className="container-fluid gap-2">
         {/* Logo - siempre visible */}
         <Link to={"/"} className="navbar-brand fw-bold text-danger me-0 me-lg-4">
           <img src={darkMode ? LogoDark : LogoLight} alt="Logo" width="100" height="50" />
         </Link>
         
         {/* Botón hamburguesa y utilidades */}
-        <div className="d-flex align-items-center ms-auto order-lg-3">
+        <div className="d-flex align-items-center ms-auto order-lg-3 gap-1">
           {/* Búsqueda móvil (icono) */}
-          <button className="btn btn-link d-lg-none me-2" type="button" data-bs-toggle="collapse" data-bs-target="#searchCollapse" aria-expanded="false">
+          <button 
+            className="btn btn-link d-lg-none" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#searchCollapse" 
+            aria-expanded="false"
+          >
             <i className="bi bi-search"></i>
           </button>
           
           {/* Mensajes */}
           {isLoggedIn && (
-            <div className="position-relative d-none d-sm-block me-1" ref={messagesRef}>
+            <div className="position-relative d-none d-sm-block" ref={messagesRef}>
               <button 
                 className="btn btn-link position-relative"
                 onClick={toggleMessages}
@@ -325,7 +333,7 @@ function Navbar() {
           
           {/* Notificaciones */}
           {isLoggedIn && (
-            <div className="position-relative d-none d-sm-block me-1" ref={notificationsRef}>
+            <div className="position-relative d-none d-sm-block" ref={notificationsRef}>
               <button 
                 className="btn btn-link position-relative"
                 onClick={toggleNotifications}
@@ -466,18 +474,16 @@ function Navbar() {
 
           {/* Botón Dark/Light mode */}
           <button
-            className="btn btn-link me-1"
+            className="btn btn-link"
             type="button"
             title={darkMode ? "Modo claro" : "Modo oscuro"}
             onClick={handleToggleTheme}
           >
             <i className={`bi ${darkMode ? "bi-sun-fill text-warning" : "bi-moon-stars-fill text-dark"}`}></i>
           </button>
-
-
-          <div className="d-flex align-items-center me-2">
-
-
+          
+          {/* RuizCoins */}
+          <div className="d-flex align-items-center">
             <img 
             width={40}
             height={40}
@@ -487,14 +493,15 @@ function Navbar() {
             <span>{ruizCoinsAmount >= 1000 ? `${(ruizCoinsAmount / 1000).toFixed(0)}k` : ruizCoinsAmount}</span>
           </div>
 
-          
           {/* Avatar o login/register */}
           {isLoggedIn ? (
-            <div className="dropdown">
+            <div className="dropdown" 
+            style={{width: '50px', height: '50px',display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+            >
               <img
                 src={Perfil}
                 alt="Avatar"
-                className="rounded-circle mx-2 dropdown-toggle"
+                className="rounded-circle dropdown-toggle"
                 width="35"
                 height="35"
                 role="button"
@@ -515,7 +522,7 @@ function Navbar() {
             </div>
           ) : (
             <>
-              <Link to="/login" className="btn btn-outline-danger fw-bold me-2">Iniciar sesión</Link>
+              <Link to="/login" className="btn btn-outline-danger fw-bold">Iniciar sesión</Link>
               <Link to="/register" className="btn btn-danger fw-bold">Registrarse</Link>
             </>
           )}
@@ -525,7 +532,7 @@ function Navbar() {
             className="navbar-toggler border-0" 
             type="button" 
             onClick={handleNavCollapse}
-            aria-expanded={!isNavCollapsed ? true : false}
+            aria-expanded={!isNavCollapsed}
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
@@ -541,6 +548,13 @@ function Navbar() {
               placeholder="Buscar..."
               aria-label="Search"
             />
+            <button 
+              className="btn btn-danger ms-2" 
+              type="submit" 
+              aria-label="Buscar"
+            >
+              <i className="bi bi-search"></i>
+            </button>
           </form>
         </div>
         
@@ -619,11 +633,18 @@ function Navbar() {
           {/* Buscador para pantallas grandes */}
           <form className="d-none d-lg-flex" role="search">
             <input
-              className="form-control"
+              className="form-control search-input"
               type="search"
               placeholder="Buscar..."
               aria-label="Search"
             />
+            <button 
+              className="btn btn-danger ms-2" 
+              type="submit" 
+              aria-label="Buscar"
+            >
+              <i className="bi bi-search"></i>
+            </button>
           </form>
         </div>
       </div>
