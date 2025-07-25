@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import LogoLight from "../assets/logo.svg";
 import LogoDark from "../assets/Logos/Reizu Comics Logo Blanco.svg";
+import useTheme from '../hooks/useTheme';
 import Perfil from "../assets/authors/perro.jpeg";
 import { Link } from "react-router-dom";
 
@@ -23,14 +24,8 @@ function Navbar() {
 
   const [ruizCoinsAmount, setRuizCoinsAmount] = useState(1000); // Simulación de cantidad de monedas
 
-  // Detecta el tema actual al cargar
-  const getInitialTheme = () => {
-    if (typeof document !== "undefined") {
-      return document.documentElement.getAttribute("data-bs-theme") === "dark";
-    }
-    return false;
-  };
-  const [darkMode, setDarkMode] = useState(getInitialTheme());
+  // Hook para tema claro/oscuro
+  const { theme, isDark } = useTheme();
 
   // Datos simulados para notificaciones
   const notifications = [
@@ -130,9 +125,8 @@ function Navbar() {
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   const handleToggleTheme = () => {
-    const newTheme = darkMode ? "light" : "dark";
+    const newTheme = theme === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-bs-theme", newTheme);
-    setDarkMode(!darkMode);
   };
 
   const handleLogout = () => setIsLoggedIn(false);
@@ -165,11 +159,11 @@ function Navbar() {
   };
 
   return (
-    <nav className="z-3 navbar navbar-expand-lg bg-body-tertiary px-2 px-lg-3 py-2 shadow-sm">
+    <nav className="position-relative navbar navbar-expand-lg bg-body-tertiary px-2 px-lg-3 py-2 shadow-sm" style={{ zIndex: 9999 }}>
       <div className="container-fluid gap-2">
         {/* Logo - siempre visible */}
         <Link to={"/"} className="navbar-brand fw-bold text-danger me-0 me-lg-4">
-          <img src={darkMode ? LogoDark : LogoLight} alt="Logo" width="100" height="50" />
+          <img src={isDark ? LogoDark : LogoLight} alt="Logo" width="100" height="50" />
         </Link>
         
         {/* Botón hamburguesa y utilidades */}
@@ -191,7 +185,7 @@ function Navbar() {
               <button 
                 className="btn btn-link position-relative"
                 onClick={toggleMessages}
-                style={{ filter: darkMode ? 'brightness(0) invert(1)' : 'none' }}
+                style={{ filter: isDark ? 'brightness(0) invert(1)' : 'none' }}
               >
                 <img src={IconEnvelope} alt="Mensajes" width="24" height="24" />
                 {/* Punto rojo para mensajes no leídos */}
@@ -214,20 +208,20 @@ function Navbar() {
               {showMessages && (
                 <div 
                   className="position-absolute end-0 mt-2 shadow-lg border rounded"
-                  style={{
+              style={{
                     width: '350px',
                     maxHeight: '400px',
-                    backgroundColor: darkMode ? '#2a2a2a' : '#ffffff',
-                    borderColor: darkMode ? '#444444' : '#dee2e6',
+                    backgroundColor: isDark ? '#2a2a2a' : '#ffffff',
+                    borderColor: isDark ? '#444444' : '#dee2e6',
                     zIndex: 1050
                   }}
                 >
                   {/* Header */}
                   <div 
                     className="px-3 py-2 border-bottom d-flex justify-content-between align-items-center"
-                    style={{ borderColor: darkMode ? '#444444' : '#dee2e6' }}
+            style={{ borderColor: isDark ? '#444444' : '#dee2e6' }}
                   >
-                    <h6 className="mb-0 fw-bold" style={{ color: darkMode ? '#ffffff' : '#212529' }}>
+                    <h6 className="mb-0 fw-bold" style={{ color: isDark ? '#ffffff' : '#212529' }}>
                       Mensajes
                       {unreadMessages > 0 && (
                         <span className="badge bg-danger ms-2" style={{ fontSize: '0.7rem' }}>
@@ -251,15 +245,15 @@ function Navbar() {
                         key={message.id}
                         className="px-3 py-2 border-bottom position-relative"
                         style={{ 
-                          borderColor: darkMode ? '#444444' : '#f1f1f1',
-                          backgroundColor: !message.read ? (darkMode ? '#3a3a3a' : '#f8f9fa') : 'transparent',
+                          borderColor: isDark ? '#444444' : '#f1f1f1',
+                          backgroundColor: !message.read ? (isDark ? '#3a3a3a' : '#f8f9fa') : 'transparent',
                           cursor: 'pointer'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = darkMode ? '#404040' : '#f0f0f0';
+                          e.currentTarget.style.backgroundColor = isDark ? '#404040' : '#f0f0f0';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = !message.read ? (darkMode ? '#3a3a3a' : '#f8f9fa') : 'transparent';
+                          e.currentTarget.style.backgroundColor = !message.read ? (isDark ? '#3a3a3a' : '#f8f9fa') : 'transparent';
                         }}
                       >
                         <div className="d-flex align-items-start">
@@ -269,7 +263,7 @@ function Navbar() {
                               style={{
                                 width: '40px',
                                 height: '40px',
-                                backgroundColor: darkMode ? '#555555' : '#e9ecef',
+                                backgroundColor: isDark ? '#555555' : '#e9ecef',
                                 backgroundImage: `url(${message.avatar})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center'
@@ -284,17 +278,17 @@ function Navbar() {
                           </div>
                           <div className="flex-grow-1">
                             <div className="d-flex justify-content-between align-items-center">
-                              <h6 className="mb-0" style={{ color: darkMode ? '#ffffff' : '#212529', fontSize: '0.9rem' }}>
+                              <h6 className="mb-0" style={{ color: isDark ? '#ffffff' : '#212529', fontSize: '0.9rem' }}>
                                 {message.name}
                               </h6>
-                              <small style={{ color: darkMode ? '#8a8a8a' : '#6c757d' }}>
+                              <small style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}>
                                 {message.time}
                               </small>
                             </div>
                             <p 
                               className="mb-0 text-truncate"
                               style={{ 
-                                color: darkMode ? '#cccccc' : '#495057',
+                                color: isDark ? '#cccccc' : '#495057',
                                 fontSize: '0.85rem',
                                 maxWidth: '250px'
                               }}
@@ -337,7 +331,7 @@ function Navbar() {
               <button 
                 className="btn btn-link position-relative"
                 onClick={toggleNotifications}
-                style={{ filter: darkMode ? 'brightness(0) invert(1)' : 'none' }}
+                style={{ filter: isDark ? 'brightness(0) invert(1)' : 'none' }}
               >
                 <img src={IconBell} alt="Notificaciones" width="24" height="24" />
                 {/* Punto rojo para notificaciones no leídas */}
@@ -363,17 +357,17 @@ function Navbar() {
                   style={{
                     width: '350px',
                     maxHeight: '400px',
-                    backgroundColor: darkMode ? '#2a2a2a' : '#ffffff',
-                    borderColor: darkMode ? '#444444' : '#dee2e6',
+                    backgroundColor: isDark ? '#2a2a2a' : '#ffffff',
+                    borderColor: isDark ? '#444444' : '#dee2e6',
                     zIndex: 1050
                   }}
                 >
                   {/* Header */}
                   <div 
                     className="px-3 py-2 border-bottom d-flex justify-content-between align-items-center"
-                    style={{ borderColor: darkMode ? '#444444' : '#dee2e6' }}
+                    style={{ borderColor: isDark ? '#444444' : '#dee2e6' }}
                   >
-                    <h6 className="mb-0 fw-bold" style={{ color: darkMode ? '#ffffff' : '#212529' }}>
+                    <h6 className="mb-0 fw-bold" style={{ color: isDark ? '#ffffff' : '#212529' }}>
                       Notificaciones
                       {unreadNotifications > 0 && (
                         <span className="badge bg-danger ms-2" style={{ fontSize: '0.7rem' }}>
@@ -396,15 +390,15 @@ function Navbar() {
                         key={notification.id}
                         className="px-3 py-2 border-bottom"
                         style={{ 
-                          borderColor: darkMode ? '#444444' : '#f1f1f1',
-                          backgroundColor: !notification.read ? (darkMode ? '#3a3a3a' : '#f8f9fa') : 'transparent',
+                          borderColor: isDark ? '#444444' : '#f1f1f1',
+                          backgroundColor: !notification.read ? (isDark ? '#3a3a3a' : '#f8f9fa') : 'transparent',
                           cursor: 'pointer'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = darkMode ? '#404040' : '#f0f0f0';
+                          e.currentTarget.style.backgroundColor = isDark ? '#404040' : '#f0f0f0';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = !notification.read ? (darkMode ? '#3a3a3a' : '#f8f9fa') : 'transparent';
+                          e.currentTarget.style.backgroundColor = !notification.read ? (isDark ? '#3a3a3a' : '#f8f9fa') : 'transparent';
                         }}
                       >
                         <div className="d-flex align-items-start">
@@ -414,7 +408,7 @@ function Navbar() {
                               style={{
                                 width: '40px',
                                 height: '40px',
-                                backgroundColor: darkMode ? '#555555' : '#e9ecef',
+                                backgroundColor: isDark ? '#555555' : '#e9ecef',
                                 backgroundImage: `url(${notification.avatar})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
@@ -426,17 +420,17 @@ function Navbar() {
                           </div>
                           <div className="flex-grow-1">
                             <div className="d-flex justify-content-between align-items-center">
-                              <h6 className="mb-0" style={{ color: darkMode ? '#ffffff' : '#212529', fontSize: '0.9rem' }}>
+                              <h6 className="mb-0" style={{ color: isDark ? '#ffffff' : '#212529', fontSize: '0.9rem' }}>
                                 {notification.title}
                               </h6>
-                              <small style={{ color: darkMode ? '#8a8a8a' : '#6c757d' }}>
+                              <small style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}>
                                 {notification.time}
                               </small>
                             </div>
                             <p 
                               className="mb-0"
                               style={{ 
-                                color: darkMode ? '#cccccc' : '#495057',
+                                color: isDark ? '#cccccc' : '#495057',
                                 fontSize: '0.85rem'
                               }}
                             >
@@ -476,10 +470,10 @@ function Navbar() {
           <button
             className="btn btn-link"
             type="button"
-            title={darkMode ? "Modo claro" : "Modo oscuro"}
+            title={isDark ? "Modo claro" : "Modo oscuro"}
             onClick={handleToggleTheme}
           >
-            <i className={`bi ${darkMode ? "bi-sun-fill text-warning" : "bi-moon-stars-fill text-dark"}`}></i>
+            <i className={`bi ${isDark ? "bi-sun-fill text-warning" : "bi-moon-stars-fill text-dark"}`}></i>
           </button>
           
           {/* RuizCoins */}
