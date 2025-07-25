@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import IconBell from '../assets/icons/notificacion.svg';
 import IconEnvelope from '../assets/icons/mensaje.svg';
-
+import ruizCoins from '../assets/icons/ReizuCoins.svg';
 function Navbar() {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -18,6 +18,8 @@ function Navbar() {
   // Referencias para detectar clics fuera
   const notificationsRef = useRef(null);
   const messagesRef = useRef(null);
+
+  const [ruizCoinsAmount, setRuizCoinsAmount] = useState(1000); // Simulación de cantidad de monedas
 
   // Detecta el tema actual al cargar
   const getInitialTheme = () => {
@@ -471,6 +473,20 @@ function Navbar() {
           >
             <i className={`bi ${darkMode ? "bi-sun-fill text-warning" : "bi-moon-stars-fill text-dark"}`}></i>
           </button>
+
+
+          <div className="d-flex align-items-center me-2">
+
+
+            <img 
+            width={40}
+            height={40}
+            src={ruizCoins} alt="" />
+
+
+            <span>{ruizCoinsAmount >= 1000 ? `${(ruizCoinsAmount / 1000).toFixed(0)}k` : ruizCoinsAmount}</span>
+          </div>
+
           
           {/* Avatar o login/register */}
           {isLoggedIn ? (
