@@ -484,7 +484,7 @@ function Navbar() {
             src={ruizCoins} alt="" />
 
 
-            <span>{ruizCoinsAmount >= 1000 ? `${(ruizCoinsAmount / 1000).toFixed(1)}k` : ruizCoinsAmount}</span>
+            <span>{ruizCoinsAmount >= 1000 ? `${(ruizCoinsAmount / 1000).toFixed(0)}k` : ruizCoinsAmount}</span>
           </div>
 
           
