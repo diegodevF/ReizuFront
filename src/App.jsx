@@ -89,7 +89,7 @@ function App() {
           <Route path="/Shop/CommissionPage" element={<CommissionPage />} />
           <Route path="/Shop/ExchangePage" element={<ExchangePage />} />
           <Route path="/Shop/SpecialChaptersPage" element={<SpecialChaptersPage />} />
-          <Route path="/Shop/Ruiz" element={<ShopRuiz/>}/>
+          <Route path="/Shop/reizu" element={<ShopRuiz/>}/>
 
 
       {/* Admin Panels */}
