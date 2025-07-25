@@ -45,26 +45,29 @@ const Partners = () => {
 
   // Datos simplificados
   const sponsors = [
-    { name: "XP-Pen", logo: XpPen, description: "Tabletas gráficas profesionales" },
-    { name: "Sketchi", logo: Sketchi, description: "Herramientas de diseño digital" },
-    { name: "Deword", logo: Deword, description: "Plataforma de contenido creativo" }
+    { name: "XP-Pen", logo: XpPen, description: "Tabletas gráficas profesionales", maxWidth: "250px" },
+    { name: "Sketchi", logo: Sketchi, description: "Herramientas de diseño digital", maxWidth: "250px" },
+    { name: "Deword", logo: Deword, description: "Plataforma de contenido creativo", maxWidth: "250px" }
   ];
 
   const affiliates = [
     { 
       name: "Wondershare", 
       logo: getLogo(WonderWhite, WonderBlack), 
-      description: "Software creativo profesional" 
+      description: "Software creativo profesional",
+      maxWidth: "400px"
     },
     { 
       name: "Clip Studio Paint", 
       logo: getLogo(CSPWhite, CSPBlack), 
-      description: "Software de ilustración y manga" 
+      description: "Software de ilustración y manga",
+      maxWidth: "250px"
     },
     { 
       name: "Kinguin", 
       logo: getLogo(KinBlack, KinWhite), 
-      description: "Plataforma de gaming digital" 
+      description: "Plataforma de gaming digital",
+      maxWidth: "250px"
     }
   ];
 
@@ -84,8 +87,8 @@ const Partners = () => {
   };
 
   const imageStyles = {
-    maxHeight: '600px',
-    maxWidth: '170px',
+    maxHeight: '726px',
+    maxWidth: '100%',
     objectFit: 'contain'
   };
 
@@ -122,17 +125,18 @@ const Partners = () => {
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <div style={imageContainerStyles}>
+                  <div style={{...imageContainerStyles,gap: '12px' }}>
                     <img 
                       src={sponsor.logo}
                       alt={sponsor.name}
                       style={{
                         ...imageStyles,
+                        maxWidth:sponsor.maxWidth,
                         filter: 'brightness(1.1)'
                       }}
                     />
                   </div>
-                  <div className="text-center">
+                  <div className="text-center" style={{flex:2}}>
                     <small className="text-white-50">{sponsor.description}</small>
                   </div>
                 </div>
@@ -202,17 +206,14 @@ const Partners = () => {
                     <img 
                       src={affiliate.logo}
                       alt={affiliate.name}
-                      style={imageStyles}
+                      style={{
+                        ...imageStyles,
+                        maxWidth: affiliate.maxWidth
+                      }}
                     />
                   </div>
                   
                   <div className="text-center">
-                    <h6 
-                      className="fw-bold mb-2"
-                      style={{ color: isDark ? '#ffffff' : '#212529' }}
-                    >
-                      {affiliate.name}
-                    </h6>
                     <small 
                       className="d-block mb-3"
                       style={{ color: isDark ? '#adb5bd' : '#6c757d' }}
@@ -236,40 +237,7 @@ const Partners = () => {
           </div>
 
           {/* Call to action simplificado */}
-          <div className="text-center mt-5">
-            <div 
-              className="d-inline-block p-4 rounded"
-              style={{
-                backgroundColor: isDark ? 'rgba(220, 53, 69, 0.1)' : 'rgba(220, 53, 69, 0.05)',
-                border: '2px solid rgba(220, 53, 69, 0.2)'
-              }}
-            >
-              <h5 
-                className="fw-bold mb-2"
-                style={{ color: isDark ? '#ffffff' : '#212529' }}
-              >
-                <i className="bi bi-gift-fill text-danger me-2"></i>
-                ¿Quieres ser nuestro afiliado?
-              </h5>
-              <p 
-                className="mb-3"
-                style={{ color: isDark ? '#adb5bd' : '#6c757d' }}
-              >
-                Únete a nuestro programa de afiliados y obtén beneficios exclusivos
-              </p>
-              <button 
-                className="btn btn-danger px-4 py-2 fw-bold"
-                style={{
-                  background: 'linear-gradient(45deg, #DC3545, #c82333)',
-                  border: 'none',
-                  borderRadius: '25px'
-                }}
-              >
-                <i className="bi bi-envelope-fill me-2"></i>
-                Contáctanos
-              </button>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
