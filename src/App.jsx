@@ -54,9 +54,12 @@ import AddAchievement from "./admin/AddAchivement"
 import Subscriptions from "./admin/Subscriptions"
 import AddSubscription from "./admin/AddSubcription"
 import ViewWork from "./admin/ViewCaps"
+import ShopRuiz from "./routes/shopRuiz"
 
 
 import NotFound from "./routes/NotFound"
+import RedeemCode from "./routes/RedeemCode"
+import RuizInfo from "./routes/RuizInfo"
 
 
 function App() {
@@ -73,12 +76,20 @@ function App() {
       <Route path="/Genres" element={<Genres/>}/>
       <Route path="/ViewComic" element={<ViewComic/>}/>
 
+      <Route path="/redeem-code" element={<RedeemCode/>}/>
+      <Route path="/reizu-info" element={<RuizInfo/>}/>
+
+
+
+
       <Route path="/Shop" element={<Shop/>}/>
           {/* SubRutas de la shop */}
           <Route path="/Shop/PersonalizeSection" element={<PersonalizePage />} />
           <Route path="/Shop/CommissionPage" element={<CommissionPage />} />
           <Route path="/Shop/ExchangePage" element={<ExchangePage />} />
           <Route path="/Shop/SpecialChaptersPage" element={<SpecialChaptersPage />} />
+          <Route path="/Shop/Ruiz" element={<ShopRuiz/>}/>
+
 
       {/* Admin Panels */}
       <Route path="/Admin" element={<Dashboard />} />

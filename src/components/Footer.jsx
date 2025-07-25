@@ -2,6 +2,7 @@ import Logo from "../assets/Logos/Reizu Comics Logo Blanco.svg"
 import Pet from "../assets/pet.png";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Kofi from "../assets/Logos/kofi.svg";
+import { Link } from "react-router-dom";
 
 function Footer() {
 
@@ -42,7 +43,7 @@ function Footer() {
           <div className="col-6 col-md-3 mb-2">Preguntas Frecuentes</div>
           <div className="col-6 col-md-3 mb-2">Contacto Empresa</div>
           <div className="col-6 col-md-3 mb-2">Guía de Usuario</div>
-          <div className="col-6 col-md-3 mb-2">Canjear Código</div>
+          <Link to="/redeem-code" className="col-6 col-md-3 mb-2">Canjear Código</Link>
         </div>
 
         {/* LOGO */}
