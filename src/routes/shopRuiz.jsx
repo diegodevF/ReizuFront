@@ -30,7 +30,7 @@ const ShopRuiz = () => {
             {/* Sección de Reizu Coins */}
             <div className="py-5 text-center" style={{ backgroundColor: isDark ? 'var(--bs-body-bg)' : '#f2f2f2' }}>
                 <div className="container">
-                    <h2 className="fw-bold mb-3 text-danger">TIENDAS DE REIZU COINS</h2>
+                    <h2 className="fw-bold mb-3 text-danger">TIENDA DE REIZU COINS</h2>
                     <p className="mb-4">Elige la opción que más se acomode a tus necesidades...</p>
 
                     <div className="row g-4 justify-content-center"
