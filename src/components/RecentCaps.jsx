@@ -99,8 +99,8 @@ const ChapterCard = ({ chapter }) => {
 
   return (
     <div
-      className="flex-shrink-0 me-4"
-      style={{ flex: 1, minWidth: '280px' }}
+      className="flex-shrink-0"
+      style={{ flex: 1, minWidth: '289px' }}
     >
       <div className="position-relative" style={{ borderRadius: '12px', overflow: 'hidden' }}>
         {/* ✅ Imagen de portada con Link */}
@@ -244,7 +244,9 @@ const RecentCaps = () => {
   };
 
   return (
-    <div className="container my-5 px-5">
+    <div className="container my-5 px-5"
+      style={{width:"100%"}}
+    >
       {/* Título centrado */}
       <h2 className="text-center fw-bold mb-4">Capítulos Recientes</h2>
       
@@ -288,7 +290,7 @@ const RecentCaps = () => {
         {/* Carrusel de capítulos centrado */}
         <div
           ref={scrollContainerRef}
-          className="d-flex overflow-auto pb-3"
+          className="d-flex overflow-auto pb-3 gap-3"
           onScroll={checkArrowsVisibility}
           style={{
             scrollBehavior: 'smooth',
