@@ -45,9 +45,10 @@ const Partners = () => {
 
   // Datos simplificados
   const sponsors = [
-    { name: "XP-Pen", logo: XpPen, description: "Tabletas gráficas profesionales", maxWidth: "250px" },
-    { name: "Sketchi", logo: Sketchi, description: "Herramientas de diseño digital", maxWidth: "250px" },
-    { name: "Deword", logo: Deword, description: "Plataforma de contenido creativo", maxWidth: "250px" }
+
+    { name: "Sketchi", logo: Sketchi, description: "Editorial física de Chile", maxWidth: "250px" },
+     { name: "XP-Pen", logo: XpPen, description: "Tabletas gráficas profesionales", maxWidth: "250px" },
+    { name: "Deword", logo: Deword, description: "Editorial física de México", maxWidth: "250px" }
   ];
 
   const affiliates = [
@@ -102,7 +103,7 @@ const Partners = () => {
         <div className="container text-center">
           <h2 className="display-4 fw-bold mb-5">
             <i className="bi bi-award-fill me-3"></i>
-            Nuestros Patrocinadores
+            Nuestros Patrocinadores y Aliados
           </h2>
           
           <div className="row justify-content-center g-4">
@@ -183,13 +184,18 @@ const Partners = () => {
 
           <div className="row justify-content-center g-4">
             {affiliates.map((affiliate, index) => (
-              <div key={index} className="col-12 col-sm-6 col-md-4">
+              <div key={index} className="col-12 col-sm-6 col-md-4"
+              style={{ 
+                aspectRatio:'16/9',
+                maxWidth: '350px'  // Tamaño reducido para afiliados
+              }}
+              >
                 <div 
                   className="p-4 rounded d-flex flex-column justify-content-between"
                   style={{
                     ...cardStyles,
                     backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
-                    border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'}`
+                    border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'}`,
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-8px)';
