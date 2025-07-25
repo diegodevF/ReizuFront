@@ -3,6 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import PerfilPhoto from '../assets/authors/b3b93208f79852e20f49bf67aa42491c.jpg'
 import Banner from '../assets/authors/1650010_26.jpg'
+import marco1 from '../assets/Marcos/Diamante.png';
+
+
+
 
 const AuthorProfile = () => {
   const [theme, setTheme] = useState('light');
@@ -73,13 +77,26 @@ const AuthorProfile = () => {
             height: '230px',
             position: 'absolute',
             bottom: '-155px',
-            left: '30px',
+            left: '62px',
             zIndex: 2,
-            border: '4px solid #d32f2f',
+            // border: '4px solid #d32f2f',
             boxShadow: isDark ? '0 4px 8px rgba(0,0,0,0.4)' : '0 4px 8px rgba(0,0,0,0.2)',
-            overflow: 'hidden'
           }}
         >
+
+          <img 
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -53%)',
+              width: '130%',
+              height: '130%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
+          src={marco1} alt="Perfil" />
+
           <img 
             src={PerfilPhoto} 
             alt="Perfil" 
@@ -87,14 +104,15 @@ const AuthorProfile = () => {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              objectPosition: 'center'
+              objectPosition: 'center',
+              borderRadius:"999px"
             }}
           />
         </div>
       </div>
 
       {/* Sección inferior */}
-      <div className="pt-5 px-4 pb-4">
+      <div className="pt-5 px-5 pb-4">
         {/* Layout responsive */}
         <div className="row align-items-start">
           {/* Info principal */}
@@ -102,7 +120,7 @@ const AuthorProfile = () => {
             <div 
               className="d-flex flex-column flex-md-row align-items-start"
               style={{ 
-                marginLeft: '250px'
+                marginLeft: '300px'
               }}
             >
               {/* Contenido principal */}
@@ -219,6 +237,9 @@ const AuthorProfile = () => {
           {/* Botones */}
           <div className="col-12 col-lg-4">
             <div className="d-flex flex-column flex-sm-row flex-lg-column align-items-stretch align-items-sm-center align-items-lg-end mt-3 mt-lg-0">
+            
+              <div className='d-flex gap-3'>
+            
               <button 
                 className="btn btn-danger mb-2 mb-sm-0 mb-lg-2 me-sm-2 me-lg-0 px-4"
                 style={{
@@ -247,6 +268,8 @@ const AuthorProfile = () => {
                 <i className="bi bi-person-plus me-1"></i> 
                 Seguir
               </button>
+
+              </div>
               
               <button 
                 className="btn btn-link text-decoration-none px-2"
