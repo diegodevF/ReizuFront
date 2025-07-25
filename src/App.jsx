@@ -28,6 +28,7 @@ import SpecialChaptersPage from "./subRoutes/SpecialChaptersPage"
 
 //Importamos Admin Panel
 import Dashboard from "./admin/Dashboard"
+import EditProfile from "./admin/EditProfile"
 import AnalyticsDashboard from "./admin/components/AnalyticsDashboard"
 import Works from "./admin/Works"
 import AddWork from "./admin/AddWork"
@@ -53,7 +54,7 @@ import Achievements from "./admin/Achivements"
 import AddAchievement from "./admin/AddAchivement"
 import Subscriptions from "./admin/Subscriptions"
 import AddSubscription from "./admin/AddSubcription"
-import ViewWork from "./admin/ViewCaps"
+import ViewCaps from "./admin/ViewCaps"
 
 
 import NotFound from "./routes/NotFound"
@@ -82,6 +83,7 @@ function App() {
 
       {/* Admin Panels */}
       <Route path="/Admin" element={<Dashboard />} />
+      <Route path="/Admin/EditProfile" element={<EditProfile />} />
       <Route path="/Admin/Analytics" element={<AnalyticsDashboard />} />
       <Route path="/Admin/Works" element={<Works />} />
       <Route path="/Admin/AddWork" element={<AddWork />} />
@@ -107,7 +109,7 @@ function App() {
       <Route path="/Admin/AddAchivement" element={<AddAchievement/>}></Route>
       <Route path="/Admin/Subscriptions" element={<Subscriptions/>}></Route>
       <Route path="/Admin/AddSubscription" element={<AddSubscription/>}></Route>
-      <Route path="/Admin/ViewWork" element={<ViewWork />} />
+      <Route path="/Admin/ViewCaps" element={<ViewCaps />} />
 
       {/* Profile Route */}
       <Route path="/Profile" element={<Profile />} />
