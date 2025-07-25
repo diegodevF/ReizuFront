@@ -54,11 +54,10 @@ const ComicShowcase = () => {
   }, [comics.length]);
 
   return (
-    <div className="d-flex justify-content-center my-3 px-2">
+    <div className="d-flex justify-content-center my-3 px-5 ">
       <div 
         className="d-flex mx-auto"
         style={{ 
-          width: '960px', // ✅ Aumentado de 900px a 960px
           height: '420px', // ✅ Aumentado de 400px a 420px
           maxWidth: '100%',
           gap: '12px' // ✅ Separación entre secciones
@@ -70,7 +69,7 @@ const ComicShowcase = () => {
           style={{ 
             background: '#333', 
             height: '420px', // ✅ Aumentado
-            width: '33.33%', // ✅ Ancho proporcional
+            flex: 1, // ✅ Para que ocupe el espacio restante
             borderRadius: '8px', // ✅ Bordes redondeados individuales
             boxShadow: '0 4px 8px rgba(0,0,0,0.1)' // ✅ Sombra individual
           }}
