@@ -449,7 +449,7 @@ const Works = () => {
                           </span>
                           <span style={{ color: isDark ? '#8a8a8a' : '#6c757d' }}> | </span>
                           <Link
-                            to={`/admin/ViewWork`}
+                            to={`/admin/ViewCaps`}
                             style={{ 
                               cursor: 'pointer',
                               color: linkStyles.color 

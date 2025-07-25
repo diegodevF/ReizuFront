@@ -292,6 +292,14 @@ const sidebarItems = [
         allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR] // Asistente no puede crear
       }
     ]
+  },
+  // ✨ NUEVA OPCIÓN: Editar Perfil
+  {
+    id: 14,
+    title: "Editar Perfil",
+    icon: "bi-person-gear",
+    href: "/Admin/EditProfile",
+    allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR, USER_ROLES.ASSISTANT] // Todos pueden editar su perfil
   }
 ];
 
