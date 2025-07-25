@@ -5,10 +5,14 @@ import Footer from '../components/Footer';
 import useTheme from '../hooks/useTheme';
 import Mascot from '../assets/reizuo.png';
 import Mascot2 from '../assets/mascota.png';
+import { useNavigate } from 'react-router-dom';
 
 const RuizInfo = () => {
   const { isDark } = useTheme();
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+
+  const navite = useNavigate()
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +54,12 @@ const RuizInfo = () => {
               servicios dentro de la plataforma.
             </p>
             <div className="mt-3">
-              <button className="btn btn-danger px-5 py-2 fs-5 fw-bold">COMPRAR</button>
+              <button className="btn btn-danger px-5 py-2 fs-5 fw-bold"
+                onClick={()=>{
+                  navite('/Shop/reizu')
+                }}
+              
+              >COMPRAR</button>
 </div>
           </div>
         </div>
