@@ -15,9 +15,9 @@ const Landing = () => {
         <>
             <Navbar></Navbar>
             <Carousel></Carousel>
-            <RankingPopulares></RankingPopulares>
-            <RecentCaps></RecentCaps>
-            <ComicShowcase></ComicShowcase> {/**/}
+            <RankingPopulares></RankingPopulares>{/*Para Modificar*/}
+            <RecentCaps></RecentCaps>{/*Para Modificar*/}
+            <ComicShowcase></ComicShowcase>{/*Para Modificar*/}
             <MostVisited></MostVisited>
             <ListNovel></ListNovel>
             <BestArtist></BestArtist>

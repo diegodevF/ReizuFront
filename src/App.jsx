@@ -4,6 +4,7 @@ import {Routes, Route} from "react-router-dom"
 //Importing Routes
 import Landing from "./routes/Landing"
 import Login from "./routes/Login"
+import ForgotPassword from "./routes/ForgotPassword"
 import ComicInfo from "./routes/ComicInfo"
 import Exclusives from "./routes/Exclusives"
 import Genres from "./routes/Genres"
@@ -66,6 +67,7 @@ function App() {
       <Route path="/" element={<Landing/>} />
       <Route path="/Login" element={<Login/>}/>
       <Route path="/Register" element={<Register/>}/>
+      <Route path="/ForgotPassword" element={<ForgotPassword/>}/>
       <Route path="/ComicInfo" element={<ComicInfo/>}/>
       <Route path="/Exclusives" element={<Exclusives/>}/>
       <Route path="/Genres" element={<Genres/>}/>

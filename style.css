@@ -1,16 +1,85 @@
-@view-transition{
-  navigation: auto;
+/* ===========================
+  MODO CLARO PERSONALIZADO
+  =========================== 
+:root[data-bs-theme="light"] {
+  --bs-body-bg: #F0ECE6;
+  --bs-body-color: #212529;
+  --bs-primary: #6F42C1;
+  --bs-secondary: #8C7D99;
+  --bs-success: #198754;
+  --bs-info: #0dcaf0;
+  --bs-warning: #ffc107;
+  --bs-danger: #dc3545;
+  --bs-light: #f8f9fa;
+  --bs-dark: #212529;
+
+  --bs-link-color: #6F42C1;
+  --bs-link-hover-color: #59359c;
+
+  --bs-border-color: #d9d5d0;
+  --bs-border-radius: 0.375rem;
+
+  --bs-btn-bg: #6F42C1;
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: #59359c;
+  --bs-btn-hover-color: #fff;
+
+  --bs-navbar-bg: #F0ECE6;
+  --bs-navbar-color: #212529;
+  --bs-navbar-hover-color: #6F42C1;
+
+  --bs-card-bg: #ffffff;
+  --bs-card-color: #212529;
+  --bs-card-border-color: #d9d5d0;
+
+  --bs-form-control-bg: #fff;
+  --bs-form-control-color: #212529;
+  --bs-form-control-border-color: #ced4da;
+
+  --bs-tooltip-bg: rgba(0, 0, 0, 0.85);
+  --bs-tooltip-color: #fff;
 }
 
-:view-transition-old(root){
-  animation: slide-out 0.5s ease-in-out;
-}
 
-@keyframes slide-out {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+===========================
+  MODO OSCURO PERSONALIZADO
+  =========================== 
+:root[data-bs-theme="dark"] {
+  --bs-body-bg: #291E26;
+  --bs-body-color: #F8F9FA;
+  --bs-primary: #BB86FC;
+  --bs-secondary: #9F86C0;
+  --bs-success: #22c55e;
+  --bs-info: #38bdf8;
+  --bs-warning: #facc15;
+  --bs-danger: #ef4444;
+  --bs-light: #e5e5e5;
+  --bs-dark: #0d0d0d;
+
+  --bs-link-color: #BB86FC;
+  --bs-link-hover-color: #a66cf2;
+
+  --bs-border-color: #3a2f36;
+  --bs-border-radius: 0.375rem;
+
+  --bs-btn-bg: #BB86FC;
+  --bs-btn-color: #000;
+  --bs-btn-hover-bg: #a66cf2;
+  --bs-btn-hover-color: #fff;
+
+  --bs-navbar-bg: #291E26;
+  --bs-navbar-color: #F8F9FA;
+  --bs-navbar-hover-color: #BB86FC;
+
+  --bs-card-bg: #3a2f36;
+  --bs-card-color: #F8F9FA;
+  --bs-card-border-color: #4a3b44;
+
+  --bs-form-control-bg: #4a3b44;
+  --bs-form-control-color: #F8F9FA;
+  --bs-form-control-border-color: #5a4952;
+
+  --bs-tooltip-bg: rgba(255, 255, 255, 0.85);
+  --bs-tooltip-color: #000;
 }
+*/
