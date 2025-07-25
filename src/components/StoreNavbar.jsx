@@ -13,7 +13,7 @@ const StoreNavbar = () => {
     { path: '/Shop/CommissionPage', label: 'Comisiones' },
     { path: '/Shop/ExchangePage', label: 'Servicios' },
     { path: '/Shop/SpecialChaptersPage', label: 'Capítulos especiales' },
-    { path: '/Shop/Ruiz', label: 'Reizu Coins' }
+    { path: '/Shop/reizu', label: 'Reizu Coins' }
   ];
 
   const toggleCollapse = () => {
