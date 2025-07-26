@@ -36,11 +36,13 @@ function Footer() {
 
         {/* LINKS */}
         <div className="row text-center mb-4">
-          <div className="col-6 col-md-3 mb-2">Quienes somos</div>
+          <Link to="/quienes-somos" className="col-6 col-md-3 mb-2">Quienes somos</Link>
           <div className="col-6 col-md-3 mb-2">Explorar</div>
           <div className="col-6 col-md-3 mb-2">Términos y Condiciones</div>
           <div className="col-6 col-md-3 mb-2">Políticas y Privacidad</div>
-          <div className="col-6 col-md-3 mb-2">Preguntas Frecuentes</div>
+          <Link
+            to={"/preguntas-frecuentes"}
+          className="col-6 col-md-3 mb-2">Preguntas Frecuentes</Link>
           <div className="col-6 col-md-3 mb-2">Contacto Empresa</div>
           <div className="col-6 col-md-3 mb-2">Guía de Usuario</div>
           <Link to="/redeem-code" className="col-6 col-md-3 mb-2">Canjear Código</Link>

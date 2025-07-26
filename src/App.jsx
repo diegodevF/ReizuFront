@@ -1,6 +1,8 @@
 //Importamos dependencias
 import {Routes, Route} from "react-router-dom"
 
+import "./App.css"
+
 //Importing Routes
 import Landing from "./routes/Landing"
 import Login from "./routes/Login"
@@ -65,6 +67,15 @@ import RedeemCode from "./routes/RedeemCode"
 import RuizInfo from "./routes/RuizInfo"
 
 
+import ConvocatoriaPage from "./routes/ConvocatoriaPage"
+import ConvoRules from "./routes/ConvoRules"
+import ConvoForm from "./routes/ConvoForm"
+import Ranking from "./routes/Ranking"
+import Winners from "./routes/Winners"
+import QuestionFrequent from "./routes/QuestionFrequent"
+import Who from "./routes/Who"
+
+
 function App() {
 
   return (
@@ -78,10 +89,20 @@ function App() {
       <Route path="/Exclusives" element={<Exclusives/>}/>
       <Route path="/Genres" element={<Genres/>}/>
       <Route path="/ViewComic" element={<ViewComic/>}/>
+      <Route path="/preguntas-frecuentes" element={<QuestionFrequent/>}/>
+      <Route path="/quienes-somos" element={<Who/>}/>
+
 
       <Route path="/redeem-code" element={<RedeemCode/>}/>
       <Route path="/reizu-info" element={<RuizInfo/>}/>
 
+
+      {/* convocatoria panel */}
+      <Route path="/convocatoria" element={<ConvocatoriaPage/>}/>
+      <Route path="/convocatoria/reglas" element={<ConvoRules/>}/>
+      <Route path="/convocatoria/formulario" element={<ConvoForm/>}/>
+      <Route path="/convocatoria/top10" element={<Ranking/>}/>
+      <Route path="/convocatoria/ganadores" element={<Winners/>}/>
 
 
 
