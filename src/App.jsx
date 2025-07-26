@@ -72,6 +72,8 @@ import Ranking from "./routes/Ranking"
 import Winners from "./routes/Winners"
 import QuestionFrequent from "./routes/QuestionFrequent"
 import Who from "./routes/Who"
+import ContactE from "./routes/contactE"
+import TermCondi from "./routes/TermCondi"
 
 
 function App() {
@@ -89,6 +91,8 @@ function App() {
       <Route path="/ViewComic" element={<ViewComic/>}/>
       <Route path="/preguntas-frecuentes" element={<QuestionFrequent/>}/>
       <Route path="/quienes-somos" element={<Who/>}/>
+      <Route path="contacto-empresa" element={<ContactE/>}/>
+      <Route path="terminos-y-condiciones" element={<TermCondi/>}/>
 
 
       <Route path="/redeem-code" element={<RedeemCode/>}/>
