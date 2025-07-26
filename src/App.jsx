@@ -55,6 +55,8 @@ import AddAchievement from "./admin/AddAchivement"
 import Subscriptions from "./admin/Subscriptions"
 import AddSubscription from "./admin/AddSubcription"
 import ViewCaps from "./admin/ViewCaps"
+import Users from "./admin/Users"
+import AddUser from "./admin/AddUser"
 import ShopRuiz from "./routes/shopRuiz"
 
 
