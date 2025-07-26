@@ -2,7 +2,8 @@ import React from 'react';
 import useTheme from '../hooks/useTheme';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import logo from '../assets/logo.svg';
+import logo from '../assets/Logos/v2.png';
+// import logoDark from '../assets/Logos/Reizu Comics Logo Blanco.svg';
 import mascota from '../assets/Emotes/mascota3.png'
 import './qs.css';
 
