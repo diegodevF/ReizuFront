@@ -36,7 +36,7 @@ function Footer() {
 
         {/* LINKS */}
         <div className="row text-center mb-4">
-          <div className="col-6 col-md-3 mb-2">Quienes somos</div>
+          <Link to="/quienes-somos" className="col-6 col-md-3 mb-2">Quienes somos</Link>
           <div className="col-6 col-md-3 mb-2">Explorar</div>
           <div className="col-6 col-md-3 mb-2">Términos y Condiciones</div>
           <div className="col-6 col-md-3 mb-2">Políticas y Privacidad</div>

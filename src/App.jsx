@@ -71,6 +71,7 @@ import ConvoForm from "./routes/ConvoForm"
 import Ranking from "./routes/Ranking"
 import Winners from "./routes/Winners"
 import QuestionFrequent from "./routes/QuestionFrequent"
+import Who from "./routes/Who"
 
 
 function App() {
@@ -87,6 +88,8 @@ function App() {
       <Route path="/Genres" element={<Genres/>}/>
       <Route path="/ViewComic" element={<ViewComic/>}/>
       <Route path="/preguntas-frecuentes" element={<QuestionFrequent/>}/>
+      <Route path="/quienes-somos" element={<Who/>}/>
+
 
       <Route path="/redeem-code" element={<RedeemCode/>}/>
       <Route path="/reizu-info" element={<RuizInfo/>}/>
