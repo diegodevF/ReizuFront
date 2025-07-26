@@ -86,11 +86,6 @@ const sidebarItems = [
         href: "/Admin/AddAchivement",
         allowedRoles: [USER_ROLES.ADMIN] // Solo admin puede crear
       },
-      { 
-        title: "Configurar", 
-        href: "/admin/reizu-coins/configurar",
-        allowedRoles: [USER_ROLES.ADMIN] // Solo admin puede configurar
-      }
     ]
   },
   {
@@ -109,11 +104,6 @@ const sidebarItems = [
         href: "/Admin/AddSubscription",
         allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.AUTHOR] // Asistente no puede crear
       },
-      { 
-        title: "Configurar planes", 
-        href: "/Admin/SubscriptionPlans",
-        allowedRoles: [USER_ROLES.ADMIN] // Solo admin configura
-      }
     ]
   },
   {
@@ -142,12 +132,12 @@ const sidebarItems = [
     subpages: [
       { 
         title: "Todos los usuarios", 
-        href: "/admin/usuarios/todos-los-usuarios",
+        href: "/Admin/Users",
         allowedRoles: [USER_ROLES.ADMIN]
       },
       { 
         title: "Nuevo usuario", 
-        href: "/admin/usuarios/nuevo-usuario",
+        href: "/Admin/AddUser",
         allowedRoles: [USER_ROLES.ADMIN]
       }
     ]

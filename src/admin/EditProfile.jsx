@@ -17,7 +17,7 @@ import frameYellow from "../assets/Marcos/Plata.png";
 import frameCyan from "../assets/Marcos/platino.png";
 
 const FRAME_OPTIONS = [
-  { value: "border-light", label: "Bronce", color: "#fff", image: frameWhite },
+  { value: "border-light", label: "Bronce", color: "#cd7f32", image: frameWhite },
   { value: "border-primary", label: "Diamante", color: "#0d6efd", image: frameBlue },
   { value: "border-success", label: "Marco", color: "#198754", image: frameGreen },
   { value: "border-danger", label: "Oro", color: "#dc3545", image: frameRed },
@@ -200,9 +200,21 @@ const ProfileEdit = ({ user = {}, onSave }) => {
   // Estados principales
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [theme, setTheme] = useState(getTheme());
-  const [name, setName] = useState(user.name || "MAMBA");
+  
+  // ✅ Nuevos campos agregados
+  const [firstName, setFirstName] = useState(user.firstName || "MAMBA");
+  const [lastName, setLastName] = useState(user.lastName || "");
+  const [email, setEmail] = useState(user.email || "mamba@reizucomics.com");
+  const [birthDate, setBirthDate] = useState(user.birthDate || "");
+  
+  // Campos de contraseña
+  const [currentPassword, setCurrentPassword] = useState("hola");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [changePassword, setChangePassword] = useState(false);
+  
+  // Estados existentes
   const [bio, setBio] = useState(user.bio || "Es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.");
-  const [age, setAge] = useState(user.age || "25");
   const [country, setCountry] = useState(user.country || "Chile");
   const [avatarFile, setAvatarFile] = useState(null);
   const [bannerFile, setBannerFile] = useState(null);
@@ -269,9 +281,14 @@ const ProfileEdit = ({ user = {}, onSave }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validaciones con toast
-    if (name.trim().length < 3) {
-      toast.error("El nombre debe tener al menos 3 caracteres.");
+    // ✅ Nuevas validaciones
+    if (firstName.trim().length < 2) {
+      toast.error("El nombre debe tener al menos 2 caracteres.");
+      return;
+    }
+
+    if (lastName.trim().length < 2) {
+      toast.error("El apellido debe tener al menos 2 caracteres.");
       return;
     }
 
@@ -285,18 +302,46 @@ const ProfileEdit = ({ user = {}, onSave }) => {
       return;
     }
 
+    if (birthDate && new Date(birthDate) > new Date()) {
+      toast.error("La fecha de nacimiento no puede ser en el futuro.");
+      return;
+    }
+
+    // ✅ Validaciones de contraseña si se quiere cambiar
+    if (changePassword) {
+      if (!currentPassword) {
+        toast.error("Ingresa tu contraseña actual.");
+        return;
+      }
+      if (newPassword.length < 8) {
+        toast.error("La nueva contraseña debe tener al menos 8 caracteres.");
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        toast.error("Las contraseñas nuevas no coinciden.");
+        return;
+      }
+    }
+
     setSaving(true);
     
     // ✅ Toast de carga con promise
     const savePromise = new Promise(async (resolve, reject) => {
       try {
         const formData = new FormData();
-        formData.append("name", name.trim());
+        formData.append("firstName", firstName.trim());
+        formData.append("lastName", lastName.trim());
         formData.append("bio", bio.trim());
-        formData.append("age", age);
         formData.append("country", country);
+        formData.append("birthDate", birthDate);
         formData.append("emailOptIn", emailOptIn);
         formData.append("frameClass", frameClass);
+        
+        // ✅ Campos de contraseña si se quiere cambiar
+        if (changePassword) {
+          formData.append("currentPassword", currentPassword);
+          formData.append("newPassword", newPassword);
+        }
         
         if (avatarFile) formData.append("avatar", avatarFile);
         if (bannerFile) formData.append("banner", bannerFile);
@@ -305,6 +350,15 @@ const ProfileEdit = ({ user = {}, onSave }) => {
         await new Promise(resolveTimeout => setTimeout(resolveTimeout, 1500));
 
         if (onSave) onSave();
+        
+        // ✅ Limpiar campos de contraseña después del guardado exitoso
+        if (changePassword) {
+          setCurrentPassword("");
+          setNewPassword("");
+          setConfirmPassword("");
+          setChangePassword(false);
+        }
+        
         resolve('¡Perfil actualizado correctamente! 🎉');
         
       } catch (err) {
@@ -337,6 +391,13 @@ const ProfileEdit = ({ user = {}, onSave }) => {
     borderColor: '#d32f2f',
     boxShadow: '0 0 0 0.2rem rgba(211, 47, 47, 0.25)',
     outline: 'none'
+  };
+
+  // ✅ Estilo para campos readonly
+  const readOnlyStyles = {
+    ...inputStyles,
+    backgroundColor: isDarkMode ? '#1a1a1a' : '#f8f9fa',
+    cursor: 'not-allowed'
   };
 
   return (
@@ -564,71 +625,113 @@ const ProfileEdit = ({ user = {}, onSave }) => {
                     Información Personal
                   </h5>
                   
+                  {/* ✅ Nombre y Apellido */}
                   <div className="row mb-3">
-                    <div className="col-md-8">
+                    <div className="col-md-6">
                       <label className="form-label fw-semibold" style={{ 
                         color: isDarkMode ? '#fff' : '#2d3748' 
                       }}>
-                        Nombre de Usuario
+                        Nombre
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        maxLength={40}
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        maxLength={30}
                         style={inputStyles}
                         onFocus={e => Object.assign(e.target.style, inputFocusStyles)}
                         onBlur={e => Object.assign(e.target.style, inputStyles)}
                       />
                       <small className="text-muted">
-                        {name.length}/40 caracteres
+                        {firstName.length}/30 caracteres
                       </small>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                       <label className="form-label fw-semibold" style={{ 
                         color: isDarkMode ? '#fff' : '#2d3748' 
                       }}>
-                        Edad
+                        Apellido
                       </label>
                       <input
-                        type="number"
+                        type="text"
                         className="form-control"
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                        min="13"
-                        max="120"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        maxLength={30}
+                        style={inputStyles}
+                        onFocus={e => Object.assign(e.target.style, inputFocusStyles)}
+                        onBlur={e => Object.assign(e.target.style, inputStyles)}
+                      />
+                      <small className="text-muted">
+                        {lastName.length}/30 caracteres
+                      </small>
+                    </div>
+                  </div>
+
+                  {/* ✅ Email (solo lectura) */}
+                  <div className="mb-3">
+                    <label className="form-label fw-semibold" style={{ 
+                      color: isDarkMode ? '#fff' : '#2d3748' 
+                    }}>
+                      <i className="bi bi-envelope me-2"></i>
+                      Correo Electrónico
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      value={email}
+                      readOnly
+                      style={readOnlyStyles}
+                    />
+                    <small className="text-muted">
+                      <i className="bi bi-lock me-1"></i>
+                      Este campo no se puede modificar
+                    </small>
+                  </div>
+
+                  {/* ✅ Fecha de nacimiento y País */}
+                  <div className="row mb-3">
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold" style={{ 
+                        color: isDarkMode ? '#fff' : '#2d3748' 
+                      }}>
+                        <i className="bi bi-calendar-date me-2"></i>
+                        Fecha de Nacimiento
+                      </label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={birthDate}
+                        onChange={(e) => setBirthDate(e.target.value)}
+                        max={new Date().toISOString().split('T')[0]}
                         style={inputStyles}
                         onFocus={e => Object.assign(e.target.style, inputFocusStyles)}
                         onBlur={e => Object.assign(e.target.style, inputStyles)}
                       />
                     </div>
-                  </div>
-
-                  <div className="mb-3">
-                    <label className="form-label fw-semibold" style={{ 
-                      color: isDarkMode ? '#fff' : '#2d3748' 
-                    }}>
-                      <i className="bi bi-geo-alt me-2"></i>
-                      País
-                    </label>
-                    <select
-                      className="form-select"
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      style={inputStyles}
-                      onFocus={e => Object.assign(e.target.style, inputFocusStyles)}
-                      onBlur={e => Object.assign(e.target.style, inputStyles)}
-                    >
-                      {COUNTRIES.map(countryOption => (
-                        <option key={countryOption.value} value={countryOption.value}>
-                          {countryOption.label}
-                        </option>
-                      ))}
-                    </select>
-                    <small className="text-muted">
-                      Selecciona tu país de residencia
-                    </small>
+                    <div className="col-md-6">
+                      <label className="form-label fw-semibold" style={{ 
+                        color: isDarkMode ? '#fff' : '#2d3748' 
+                      }}>
+                        <i className="bi bi-geo-alt me-2"></i>
+                        País
+                      </label>
+                      <select
+                        className="form-select"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        style={inputStyles}
+                        onFocus={e => Object.assign(e.target.style, inputFocusStyles)}
+                        onBlur={e => Object.assign(e.target.style, inputStyles)}
+                      >
+                        {COUNTRIES.map(countryOption => (
+                          <option key={countryOption.value} value={countryOption.value}>
+                            {countryOption.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
                   <div className="mb-3">
@@ -655,6 +758,112 @@ const ProfileEdit = ({ user = {}, onSave }) => {
                     </small>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* ✅ Sección de cambio de contraseña */}
+            <div className="mb-4">
+              <div style={{
+                background: isDarkMode ? '#1e1e1e' : '#fff',
+                borderRadius: '16px',
+                padding: '24px',
+                boxShadow: isDarkMode 
+                  ? '0 4px 20px rgba(0,0,0,0.3)' 
+                  : '0 4px 20px rgba(0,0,0,0.08)',
+                border: `1px solid ${isDarkMode ? '#404040' : '#e9ecef'}`
+              }}>
+                <div className="d-flex align-items-center justify-content-between mb-3">
+                  <h5 className="mb-0" style={{ color: isDarkMode ? '#fff' : '#2d3748' }}>
+                    <i className="bi bi-shield-lock me-2"></i>
+                    Seguridad
+                  </h5>
+                  <div className="form-check form-switch">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="changePasswordSwitch"
+                      checked={changePassword}
+                      onChange={(e) => setChangePassword(e.target.checked)}
+                      style={{ accentColor: '#d32f2f' }}
+                    />
+                    <label className="form-check-label" htmlFor="changePasswordSwitch" style={{
+                      color: isDarkMode ? '#fff' : '#2d3748'
+                    }}>
+                      Cambiar contraseña
+                    </label>
+                  </div>
+                </div>
+
+                {changePassword && (
+                  <div className="row">
+                    <div className="col-md-4 mb-3">
+                      <label className="form-label fw-semibold" style={{ 
+                        color: isDarkMode ? '#fff' : '#2d3748' 
+                      }}>
+                        Contraseña Actual
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        placeholder="Contraseña actual"
+                        style={inputStyles}
+                        onFocus={e => Object.assign(e.target.style, inputFocusStyles)}
+                        onBlur={e => Object.assign(e.target.style, inputStyles)}
+                      />
+                    </div>
+                    <div className="col-md-4 mb-3">
+                      <label className="form-label fw-semibold" style={{ 
+                        color: isDarkMode ? '#fff' : '#2d3748' 
+                      }}>
+                        Nueva Contraseña
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Nueva contraseña"
+                        minLength={8}
+                        style={inputStyles}
+                        onFocus={e => Object.assign(e.target.style, inputFocusStyles)}
+                        onBlur={e => Object.assign(e.target.style, inputStyles)}
+                      />
+                      <small className="text-muted">
+                        Mínimo 8 caracteres
+                      </small>
+                    </div>
+                    <div className="col-md-4 mb-3">
+                      <label className="form-label fw-semibold" style={{ 
+                        color: isDarkMode ? '#fff' : '#2d3748' 
+                      }}>
+                        Confirmar Contraseña
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Confirmar contraseña"
+                        style={{
+                          ...inputStyles,
+                          borderColor: newPassword && confirmPassword && newPassword !== confirmPassword 
+                            ? '#dc3545' 
+                            : (isDarkMode ? '#404040' : '#ced4da')
+                        }}
+                        onFocus={e => Object.assign(e.target.style, inputFocusStyles)}
+                        onBlur={e => Object.assign(e.target.style, inputStyles)}
+                      />
+                      {newPassword && confirmPassword && newPassword !== confirmPassword && (
+                        <small className="text-danger">
+                          <i className="bi bi-exclamation-triangle me-1"></i>
+                          Las contraseñas no coinciden
+                        </small>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 

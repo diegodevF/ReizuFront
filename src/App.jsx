@@ -57,6 +57,8 @@ import AddAchievement from "./admin/AddAchivement"
 import Subscriptions from "./admin/Subscriptions"
 import AddSubscription from "./admin/AddSubcription"
 import ViewCaps from "./admin/ViewCaps"
+import Users from "./admin/Users"
+import AddUser from "./admin/AddUser"
 import ShopRuiz from "./routes/shopRuiz"
 
 
@@ -146,6 +148,8 @@ function App() {
       <Route path="/Admin/Subscriptions" element={<Subscriptions/>}></Route>
       <Route path="/Admin/AddSubscription" element={<AddSubscription/>}></Route>
       <Route path="/Admin/ViewCaps" element={<ViewCaps />} />
+      <Route path="/Admin/Users" element={<Users />} />
+      <Route path="/Admin/AddUser" element={<AddUser />} />
 
       {/* Profile Route */}
       <Route path="/Profile" element={<Profile />} />
