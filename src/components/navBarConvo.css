@@ -1,0 +1,31 @@
+/* navBarConvo.css */
+.navBarConvo {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.navBarConvo ul {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0.5rem 0;
+  max-width: 600px;
+  list-style: none;
+  margin: 0 auto;
+}
+
+.navBarConvo li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.navBarConvo li a.active {
+  color: #FF2020 !important;
+  border-bottom: 3px solid #FF2020;
+}
