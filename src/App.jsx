@@ -123,6 +123,8 @@ function App() {
       <Route path="/Admin/Subscriptions" element={<Subscriptions/>}></Route>
       <Route path="/Admin/AddSubscription" element={<AddSubscription/>}></Route>
       <Route path="/Admin/ViewCaps" element={<ViewCaps />} />
+      <Route path="/Admin/Users" element={<Users />} />
+      <Route path="/Admin/AddUser" element={<AddUser />} />
 
       {/* Profile Route */}
       <Route path="/Profile" element={<Profile />} />
